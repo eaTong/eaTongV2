@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node index.js",
     "build": "next build",
-    "start": "NODE_EVN=production node index.js",
+    "start": "NODE_ENV=production node index.js",
     "package": "node bin/packageCode.js"
   },
   "repository": {
