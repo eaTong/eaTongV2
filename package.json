@@ -4,10 +4,13 @@
   "description": "personal server for eaTong",
   "main": "index.js",
   "scripts": {
-    "dev": "node index.js",
-    "build": "next build",
     "start": "NODE_ENV=production node index.js",
-    "package": "node bin/packageCode.js"
+    "dev": "node index.js",
+    "admin-dev": "node adminDevServer.js",
+    "build-pages": "next build",
+    "build-admin-pages": "NODE_ENV=production webpack --progress --config webpack.production.config.js ",
+    "package": "node bin/packageCode.js",
+    "auto-pubilsh": "npm run build-pages && npm run build-admin-pages && npm run package"
   },
   "repository": {
     "type": "git",
@@ -27,8 +30,31 @@
   },
   "devDependencies": {
     "archiver": "^3.0.0",
+    "autoprefixer": "^9.3.1",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.4",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "cross-env": "^5.2.0",
+    "css-loader": "^1.0.1",
+    "express": "^4.16.4",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^2.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "less": "^3.8.1",
+    "less-loader": "^4.1.0",
     "moment": "^2.22.2",
+    "postcss-loader": "^3.0.0",
     "react": "^16.6.3",
-    "react-dom": "^16.6.3"
+    "react-dom": "^16.6.3",
+    "react-hot-loader": "^4.3.12",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "style-loader": "^0.23.1",
+    "url-loader": "^1.1.2",
+    "webpack": "^4.26.0",
+    "webpack-dev-middleware": "^3.4.0",
+    "webpack-hot-middleware": "^2.24.3"
   }
 }
