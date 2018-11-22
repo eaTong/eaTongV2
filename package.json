@@ -1,0 +1,34 @@
+{
+  "name": "eaTongV2",
+  "version": "1.0.0",
+  "description": "personal server for eaTong",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js",
+    "build": "next build",
+    "start": "NODE_EVN=production node index.js",
+    "package": "node bin/packageCode.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eaTong/eaTongV2.git"
+  },
+  "keywords": [],
+  "author": "eaTong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eaTong/eaTongV2/issues"
+  },
+  "homepage": "http://eatong.cn",
+  "dependencies": {
+    "koa": "^2.6.2",
+    "koa-router": "^7.4.0",
+    "next": "^7.0.2"
+  },
+  "devDependencies": {
+    "archiver": "^3.0.0",
+    "moment": "^2.22.2",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3"
+  }
+}
