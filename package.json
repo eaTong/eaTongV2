@@ -24,9 +24,20 @@
   },
   "homepage": "http://eatong.cn",
   "dependencies": {
+    "compression": "^1.7.3",
+    "crypto-js": "^3.1.9-1",
     "koa": "^2.6.2",
+    "koa-body": "^4.0.4",
+    "koa-connect": "^2.0.1",
+    "koa-cookie": "^1.0.0",
+    "koa-mysql-session": "0.0.2",
     "koa-router": "^7.4.0",
-    "next": "^7.0.2"
+    "koa-session-minimal": "^3.0.4",
+    "koa-static": "^5.0.0",
+    "mysql2": "^1.6.4",
+    "next": "^7.0.2",
+    "sequelize": "^4.41.2",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.1.6",
