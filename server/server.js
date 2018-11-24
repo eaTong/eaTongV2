@@ -17,6 +17,7 @@ const MysqlStore = require('koa-mysql-session');
 const router = require('./routers');
 
 const projectConfig = require('../config/project.config');
+const serverConfig = require('../config/server.config');
 
 // const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
@@ -46,7 +47,7 @@ app.prepare()
 
     app.keys = ['key-for-eaTong'];
     app.use(session({
-      store: new MysqlStore(mysql),
+      store: new MysqlStore(serverConfig.mysql),
       rolling: true,
       cookie: {
         maxage: 24 * 60 * 60 * 1000

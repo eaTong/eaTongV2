@@ -6,8 +6,6 @@ const {Op} = require('sequelize');
 const {LogicError} = require('../framework/errors');
 const BaseService = require('../framework/BaseService');
 const User = require('../models/User');
-const axios = require("axios");
-
 class UserService extends BaseService {
 
   static async addUser(user) {
