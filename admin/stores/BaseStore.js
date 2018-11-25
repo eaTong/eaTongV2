@@ -3,7 +3,7 @@
  * Description:
  */
 import {observable, action, computed, toJS} from 'mobx';
-import ajax from "~/util/ajaxUtil";
+import ajax from "~/utils/ajax";
 import {message} from 'antd';
 
 const PAGE_SIZE = 20;

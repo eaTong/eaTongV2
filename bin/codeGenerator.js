@@ -14,9 +14,9 @@ const apiPath = path.resolve(basePath, 'server', 'apis');
 const servicePath = path.resolve(basePath, 'server', 'services');
 const routerPath = path.resolve(basePath, 'server', 'routers.js');
 const initDbPath = path.resolve(basePath, 'bin', 'initDB.js');
-const storePath = path.resolve(basePath, 'front', 'stores');
-const storeIndexPath = path.resolve(basePath, 'front', 'stores', 'index.js');
-const appPath = path.resolve(basePath, 'front', 'App.js');
+const storePath = path.resolve(basePath, 'admin', 'stores');
+const storeIndexPath = path.resolve(basePath, 'admin', 'stores', 'index.js');
+const appPath = path.resolve(basePath, 'admin', 'App.js');
 
 const description = `
 /**
@@ -142,7 +142,7 @@ function getAsyncMenu(form) {
 }
 
 function getFrontFormPath(form) {
-  let finalPath = path.resolve(basePath, 'front', 'pages');
+  let finalPath = path.resolve(basePath, 'admin', 'pages');
 
   if (module) {
     finalPath = path.resolve(finalPath);
@@ -297,7 +297,7 @@ export default ${upperFirstLetter(form)}Modal;`;
 function getStore(form) {
   return `
 import {observable, action} from 'mobx';
-import ajax from "~/util/ajaxUtil";
+import ajax from "~/utils/ajax";
 import BaseStore from '~/stores/BaseStore'
 
 export default class ${upperFirstLetter(form)}Store extends BaseStore {

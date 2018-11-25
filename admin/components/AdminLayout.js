@@ -18,8 +18,8 @@ class AdminLayout extends Component {
 
   async componentWillMount() {
     this.state.loginUser = JSON.parse(window.sessionStorage.getItem('loginUser') || '{}');
-    const {success, data} = await ajax({url: '/api/menu/authorised'});
-    success && this.setState({menus: data});
+    const menus = await ajax({url: '/api/menu/authorised'});
+    this.setState({menus});
   }
 
   onSelectMenu({key}) {
