@@ -2,6 +2,7 @@
  * Created by eaTong on 2018/11/22 .
  * Description:
  */
+import '@babel/polyfill';
 import { AppContainer } from 'react-hot-loader';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -28,3 +29,7 @@ if (module.hot) {
     );
   });
 }
+
+window.onerror = function(a,b,c){
+  console.log(a,b,c);
+};

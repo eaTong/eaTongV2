@@ -28,7 +28,6 @@ const handle = app.getRequestHandler();
 app.prepare()
   .then(() => {
     const app = new Koa();
-    const router = new Router();
     app.use(koaConnect(compression()));
 // app.use(koaLogger());
     app.use(cookie());

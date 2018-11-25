@@ -29,6 +29,7 @@ class UserApi extends BaseApi {
 
   static async login(ctx) {
     const user = await UserService.login(ctx.request.body);
+    console.log(user);
     if (!user) {
       throw new LogicError('用户名或密码错误！');
     } else {
@@ -37,29 +38,6 @@ class UserApi extends BaseApi {
     }
   }
 
-  static async loginByCode(ctx) {
-    const result = await UserService.loginByCode(ctx.request.body.code);
-    if (!result.openid) {
-      throw new LogicError('获取openid失败');
-    }
-    if (result.user) {
-      ctx.session.loginUser = result.user;
-    }
-    ctx.session.openid = result.openid;
-    return result;
-  }
-
-  static async bindUser(ctx) {
-    const openid = ctx.session.openid;
-    console.log(openid);
-    const user = await UserService.bindUser({...ctx.request.body, openid});
-    if (!user) {
-      throw new LogicError('用户名或密码错误！');
-    } else {
-      ctx.session.loginUser = user;
-      return user;
-    }
-  }
 
   static async logout(ctx) {
     ctx.session.loginUser = null;

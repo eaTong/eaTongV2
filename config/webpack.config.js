@@ -13,12 +13,18 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: '/static/'
+    publicPath: '/adminDist/'
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
   ],
+  resolve: {
+    extensions: ['.js', '.jsx', '.json'],
+    alias: {
+      '~':path.resolve(__dirname, '..' ,'admin'),
+    }
+  },
   module: {
     rules: [
       {
@@ -37,7 +43,10 @@ module.exports = {
               plugins: [autoPrefixer]
             }
           }, {
-            loader: 'less-loader'
+            loader: 'less-loader',
+            options: {
+              javascriptEnabled: true
+            }
           }
         ]
       },

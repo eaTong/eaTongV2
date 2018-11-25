@@ -20,6 +20,12 @@ module.exports = {
     filename: 'bundle.js',
     publicPath: '/static/'
   },
+  resolve: {
+    extensions: ['.js', '.jsx', '.json'],
+    alias: {
+      '~':path.resolve(__dirname, '..' ,'admin'),
+    }
+  },
   plugins: [
     //这个使用uglifyJs压缩你的js代码
     // new webpack.optimize.UglifyJsPlugin({minimize: true}),
@@ -49,7 +55,10 @@ module.exports = {
             plugins: [autoPrefixer]
           }
         }, {
-          loader: 'less-loader'
+          loader: 'less-loader',
+          options: {
+            javascriptEnabled: true
+          }
         }
       ]
     },
