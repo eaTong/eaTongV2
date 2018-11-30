@@ -3,5 +3,7 @@
  * Description:
  */
 
-export function LogicalError( a,b,c){}
+export function LogicalError(a, b, c) {
+}
+
 LogicalError.prototype = new Error();

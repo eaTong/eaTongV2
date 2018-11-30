@@ -182,7 +182,7 @@ class ${upperFirstLetter(form)}Page extends Component {
       <div className="base-layout ${form}-page">
         <header className="header">
           <div className="label">
-            用户管理
+            XXX管理
             <Input.Search
               className={'search'}
               placeholder={'输入关键字搜索'}

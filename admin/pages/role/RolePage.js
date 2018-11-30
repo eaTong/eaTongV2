@@ -36,7 +36,8 @@ class RolePage extends Component {
             <Button onClick={() => this.props.role.toggleModal('edit')}
                     disabled={selectedKeys.length !== 1}>编辑</Button>
             <Button onClick={() => this.props.role.deleteData()} disabled={selectedKeys.length === 0}>删除</Button>
-            <Button onClick={() => this.props.role.toggleGrantModal()} disabled={selectedKeys.length !== 1}>分配菜单</Button>
+            <Button onClick={() => this.props.role.toggleGrantModal()}
+                    disabled={selectedKeys.length !== 1}>分配菜单</Button>
           </ButtonGroup>
         </header>
         <Reactable

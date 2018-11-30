@@ -74,18 +74,16 @@ export default class BaseStore {
 
   @action
   async getDataList() {
-    const {success, data} = await ajax({
+    const data = await ajax({
       url: this.listApi,
       data: {pageSize: PAGE_SIZE, pageIndex: this.pageIndex, ...this.queryOption}
     });
-    if (success) {
-      this.dataList = [];
-      this.total = data.total;
-      const dataList = data.list ? data.list : data;
-      this.dataList = dataList;
-      this.mappingData(dataList);
-    }
-    return {success, data};
+    this.dataList = [];
+    this.total = data.total;
+    const dataList = data.list ? data.list : data;
+    this.dataList = dataList;
+    this.mappingData(dataList);
+    return data;
   }
 
   getKey(data) {
@@ -101,30 +99,24 @@ export default class BaseStore {
   @action
   async onSaveData(formData) {
     if (this.operateType === 'add') {
-      const {success} = await ajax({url: this.addApi, data: formData});
-      if (success) {
-        message.success('新增成功');
-        this.toggleModal();
-        await this.getDataList();
-      }
+      await ajax({url: this.addApi, data: formData});
+      message.success('新增成功');
+      this.toggleModal();
+      await this.getDataList();
     } else {
-      const {success} = await ajax({url: this.updateApi, data: {id: this.getKey(this.firstSelected), ...formData}});
-      if (success) {
-        message.success('编辑成功');
-        this.toggleModal();
-        await this.getDataList();
-      }
+      await ajax({url: this.updateApi, data: {id: this.getKey(this.firstSelected), ...formData}});
+      message.success('编辑成功');
+      this.toggleModal();
+      await this.getDataList();
     }
   }
 
   @action
   async deleteData() {
-    const {success, data} = await ajax({url: this.deleteApi, data: {ids: this.selectedKeys}});
-    if (success) {
-      message.success('删除成功');
-      if (this.pageIndex * PAGE_SIZE + this.selectedKeys.length === this.total) {
-        this.pageIndex = this.pageIndex - 1;
-      }
+    const data = await ajax({url: this.deleteApi, data: {ids: this.selectedKeys}});
+    message.success('删除成功');
+    if (this.pageIndex * PAGE_SIZE + this.selectedKeys.length === this.total) {
+      this.pageIndex = this.pageIndex - 1;
       await this.getDataList();
       this.selectedKeys = [];
     }

@@ -3,21 +3,21 @@
  * Description:
  */
 import React, {Component} from 'react';
-import {Form, Input, Button , Icon} from 'antd';
+import {Form, Input, Button, Icon} from 'antd';
 import './login.less';
-import {inject , observer} from 'mobx-react';
+import {inject, observer} from 'mobx-react';
 
 const FormItem = Form.Item;
 
 @inject('app') @observer
- class LoginPage extends Component {
+class LoginPage extends Component {
   state = {};
 
   componentDidMount() {
 
   }
 
-   handleSubmit(e) {
+  handleSubmit(e) {
     e.preventDefault();
     this.props.form.validateFields(async (err, values) => {
       if (!err) {
@@ -33,7 +33,7 @@ const FormItem = Form.Item;
     return (
       <div className={'login-page'}>
         <div className="login-frame">
-          <Form layout="inline" onSubmit={(e)=>this.handleSubmit(e)}>
+          <Form layout="inline" onSubmit={(e) => this.handleSubmit(e)}>
             <FormItem>
               {getFieldDecorator('account', {
                 rules: [{required: true, message: 'Please input your username!'}],
@@ -60,4 +60,5 @@ const FormItem = Form.Item;
     );
   }
 }
+
 export default Form.create()(LoginPage);

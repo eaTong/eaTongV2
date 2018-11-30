@@ -1,10 +1,9 @@
-
 /**
  * Created by eaTong on 2018-25-11 .
  * Description: auto generated in  2018-25-11
  */
 
-  import React, {Component} from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Modal, Form, Input, message} from 'antd';
 

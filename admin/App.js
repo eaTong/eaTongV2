@@ -34,6 +34,7 @@ const routes = [
 function renderRoute() {
   return routes.map(item => <Route exact path={item.key} key={item.key} component={item.component}/>)
 }
+
 export default class App extends Component {
   render() {
     return (

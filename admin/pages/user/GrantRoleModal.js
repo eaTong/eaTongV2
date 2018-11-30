@@ -19,8 +19,8 @@ class GrantMenuModal extends Component {
 
   async componentWillMount() {
     this.state.grantedRoles = [...this.props.formData.roles || []].map(role => role.id);
-    const {success, data} = await ajax({url: '/api/role/get'});
-    success && this.setState({roles: data})
+    const data = await ajax({url: '/api/role/get'});
+    this.setState({roles: data})
   }
 
   onChangeGrant(grantedRoles) {

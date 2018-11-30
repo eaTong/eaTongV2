@@ -22,9 +22,9 @@ export default async function ajax(config) {
     store.app.ajaxEnd(url);
     return JSON.parse(JSON.stringify(result.data.data).replace(/:null/g, ':""'));
   } catch (ex) {
-    if(ex instanceof LogicalError){
+    if (ex instanceof LogicalError) {
       throw new LogicalError(ex);
-    }else{
+    } else {
 
       store.app.ajaxEnd(url);
       const status = ex.response.status;

@@ -1,11 +1,10 @@
-
 /**
  * Created by eaTong on 2018-25-11 .
  * Description: auto generated in  2018-25-11
  */
 
 import React, {Component} from 'react';
-import {Button, message ,Input} from 'antd';
+import {Button, message, Input} from 'antd';
 import Reactable from "@eatong/reactable";
 import TaskModal from "./TaskModal";
 import {inject, observer} from "mobx-react";

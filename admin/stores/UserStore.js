@@ -29,12 +29,10 @@ export default class UserStore extends BaseStore {
 
   @action
   async grantRole(opts) {
-    const {success} = await ajax({data: {...opts, userId: this.firstSelected.id}, url: '/api/user/grant'});
-    if (success) {
-      this.selectedKeys = [];
-      this.toggleGrantModal();
-      message.success('授权成功');
-      await this.getDataList();
-    }
+    await ajax({data: {...opts, userId: this.firstSelected.id}, url: '/api/user/grant'});
+    this.selectedKeys = [];
+    this.toggleGrantModal();
+    message.success('授权成功');
+    await this.getDataList();
   }
 }

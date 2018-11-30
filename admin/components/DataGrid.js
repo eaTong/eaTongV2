@@ -6,7 +6,7 @@ import React, {Component} from 'react';
 
 const DataGrid = (props) => {
   return (
-    <ul className={`data-grid ${props.className ||''}`}>
+    <ul className={`data-grid ${props.className || ''}`}>
       {props.children}
     </ul>
   )

@@ -13,12 +13,10 @@ export default class AppStore {
 
   @action
   async login(values) {
-    const {success, data} = await ajax({data: values, url: '/api/user/login'});
-    if (success) {
-      this.loginUser = data;
-      window.sessionStorage.setItem('loginUser',JSON.stringify(data));
-    }
-    return {success, data};
+    const data = await ajax({data: values, url: '/api/user/login'});
+    this.loginUser = data;
+    window.sessionStorage.setItem('loginUser', JSON.stringify(data));
+    return data;
   }
 
   @action
@@ -37,8 +35,8 @@ export default class AppStore {
 
   @action
   async getAuthorisedMenu() {
-    const {success, data} = await ajax({url: '/api/menu/authorised'});
-    this.menus = success ? data : [];
+    const data = await ajax({url: '/api/menu/authorised'});
+    this.menus = data || [];
   }
 
   @action

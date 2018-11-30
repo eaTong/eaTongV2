@@ -1,4 +1,3 @@
-
 /**
  * Created by eaTong on 2018-23-06 .
  * Description: auto generated in  2018-23-06
@@ -32,12 +31,10 @@ export default class RoleStore extends BaseStore {
 
   @action
   async grantRole(opts) {
-    const {success} = await ajax({data:opts, url: '/api/role/grant'});
-    if (success) {
-      this.selectedKeys= [];
-      this.toggleGrantModal();
-      message.success('授权成功');
-      await this.getDataList();
-    }
+    await ajax({data: opts, url: '/api/role/grant'});
+    this.selectedKeys = [];
+    this.toggleGrantModal();
+    message.success('授权成功');
+    await this.getDataList();
   }
 }
