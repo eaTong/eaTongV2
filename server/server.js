@@ -57,7 +57,12 @@ app.prepare()
 //all routes just all API
     app.use(router.routes());
 
-    router.get('/admin', async ctx => {
+    router.get('/login', async ctx => {
+      ctx.type = 'html';
+      ctx.body = createReadStream('adminDist/index.html');
+    });
+
+    router.get('/admin/*', async ctx => {
       ctx.type = 'html';
       ctx.body = createReadStream('adminDist/index.html');
     });
