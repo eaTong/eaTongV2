@@ -6,10 +6,10 @@ client.addListener('transfer', (a, b, c) => {
 
 client.scp('build/', {
   host: '118.24.75.69',
-  username: 'root',
+  username: 'ubuntu',
   privateKey: require("fs").readFileSync('/home/eatong/certificate/eaTong_pem'),
   passphrase: '',
-  path: '/home/ftp/static/'
+  path: '/home/ubuntu'
 }, function (err, ...args) {
   console.log(err, ...args);
 });

@@ -10,6 +10,7 @@
     "build-pages": "next build",
     "build-admin-pages": "NODE_ENV=production webpack --config config/webpack.production.config.js ",
     "package": "node bin/packageCode.js",
+    "upload": "node bin/uploadProductionFiles",
     "auto-publish": "npm run build-pages && npm run build-admin-pages && npm run package"
   },
   "repository": {
@@ -72,6 +73,7 @@
     "react-hot-loader": "^4.3.12",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
+    "scp2": "^0.5.0",
     "style-loader": "^0.23.1",
     "url-loader": "^1.1.2",
     "webpack": "^4.23.1",
