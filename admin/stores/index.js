@@ -6,6 +6,7 @@ import AppStore from './AppStore';
 import TaskStore from './TaskStore';
 import UserStore from "~/stores/UserStore";
 import RoleStore from "~/stores/RoleStore";
+import PasswordStore from './PasswordStore';
 //UPDATE_TAG:importStore
 
 export default {
@@ -13,5 +14,6 @@ export default {
   task: new TaskStore(),
   user: new UserStore(),
   role: new RoleStore(),
+password: new PasswordStore(),
 //UPDATE_TAG:registerStore
 }

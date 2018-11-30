@@ -137,6 +137,7 @@ function getImportModel(form) {
 function getAsyncModel(form) {
   return `  await ${upperFirstLetter(form)}.sync({alter: true});`;
 }
+
 function getAsyncMenu(form) {
   return ` {name: '${form}', icon: 'file', path: '/admin/${form}', enable: true},`;
 }
@@ -161,7 +162,7 @@ function getPage(form) {
   return `
 import React, {Component} from 'react';
 import {Button, message ,Input} from 'antd';
-import AgTable from '~/components/AgTable';
+import Reactable from "@eatong/reactable";
 import ${upperFirstLetter(form)}Modal from "./${upperFirstLetter(form)}Modal";
 import {inject, observer} from "mobx-react";
 
@@ -196,7 +197,7 @@ class ${upperFirstLetter(form)}Page extends Component {
             <Button onClick={() => this.props.${form}.deleteData()} disabled={selectedKeys.length === 0}>删除</Button>
           </ButtonGroup>
         </header>
-        <AgTable
+        <Reactable
           columns={columns}
           dataSource={dataList}
           rowKey="id"
@@ -205,7 +206,8 @@ class ${upperFirstLetter(form)}Page extends Component {
           rowSelection={{
             selectedRowKeys: selectedKeys,
             onChange: (keys) => this.props.${form}.onChangeSelection(keys)
-          }}/>
+          }}
+         />
         {showModal && (
           <${upperFirstLetter(form)}Modal
             onCancel={() => this.props.${form}.toggleModal()}

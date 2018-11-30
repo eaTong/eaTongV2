@@ -21,12 +21,14 @@ import LoginPage from '~/pages/login/LoginPage';
 import TaskPage from '~/pages/task/TaskPage';
 import UserPage from "~/pages/user/UserPage";
 import RolePage from "~/pages/role/RolePage";
+import PasswordPage from './pages/password/PasswordPage';
 //UPDATE_TAG:importPage
 
 const routes = [
   {key: "/admin/user", component: UserPage},
   {key: "/admin/role", component: RolePage},
   {key: '/admin/task', component: TaskPage},
+  {key: '/admin/password', component: PasswordPage},
 //UPDATE_TAG:addPageRoute
 ];
 

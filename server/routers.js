@@ -11,6 +11,7 @@ const UserApi = require('./apis/UserApi');
 const RoleApi = require('./apis/RoleApi');
 const MenuApi = require('./apis/MenuApi');
 const TaskApi = require('./apis/TaskApi');
+const PasswordApi = require('./apis/PasswordApi');
 //UPDATE_TAG:importApi
 
 const router = new Router();
@@ -42,6 +43,12 @@ router.post('/api/task/get', TaskApi.getTasks);
 router.post('/api/task/update', insertLog('update'), checkArguments(['id', 'name']), TaskApi.updateTasks);
 router.post('/api/task/delete', insertLog('delete'), checkArguments(['ids']), TaskApi.deleteTasks);
 router.post('/api/task/detail',  checkArguments(['id']), TaskApi.getTaskDetail);
+
+router.post('/api/password/add', insertLog('add'), checkArguments(['name']), PasswordApi.addPassword);
+router.post('/api/password/get', PasswordApi.getPasswords);
+router.post('/api/password/update', insertLog('update'), checkArguments(['id', 'name']), PasswordApi.updatePasswords);
+router.post('/api/password/delete', insertLog('delete'), checkArguments(['ids']), PasswordApi.deletePasswords);  
+router.post('/api/password/detail',  checkArguments(['id']), PasswordApi.getPasswordDetail); 
 //UPDATE_TAG:defineRouter
 
 router.post('/api/*', async ctx => {
