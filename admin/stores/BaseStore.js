@@ -74,16 +74,20 @@ export default class BaseStore {
 
   @action
   async getDataList() {
-    const data = await ajax({
-      url: this.listApi,
-      data: {pageSize: PAGE_SIZE, pageIndex: this.pageIndex, ...this.queryOption}
-    });
-    this.dataList = [];
-    this.total = data.total;
-    const dataList = data.list ? data.list : data;
-    this.dataList = dataList;
-    this.mappingData(dataList);
-    return data;
+    try {
+      const data = await ajax({
+        url: this.listApi,
+        data: {pageSize: PAGE_SIZE, pageIndex: this.pageIndex, ...this.queryOption}
+      });
+      this.dataList = [];
+      this.total = data.total;
+      const dataList = data.list ? data.list : data;
+      this.dataList = dataList;
+      this.mappingData(dataList);
+      return data;
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   getKey(data) {
@@ -113,13 +117,12 @@ export default class BaseStore {
 
   @action
   async deleteData() {
-    const data = await ajax({url: this.deleteApi, data: {ids: this.selectedKeys}});
+    await ajax({url: this.deleteApi, data: {ids: this.selectedKeys}});
     message.success('删除成功');
     if (this.pageIndex * PAGE_SIZE + this.selectedKeys.length === this.total) {
-      this.pageIndex = this.pageIndex - 1;
+      this.pageIndex = Math.max(this.pageIndex - 1, 0);
       await this.getDataList();
       this.selectedKeys = [];
     }
   }
-
 }

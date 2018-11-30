@@ -168,7 +168,7 @@ import {inject, observer} from "mobx-react";
 
 const ButtonGroup = Button.Group;
 const columns = [
-  {title: '名称', dataIndex: 'name', key: 'name'},
+  {title: '名称', key: 'name'},
 ];
 
 @inject('${form}') @observer

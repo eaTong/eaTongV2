@@ -24,6 +24,7 @@ archive.on('error', function (err) {
 });
 
 archive.directory('bin/', 'bin');
+archive.directory('config/', 'config');
 archive.directory('.next/', '.next');
 archive.file('index.js');
 archive.file('package.json');

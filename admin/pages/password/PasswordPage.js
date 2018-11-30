@@ -1,18 +1,23 @@
-
 /**
  * Created by eaTong on 2018-30-11 .
  * Description: auto generated in  2018-30-11
  */
 
 import React, {Component} from 'react';
-import {Button, message ,Input} from 'antd';
+import {Button, message, Input} from 'antd';
 import Reactable from "@eatong/reactable";
 import PasswordModal from "./PasswordModal";
 import {inject, observer} from "mobx-react";
 
 const ButtonGroup = Button.Group;
 const columns = [
-  {title: '名称', dataIndex: 'name', key: 'name'},
+  {title: '名称', key: 'name'},
+  {title: '类型', key: 'type'},
+  {title: 'host', key: 'host', width: 200},
+  {title: '帐号', key: 'account', width: 150},
+  {title: '密码', key: 'password', width: 150},
+  {title: '过期时间', key: 'expireTime'},
+  {title: '备注', key: 'remark'},
 ];
 
 @inject('password') @observer
