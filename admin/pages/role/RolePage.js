@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import {Button, message, Input} from 'antd';
 import RoleModal from "./RoleModal";
+import Reactable from "@eatong/reactable";
 import {inject, observer} from "mobx-react";
 import GrantMenuModal from "~/pages/role/GrantMenuModal";
 
@@ -38,7 +39,16 @@ class RolePage extends Component {
             <Button onClick={() => this.props.role.toggleGrantModal()} disabled={selectedKeys.length !== 1}>分配菜单</Button>
           </ButtonGroup>
         </header>
-
+        <Reactable
+          columns={columns}
+          dataSource={dataList}
+          rowKey="id"
+          tableId="role-table"
+          pagination={this.props.role.pagination}
+          rowSelection={{
+            selectedRowKeys: selectedKeys,
+            onChange: (keys) => this.props.role.onChangeSelection(keys)
+          }}/>
         {showModal && (
           <RoleModal
             onCancel={() => this.props.role.toggleModal()}

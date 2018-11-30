@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import {Button, message, Input} from 'antd';
+import Reactable from '@eatong/reactable';
 import UserModal from "./UserModal";
 import {inject, observer} from "mobx-react";
 import GrantRoleModal from "~/pages/user/GrantRoleModal";
@@ -39,7 +40,16 @@ class UserPage extends Component {
                     disabled={selectedKeys.length !== 1}>分配角色</Button>
           </ButtonGroup>
         </header>
-
+        <Reactable
+          columns={columns}
+          dataSource={dataList}
+          rowKey="id"
+          tableId="user-table"
+          pagination={this.props.user.pagination}
+          rowSelection={{
+            selectedRowKeys: selectedKeys,
+            onChange: (keys) => this.props.user.onChangeSelection(keys)
+          }}/>
         {showModal && (
           <UserModal
             onCancel={() => this.props.user.toggleModal()}

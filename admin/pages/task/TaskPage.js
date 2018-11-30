@@ -6,6 +6,7 @@
 
 import React, {Component} from 'react';
 import {Button, message ,Input} from 'antd';
+import Reactable from "@eatong/reactable";
 import TaskModal from "./TaskModal";
 import {inject, observer} from "mobx-react";
 
@@ -40,6 +41,16 @@ class TaskPage extends Component {
             <Button onClick={() => this.props.task.deleteData()} disabled={selectedKeys.length === 0}>删除</Button>
           </ButtonGroup>
         </header>
+        <Reactable
+          columns={columns}
+          dataSource={dataList}
+          rowKey="id"
+          tableId="role-table"
+          pagination={this.props.task.pagination}
+          rowSelection={{
+            selectedRowKeys: selectedKeys,
+            onChange: (keys) => this.props.task.onChangeSelection(keys)
+          }}/>
 
         {showModal && (
           <TaskModal
