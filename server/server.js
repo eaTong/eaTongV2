@@ -15,6 +15,8 @@ const serve = require('koa-static');
 const session = require('koa-session-minimal');
 const MysqlStore = require('koa-mysql-session');
 const router = require('./routers');
+const routes = require('../page-routes');
+
 
 const projectConfig = require('../config/project.config');
 const serverConfig = require('../config/server.config');
@@ -22,10 +24,10 @@ const serverConfig = require('../config/server.config');
 // const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
 const port = dev ? projectConfig.devServerPort : projectConfig.productionServerPort;
-const app = next({dev});
-const handle = app.getRequestHandler();
+const nextServer = next({dev});
+const handle = nextServer.getRequestHandler();
 
-app.prepare()
+nextServer.prepare()
   .then(() => {
     const app = new Koa();
     app.use(koaConnect(compression()));
@@ -59,25 +61,32 @@ app.prepare()
 
     router.get('/login', async ctx => {
       ctx.type = 'html';
-      ctx.body = createReadStream('adminDist/index.html');
+      ctx.body = createReadStream('adminDist/admin.html');
     });
 
     router.get('/admin/*', async ctx => {
       ctx.type = 'html';
-      ctx.body = createReadStream('adminDist/index.html');
+      ctx.body = createReadStream('adminDist/admin.html');
     });
 
-    router.get('*', async ctx => {
-      await handle(ctx.req, ctx.res);
-      ctx.respond = false;
-    });
-
-    app.use(async (ctx, next) => {
-      ctx.res.statusCode = 200;
-      await next();
-    });
+    // router.get('*', async ctx => {
+    //   await handle(ctx.req, ctx.res);
+    //   ctx.respond = false;
+    // });
+    //
+    // app.use(async (ctx, next) => {
+    //   ctx.res.statusCode = 200;
+    //   await next();
+    // });
 
     app.use(router.routes());
+    const handler = routes.getRequestHandler(nextServer);
+    app.use(ctx => {
+      ctx.respond = false;
+      ctx.res.statusCode = 200; // because koa defaults to 404
+      handler(ctx.req, ctx.res)
+    });
+
     app.listen(port, () => {
       console.log(`> Ready on http://localhost:${port}`)
     });

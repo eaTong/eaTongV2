@@ -9,7 +9,7 @@ client.scp('build/', {
   username: 'ubuntu',
   privateKey: require("fs").readFileSync('/home/eatong/certificate/eaTong_pem'),
   passphrase: '',
-  path: '/home/ubuntu'
+  path: '/home/ubuntu/build'
 }, function (err, ...args) {
   console.log(err, ...args);
 });
