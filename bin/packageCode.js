@@ -29,6 +29,7 @@ archive.directory('adminDist/', 'adminDist');
 archive.directory('server/', 'server');
 archive.directory('.next/', '.next');
 archive.file('index.js');
+archive.file('page-routes.js');
 archive.file('package.json');
 archive.file('package-lock.json');
 

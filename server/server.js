@@ -23,9 +23,9 @@ const serverConfig = require('../config/server.config');
 
 // const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
+console.log(dev);
 const port = dev ? projectConfig.devServerPort : projectConfig.productionServerPort;
 const nextServer = next({dev});
-const handle = nextServer.getRequestHandler();
 
 nextServer.prepare()
   .then(() => {
@@ -69,19 +69,10 @@ nextServer.prepare()
       ctx.body = createReadStream('adminDist/admin.html');
     });
 
-    // router.get('*', async ctx => {
-    //   await handle(ctx.req, ctx.res);
-    //   ctx.respond = false;
-    // });
-    //
-    // app.use(async (ctx, next) => {
-    //   ctx.res.statusCode = 200;
-    //   await next();
-    // });
-
     app.use(router.routes());
     const handler = routes.getRequestHandler(nextServer);
     app.use(ctx => {
+      console.log(111);
       ctx.respond = false;
       ctx.res.statusCode = 200; // because koa defaults to 404
       handler(ctx.req, ctx.res)

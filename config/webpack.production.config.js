@@ -32,7 +32,7 @@ module.exports = {
     //把入口文件里面的数组打包成verdors.js
     new HtmlwebpackPlugin({
       template: path.resolve(ROOT_PATH, 'index-production.html'),
-      filename: 'index.html',
+      filename: 'admin.html',
       //要把script插入到标签里
       inject: false,
     }),
