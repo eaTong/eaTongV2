@@ -27,6 +27,7 @@ archive.directory('bin/', 'bin');
 archive.directory('config/', 'config');
 archive.directory('adminDist/', 'adminDist');
 archive.directory('server/', 'server');
+archive.directory('assets/', 'assets');
 archive.directory('.next/', '.next');
 archive.file('index.js');
 archive.file('page-routes.js');

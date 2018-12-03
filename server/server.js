@@ -12,6 +12,7 @@ const koaConnect = require('koa-connect');
 const compression = require('compression');
 const cookie = require('koa-cookie').default;
 const serve = require('koa-static');
+const koaLogger = require('koa-logger');
 const session = require('koa-session-minimal');
 const MysqlStore = require('koa-mysql-session');
 const router = require('./routers');
@@ -31,20 +32,20 @@ nextServer.prepare()
   .then(() => {
     const app = new Koa();
     app.use(koaConnect(compression()));
-// app.use(koaLogger());
+app.use(koaLogger());
     app.use(cookie());
-    app.use(serve('dist'), {
+
+
+    app.use(serve('adminDist', {
+      maxAge: 365 * 24 * 60 * 60 ,
+      gzip: true,
+      hidden:true
+    }));
+    app.use(serve('assets', {
       maxAge: 365 * 24 * 60 * 60,
-      gzip: true
-    });
-    app.use(serve('adminDist'), {
-      maxAge: 365 * 24 * 60 * 60,
-      gzip: true
-    });
-    app.use(serve('assets'), {
-      maxAge: 365 * 24 * 60 * 60,
-      gzip: true
-    });
+      gzip: true,
+      hidden:true
+    }));
 
     app.keys = ['key-for-eaTong'];
     app.use(session({
@@ -72,7 +73,6 @@ nextServer.prepare()
     app.use(router.routes());
     const handler = routes.getRequestHandler(nextServer);
     app.use(ctx => {
-      console.log(111);
       ctx.respond = false;
       ctx.res.statusCode = 200; // because koa defaults to 404
       handler(ctx.req, ctx.res)
