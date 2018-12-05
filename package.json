@@ -11,7 +11,7 @@
     "build-admin-pages": "NODE_ENV=production webpack --config config/webpack.production.config.js ",
     "package": "node bin/packageCode.js",
     "upload": "node bin/uploadProductionFiles",
-    "auto-publish": "npm run build-pages && npm run build-admin-pages && npm run package"
+    "auto-publish": "npm run build-pages && npm run build-admin-pages && npm run package && npm run upload"
   },
   "repository": {
     "type": "git",
