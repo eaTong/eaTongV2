@@ -9,4 +9,13 @@ module.exports = {
     database: "eaTong",
     host: "127.0.0.1"
   },
+  thirdParty:{
+    bugTracker:{
+      host:'beta.erpstrong.com',
+      port:4000,
+      user:'btview',
+      password:'GVWcQ0t*QIxoajxo',
+      database:'BTNET'
+    }
+  }
 };
