@@ -9,6 +9,8 @@ const {LogicError} = require('../framework/errors');
 const BaseService = require('../framework/BaseService');
 const Password = require('../models/Password');
 const nodemailer = require('nodemailer');
+const moment = require('moment');
+const {mail} = require('../../config/server.config');
 
 class PasswordService extends BaseService {
 
@@ -43,6 +45,35 @@ class PasswordService extends BaseService {
 
   static async getPasswordDetail(id) {
     return await Password.findOne({where: {id}});
+  }
+
+  static async checkNearly() {
+    const today = moment();
+    today.set('month', today.get('month') + 1);
+    const nearlyPasswords = await Password.findAll({where: {expireTime: {[Op.lt]: today.format('YYYY-MM-DD')}}});
+    if (nearlyPasswords && nearlyPasswords.length > 0) {
+      const transporter = nodemailer.createTransport(mail);
+      const mailContent = `
+<div>
+  <p style="color:#999">密码即将过期提醒</p>   
+  <p >以下密码即将过期:${nearlyPasswords.map(item =>
+        `<p style="color:#eb655e">${item.dataValues.name}:<b>${moment(item.dataValues.expireTime).format('YYYY-MM-DD')}</b></p>`
+      )}
+  </p>      
+</div>
+    `;
+      const mailObj = {
+        from: `过期提醒 <${mail.auth.user}>`,
+        // 主题
+        subject: '过期提醒',
+        // 收件人
+        // to: 'qinyangdong@aikesi-soft.com,liuyajun@aikesi-soft.com,liuyingbing@aikesi-soft.com,liqiao@aikesi-soft.com,pengyin@aikesi-soft.com',
+        to: 'zhouyidong@aikesi-soft.com',
+        // 邮件内容，HTML格式
+        html: mailContent,
+      };
+      transporter.sendMail(mailObj);
+    }
   }
 }
 

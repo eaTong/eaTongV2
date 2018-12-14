@@ -14,7 +14,7 @@ module.exports = {
     port: 465,
     auth: {
       user: 'zhouyidong@aikesi-soft.com',
-      pass: 'eaTong@123'
+      pass: 'wlf19910102'
     }
   },
   thirdParty: {

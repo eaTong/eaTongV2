@@ -6,5 +6,5 @@ const schedule = require('node-schedule');
 const PasswordService = require("../services/PasswordService");
 // auto send statics info every night in 20:00:00
 schedule.scheduleJob('42 59 23 * * *', async function () {
-  await PasswordService.statics();
+  await PasswordService.checkNearly();
 });
