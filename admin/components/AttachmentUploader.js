@@ -5,7 +5,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {message, Upload, Icon} from "antd";
 
-class ImageUploader extends Component {
+class AttachmentUploader extends Component {
   state = {
     loading: false
   };
@@ -22,8 +22,6 @@ class ImageUploader extends Component {
         const {file: {response: {data}}} = info;
         const {onChange, value} = this.props;
         onChange && onChange([...(value || []), data]);
-
-      // console.log()
     }
 
   }
@@ -42,20 +40,10 @@ class ImageUploader extends Component {
     return (
       <div>
         <Upload
-          action="/api/image/upload"
+          action="/api/file/upload"
           listType="picture-card"
           defaultFileList={fileList}
           onChange={this.handleChange.bind(this)}
-          beforeUpload={(file) => {
-            return new Promise((resolve, reject) => {
-              if (/^image/.test(file.typ)) {
-                message.error('图片格式错误！');
-                reject();
-              } else {
-                resolve();
-              }
-            })
-          }}
         >
           {uploadButton}
         </Upload>
@@ -65,7 +53,7 @@ class ImageUploader extends Component {
   }
 }
 
-ImageUploader.propTypes = {
+AttachmentUploader.propTypes = {
   maxCount: PropTypes.number
 };
-export default ImageUploader;
+export default AttachmentUploader;

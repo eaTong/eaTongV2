@@ -1,4 +1,3 @@
-
 /**
  * Created by eaTong on 2018-30-11 .
  * Description: auto generated in  2018-30-11
@@ -9,15 +8,18 @@ const sequelize = require('../framework/database');
 const {LogicError} = require('../framework/errors');
 const BaseService = require('../framework/BaseService');
 const Password = require('../models/Password');
+const nodemailer = require('nodemailer');
 
 class PasswordService extends BaseService {
 
   static async addPassword(password) {
     password.enable = true;
+    password.attachment = password.attachment ? JSON.stringify(password.attachment) : '';
     return await Password.create(password);
   }
 
   static async updatePasswords(data) {
+    data.attachment = data.attachment ? JSON.stringify(data.attachment) : '';
     return await Password.update(data, {where: {id: data.id}})
   }
 
@@ -31,7 +33,11 @@ class PasswordService extends BaseService {
       ...option,
       attributes: [[sequelize.fn('COUNT', '*'), 'total']]
     });
-    const list = await Password.findAll({offset: pageIndex * pageSize, limit: pageSize, ...option});
+    const passwords = await Password.findAll({offset: pageIndex * pageSize, limit: pageSize, ...option});
+    const list = passwords.map(item => ({
+      ...item.dataValues,
+      attachment: item.attachment ? JSON.parse(item.dataValues.attachment) : []
+    }));
     return {total, list}
   }
 
@@ -41,4 +47,3 @@ class PasswordService extends BaseService {
 }
 
 module.exports = PasswordService;
-  

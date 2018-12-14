@@ -17,6 +17,7 @@ const session = require('koa-session-minimal');
 const MysqlStore = require('koa-mysql-session');
 const router = require('./routers');
 const routes = require('../page-routes');
+require('./framework/schedule');
 
 
 const projectConfig = require('../config/project.config');
@@ -32,19 +33,19 @@ nextServer.prepare()
   .then(() => {
     const app = new Koa();
     app.use(koaConnect(compression()));
-app.use(koaLogger());
+    app.use(koaLogger());
     app.use(cookie());
 
 
     app.use(serve('adminDist', {
-      maxAge: 365 * 24 * 60 * 60 ,
+      maxAge: 365 * 24 * 60 * 60,
       gzip: true,
-      hidden:true
+      hidden: true
     }));
     app.use(serve('assets', {
       maxAge: 365 * 24 * 60 * 60,
       gzip: true,
-      hidden:true
+      hidden: true
     }));
 
     app.keys = ['key-for-eaTong'];
@@ -57,8 +58,6 @@ app.use(koaLogger());
     }));
 //use koaBody to resolve data
     app.use(koaBody({multipart: true}));
-//all routes just all API
-    app.use(router.routes());
 
     router.get('/login', async ctx => {
       ctx.type = 'html';

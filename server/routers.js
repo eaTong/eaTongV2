@@ -21,6 +21,7 @@ router.post('/api/*', structureData);
 
 router.post('/api/user/login', insertLog('login'), checkArguments(['account', 'password']), UserApi.login);
 router.post('/api/image/upload', FileApi.uploadImage);
+router.post('/api/file/upload', FileApi.uploadFile);
 router.post('/api/menu/get', MenuApi.getMenus);
 router.post('/api/menu/authorised', MenuApi.getAuthorisedMenu);
 
@@ -42,13 +43,13 @@ router.post('/api/task/add', insertLog('add'), checkArguments(['name']), TaskApi
 router.post('/api/task/get', TaskApi.getTasks);
 router.post('/api/task/update', insertLog('update'), checkArguments(['id', 'name']), TaskApi.updateTasks);
 router.post('/api/task/delete', insertLog('delete'), checkArguments(['ids']), TaskApi.deleteTasks);
-router.post('/api/task/detail',  checkArguments(['id']), TaskApi.getTaskDetail);
+router.post('/api/task/detail', checkArguments(['id']), TaskApi.getTaskDetail);
 
 router.post('/api/password/add', insertLog('add'), checkArguments(['name']), PasswordApi.addPassword);
 router.post('/api/password/get', PasswordApi.getPasswords);
 router.post('/api/password/update', insertLog('update'), checkArguments(['id', 'name']), PasswordApi.updatePasswords);
-router.post('/api/password/delete', insertLog('delete'), checkArguments(['ids']), PasswordApi.deletePasswords);  
-router.post('/api/password/detail',  checkArguments(['id']), PasswordApi.getPasswordDetail); 
+router.post('/api/password/delete', insertLog('delete'), checkArguments(['ids']), PasswordApi.deletePasswords);
+router.post('/api/password/detail', checkArguments(['id']), PasswordApi.getPasswordDetail);
 //UPDATE_TAG:defineRouter
 
 router.post('/api/*', async ctx => {

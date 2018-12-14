@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Modal, Form, Input, message, DatePicker} from 'antd';
 import moment from "moment";
+import AttachmentUploader from "../../components/AttachmentUploader";
 
 const FormItem = Form.Item;
 const formItemLayout = {
@@ -32,7 +33,11 @@ class PasswordModal extends Component {
 
   getFormattedValues(data, timeFields) {
     for (let field of timeFields) {
-      data[field] = moment(data[field])
+      if (data[field]) {
+        data[field] = moment(data[field])
+      } else {
+        delete data[field]
+      }
     }
     return data;
   }
@@ -77,10 +82,13 @@ class PasswordModal extends Component {
           <FormItem {...formItemLayout} label="密码" hasFeedback>
             {getFieldDecorator('password')(<Input/>)}
           </FormItem>
-          <FormItem {...formItemLayout} label="过期时间" >
+          <FormItem {...formItemLayout} label="过期时间">
             {getFieldDecorator('expireTime')(<DatePicker/>)}
           </FormItem>
-          <FormItem {...formItemLayout} label="备注" >
+          <FormItem {...formItemLayout} label="附件">
+            {getFieldDecorator('attachment')(<AttachmentUploader/>)}
+          </FormItem>
+          <FormItem {...formItemLayout} label="备注">
             {getFieldDecorator('remark')(<Input.TextArea/>)}
           </FormItem>
 

@@ -13,6 +13,7 @@ const Password = sequelize.define('password', {
   account: {type: Sequelize.STRING},
   password: {type: Sequelize.STRING},
   remark: {type: Sequelize.STRING},
+  attachment: {type: Sequelize.STRING},
   expireTime: {type: Sequelize.DATE},
   enable: Sequelize.BOOLEAN,
 });
