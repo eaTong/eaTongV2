@@ -15,7 +15,7 @@ export default class YzzStore {
   @action
   async login() {
     console.log(123);
-    await ajax({url: '/yzz/api/um/login', data: {account: '18288756143', password: 'a12345'}});
+    await ajax({url: '/yzz/api/um/login', method: 'post', data: {account: '18288756143', password: 'a12345'}});
     console.log(234);
   }
 

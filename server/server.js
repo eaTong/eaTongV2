@@ -17,6 +17,7 @@ const session = require('koa-session-minimal');
 const MysqlStore = require('koa-mysql-session');
 const router = require('./routers');
 const routes = require('../page-routes');
+const {proxy} = require('./framework/middleWare');
 require('./framework/schedule');
 
 
@@ -74,9 +75,7 @@ nextServer.prepare()
     });
 
 
-    router.all('/yzz/api*', async ctx => {
-      console.log(123);
-    });
+    router.all('/yzz/api*', proxy);
 
 
     app.use(router.routes());

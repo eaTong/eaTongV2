@@ -1,7 +1,7 @@
 /**
  * Created by eatong on 17-12-28.
  */
-
+const httpProxy = require('http-proxy');
 const {ArgMissError, LogicError} = require('./errors');
 const LogService = require('../services/LogService');
 const whiteList = ['/api/user/login', '/api/user/loginByCode', '/api/user/bind'];
@@ -65,3 +65,50 @@ module.exports.insertLog = (type) => {
     return await next();
   }
 };
+
+
+module.exports.proxy = async (ctx, next) => {
+  const body = await proxy(ctx);
+  console.log(body);
+  ctx.status = 200;
+  ctx.body = body;
+  console.log(123);
+  return;
+};
+
+function proxy(ctx) {
+  return new Promise(((resolve, reject) => {
+    const option = {
+      target: 'http://eatong.cn',
+    };
+    const proxy = httpProxy.createProxyServer(option);
+    ctx.req.url = ctx.req.url.replace('/yzz', '');
+    proxy.web(ctx.req, ctx.res, option);
+    proxy.on('error', function (e) {
+      console.log('1111111111111111111', e);
+      next();
+    });
+    proxy.on('proxyRes', function (proxyRes, req, res) {
+      let body = Buffer.from('', 'utf-8');
+      console.log(req, res);
+      proxyRes.on('data', function (data) {
+        body = Buffer.concat([body, data]);
+      });
+      proxyRes.on('end', function () {
+        body = body.toString();
+        res.status = 200;
+        res.statusCode = 200;
+        res.body = {success: false, data: {}, message: ''};
+
+        resolve(2222);
+        return 123;
+      });
+    });
+    proxy.on('open', function () {
+      console.log(12345);
+    });
+    proxy.on('close', function (e, a, b, c) {
+      console.log('2222222222222222', e, a, b, c);
+    });
+  }));
+}
