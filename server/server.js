@@ -25,7 +25,6 @@ const serverConfig = require('../config/server.config');
 
 // const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
-console.log(dev);
 const port = dev ? projectConfig.devServerPort : projectConfig.productionServerPort;
 const nextServer = next({dev});
 
@@ -33,10 +32,15 @@ nextServer.prepare()
   .then(() => {
     const app = new Koa();
     app.use(koaConnect(compression()));
-    app.use(koaLogger());
+    // app.use(koaLogger());
     app.use(cookie());
 
 
+    app.use(serve('.next/server/static', {
+      maxAge: 365 * 24 * 60 * 60,
+      gzip: true,
+      hidden: true
+    }));
     app.use(serve('adminDist', {
       maxAge: 365 * 24 * 60 * 60,
       gzip: true,
