@@ -73,6 +73,12 @@ nextServer.prepare()
       ctx.body = createReadStream('adminDist/admin.html');
     });
 
+
+    router.all('/yzz/api*', async ctx => {
+      console.log(123);
+    });
+
+
     app.use(router.routes());
     const handler = routes.getRequestHandler(nextServer);
     app.use(ctx => {

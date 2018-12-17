@@ -1,10 +1,9 @@
-
 import React from 'react'
 import {Provider} from 'mobx-react';
 import stores from '../stores';
 import {parse} from 'query-string';
-import Head from 'next/head'
-import '../util/prototypes';
+import Head from 'next/head';
+import Loading from './Loading';
 
 export default Component => class Page extends React.Component {
   constructor(props) {
@@ -43,8 +42,6 @@ export default Component => class Page extends React.Component {
 
   componentDidMount() {
     const query = parse(window.location.search);
-    // this.state.query = query;
-    console.log('did mount.....');
     this.setState({query});
   }
 
