@@ -2,7 +2,10 @@
  * Created by eaTong on 2018/11/22 .
  * Description:
  */
-module.exports = {
+
+
+
+let config = {
   mysql: {
     user: "eaTong",
     password: "eaTong@eaTong123",
@@ -27,3 +30,10 @@ module.exports = {
     }
   }
 };
+
+if(process.env.NODEV_ENV === 'production'){
+  config = require("./server.config.production")
+}
+
+
+module.exports = config;

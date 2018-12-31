@@ -6,3 +6,5 @@ dist
 build
 .next
 adminDist
+
+config/server.config.production.js
