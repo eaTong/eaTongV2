@@ -27,10 +27,10 @@ class RolePage extends Component {
     const {dataList, operateType, showModal, showGrantModal, selectedKeys, rowSelection, firstSelected} = this.props.role;
     return (
       <div className="base-layout">
-        <header className="header">
-          <div className="label">
-            角色管理
-          </div>
+        <header className="title">
+          角色管理
+        </header>
+        <div className="operate-bar">
           <ButtonGroup className="buttons">
             <Button onClick={() => this.props.role.toggleModal('add')}>新建</Button>
             <Button onClick={() => this.props.role.toggleModal('edit')}
@@ -39,7 +39,8 @@ class RolePage extends Component {
             <Button onClick={() => this.props.role.toggleGrantModal()}
                     disabled={selectedKeys.length !== 1}>分配菜单</Button>
           </ButtonGroup>
-        </header>
+        </div>
+
         <Reactable
           columns={columns}
           dataSource={dataList}

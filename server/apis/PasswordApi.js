@@ -23,8 +23,7 @@ class PasswordApi extends BaseApi {
   }
 
   static async getPasswords(ctx) {
-    const {pageIndex = 0, pageSize = 20} = ctx.request.body;
-    return await PasswordService.getPasswords(pageIndex, pageSize);
+    return await PasswordService.getPasswords(ctx.request.body);
   }
 
   static async getPasswordDetail(ctx) {
@@ -34,4 +33,3 @@ class PasswordApi extends BaseApi {
 }
 
 module.exports = PasswordApi;
-  

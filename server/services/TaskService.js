@@ -1,7 +1,7 @@
 
 /**
- * Created by eaTong on 2018-25-11 .
- * Description: auto generated in  2018-25-11
+ * Created by eaTong on 2018-31-12 .
+ * Description: auto generated in  2018-31-12
  */
 
 const {Op} = require('sequelize');
@@ -25,7 +25,7 @@ class TaskService extends BaseService {
     return await Task.update({enable: false}, {where: {id: {[Op.in]: ids}}});
   }
 
-  static async getTasks(pageIndex = 0, pageSize = 20) {
+  static async getTasks({pageIndex = 0, pageSize = 20, keywords = ''}) {
     const option = {where: {enable: true}};
     const {dataValues: {total}} = await Task.findOne({
       ...option,

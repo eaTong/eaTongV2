@@ -53,28 +53,26 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  .header {
-    min-height: 45px;
-    line-height: 45px;
+  .title{
+    text-align: left;
+    font-size:16px;
+    font-weight: bolder;
+    padding:10px;
+    background-color: #fff;
+    border-bottom: 1px solid @border-color-base;
+  }
+  .operate-bar {
     display: flex;
     background-color: #fff;
-    padding: 0 15px;
+    padding: 8px;
+    min-height: 50px;
+    justify-content: center;
+    align-items: center;
     .label {
       white-space: nowrap;
     }
-    .search-filter {
-      padding-left: 10px;
-      flex: 1;
-      display: flex;
-      align-items: center;
-      text-align: left;
-      & > * {
-        margin-right: 5px;
-        width: 200px;
-      }
-      & > .search {
-        width: unset;
-      }
+    & > .ant-input-search {
+      width: 200px;
     }
     .buttons {
       flex: 1;
@@ -85,11 +83,15 @@
     flex: 1;
   }
   .footer {
-    padding: 10px;
+    padding: 8px 4px;
     text-align: right;
     & > * {
       margin-right: 10px;
     }
+  }
+  .ant-pagination {
+    padding: 5px;
+    text-align: right;
   }
 }
 

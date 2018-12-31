@@ -8,12 +8,12 @@ import {message} from 'antd';
 
 const PAGE_SIZE = 20;
 export default class BaseStore {
-
   @observable dataList = [];
   @observable operateType = 'add';
   @observable showModal = false;
   @observable selectedKeys = [];
   @observable pageIndex = 0;
+  @observable pageSize = PAGE_SIZE;
   @observable total = 0;
 
   listApi = '';
@@ -32,13 +32,15 @@ export default class BaseStore {
   }
 
   @computed get pagination() {
-    if (!this.total || this.total <= PAGE_SIZE) {
-      return null;
-    }
     return {
+      showSizeChanger: true,
+      showQuickJumper: true,
       current: this.pageIndex + 1,
-      pageSize: PAGE_SIZE,
+      pageSize: this.pageSize,
       total: this.total,
+      pageSizeOptions: ['10', '20', '50', '100', '200'],
+      showTotal: (total, range) => `当前：${range[0]}-${range[1]} ，共 ${total} 条数据`,
+      onShowSizeChange: (...args) => this.onChangePageSize(...args),
       onChange: (current) => this.onChangePage(current)
     }
   }
@@ -73,11 +75,18 @@ export default class BaseStore {
   }
 
   @action
+  async onChangePageSize(current, pageSize) {
+    this.pageIndex = 0;
+    this.pageSize = pageSize;
+    await this.getDataList();
+  }
+
+  @action
   async getDataList() {
     try {
       const data = await ajax({
         url: this.listApi,
-        data: {pageSize: PAGE_SIZE, pageIndex: this.pageIndex, ...this.queryOption}
+        data: {pageSize: this.pageSize, pageIndex: this.pageIndex, ...this.queryOption}
       });
       this.dataList = [];
       this.total = data.total;
@@ -119,10 +128,10 @@ export default class BaseStore {
   async deleteData() {
     await ajax({url: this.deleteApi, data: {ids: this.selectedKeys}});
     message.success('删除成功');
-    if (this.pageIndex * PAGE_SIZE + this.selectedKeys.length === this.total) {
+    if (this.pageIndex * this.pageSize + this.selectedKeys.length === this.total) {
       this.pageIndex = Math.max(this.pageIndex - 1, 0);
-      await this.getDataList();
-      this.selectedKeys = [];
     }
+    await this.getDataList();
+    this.selectedKeys = [];
   }
 }

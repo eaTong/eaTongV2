@@ -39,6 +39,7 @@ async function initialMenu() {
     {name: '角色管理', icon: 'team', path: '/admin/role', enable: true},
     {name: '任务管理', icon: 'database', path: '/admin/task', enable: true},
     {name: '密码管理', icon: 'lock', path: '/admin/password', enable: true},
+ {name: 'task', icon: 'file', path: '/admin/task', enable: true},
 //UPDATE_TAG:asyncMenu
   ];
   await Menu.bulkCreate(menuList, {updateOnDuplicate: ['path', 'name', 'icon', 'enable']});

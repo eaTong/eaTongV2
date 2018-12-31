@@ -60,8 +60,7 @@ class ${upperFirstLetter(form)}Api extends BaseApi {
   }
 
   static async get${upperFirstLetter(form)}s(ctx) {
-    const {pageIndex = 0, pageSize = 20} = ctx.request.body;
-    return await ${upperFirstLetter(form)}Service.get${upperFirstLetter(form)}s(pageIndex, pageSize);
+    return await ${upperFirstLetter(form)}Service.get${upperFirstLetter(form)}s(ctx.request.body);
   }
 
   static async get${upperFirstLetter(form)}Detail(ctx) {
@@ -97,7 +96,7 @@ class ${upperFirstLetter(form)}Service extends BaseService {
     return await ${upperFirstLetter(form)}.update({enable: false}, {where: {id: {[Op.in]: ids}}});
   }
 
-  static async get${upperFirstLetter(form)}s(pageIndex = 0, pageSize = 20) {
+  static async get${upperFirstLetter(form)}s({pageIndex = 0, pageSize = 20, keywords = ''}) {
     const option = {where: {enable: true}};
     const {dataValues: {total}} = await ${upperFirstLetter(form)}.findOne({
       ...option,
@@ -161,7 +160,7 @@ function getFrontFormPath(form) {
 function getPage(form) {
   return `
 import React, {Component} from 'react';
-import {Button, message ,Input} from 'antd';
+import {Button, message ,Input , Pagination} from 'antd';
 import Reactable from "@eatong/reactable";
 import ${upperFirstLetter(form)}Modal from "./${upperFirstLetter(form)}Modal";
 import {inject, observer} from "mobx-react";
@@ -178,40 +177,41 @@ class ${upperFirstLetter(form)}Page extends Component {
   }
 
   render() {
-    const {dataList, operateType, showModal, selectedKeys, rowSelection, firstSelected} = this.props.${form};
+    const {${form}} = this.props;
+    const {dataList, operateType, showModal, selectedKeys, rowSelection, firstSelected , pagination} = ${form};
     return (
       <div className="base-layout ${form}-page">
-        <header className="header">
-          <div className="label">
-            XXX管理
-            <Input.Search
-              className={'search'}
-              placeholder={'输入关键字搜索'}
-              onSearch={(val) => this.props.${form}.searchData(val)}
-            />
-          </div>
-          <ButtonGroup className="buttons">
-            <Button onClick={() => this.props.${form}.toggleModal('add')}>新建</Button>
-            <Button onClick={() => this.props.${form}.toggleModal('edit')}
-                    disabled={selectedKeys.length !== 1}>编辑</Button>
-            <Button onClick={() => this.props.${form}.deleteData()} disabled={selectedKeys.length === 0}>删除</Button>
-          </ButtonGroup>
+        <header className="title">
+          XX管理
         </header>
+        <div className="operate-bar">
+          <Input.Search
+            className={'search'}
+            placeholder={'输入关键字搜索'}
+            onSearch={(val) => ${form}.searchData(val)}
+          />
+          <ButtonGroup className="buttons">
+            <Button onClick={() => ${form}.toggleModal('add')} type='primary'>新增</Button>
+            <Button onClick={() => ${form}.toggleModal('edit')}
+                    disabled={selectedKeys.length !== 1}>编辑</Button>
+            <Button onClick={() => ${form}.deleteData()} disabled={selectedKeys.length === 0}>删除</Button>
+          </ButtonGroup>
+        </div>
         <Reactable
           columns={columns}
           dataSource={dataList}
           rowKey="id"
           tableId="${form}-table"
-          pagination={this.props.${form}.pagination}
+          pagination={${form}.pagination}
           rowSelection={{
             selectedRowKeys: selectedKeys,
-            onChange: (keys) => this.props.${form}.onChangeSelection(keys)
-          }}
-         />
+            onChange: (keys) => ${form}.onChangeSelection(keys)
+          }}/>
+        <Pagination {...pagination}/>
         {showModal && (
           <${upperFirstLetter(form)}Modal
-            onCancel={() => this.props.${form}.toggleModal()}
-            onOk={(data) => this.props.${form}.onSaveData(data)}
+            onCancel={() => ${form}.toggleModal()}
+            onOk={(data) => ${form}.onSaveData(data)}
             operateType={operateType}
             formData={firstSelected}
           />

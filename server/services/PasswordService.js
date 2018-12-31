@@ -29,8 +29,23 @@ class PasswordService extends BaseService {
     return await Password.update({enable: false}, {where: {id: {[Op.in]: ids}}});
   }
 
-  static async getPasswords(pageIndex = 0, pageSize = 20) {
-    const option = {where: {enable: true}};
+  static async getPasswords({pageIndex = 0, pageSize = 20, keywords = ''}) {
+    const option = {
+      where: {
+        [Op.and]: [
+          {enable: true,},
+          {
+            [Op.or]: [
+              {name: {[Op.like]: `%${keywords}%`}},
+              {type: {[Op.like]: `%${keywords}%`}},
+              {host: {[Op.like]: `%${keywords}%`}},
+              {remark: {[Op.like]: `%${keywords}%`}}
+            ]
+          }
+        ],
+
+      }
+    };
     const {dataValues: {total}} = await Password.findOne({
       ...option,
       attributes: [[sequelize.fn('COUNT', '*'), 'total']]
@@ -43,11 +58,13 @@ class PasswordService extends BaseService {
     return {total, list}
   }
 
-  static async getPasswordDetail(id) {
+  static
+  async getPasswordDetail(id) {
     return await Password.findOne({where: {id}});
   }
 
-  static async checkNearly() {
+  static
+  async checkNearly() {
     const today = moment();
     today.set('month', today.get('month') + 1);
     const nearlyPasswords = await Password.findAll({where: {expireTime: {[Op.lt]: today.format('YYYY-MM-DD')}}});
@@ -77,4 +94,5 @@ class PasswordService extends BaseService {
   }
 }
 
-module.exports = PasswordService;
+module
+  .exports = PasswordService;

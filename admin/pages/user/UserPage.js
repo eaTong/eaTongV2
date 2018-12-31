@@ -27,10 +27,10 @@ class UserPage extends Component {
     const {dataList, operateType, showModal, showGrantModal, selectedKeys, rowSelection, firstSelected} = this.props.user;
     return (
       <div className="base-layout">
-        <header className="header">
-          <div className="label">
-            用户管理
-          </div>
+        <header className="title">
+          用户管理
+        </header>
+        <div className="operate-bar">
           <ButtonGroup className="buttons">
             <Button onClick={() => this.props.user.toggleModal('add')}>新建</Button>
             <Button onClick={() => this.props.user.toggleModal('edit')}
@@ -39,7 +39,7 @@ class UserPage extends Component {
             <Button onClick={() => this.props.user.toggleGrantModal()}
                     disabled={selectedKeys.length !== 1}>分配角色</Button>
           </ButtonGroup>
-        </header>
+        </div>
         <Reactable
           columns={columns}
           dataSource={dataList}

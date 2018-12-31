@@ -4,7 +4,7 @@
  */
 
 import React, {Component} from 'react';
-import {Button, message, Input} from 'antd';
+import {Button, message, Input, Pagination} from 'antd';
 import Reactable from "@eatong/reactable";
 import PasswordModal from "./PasswordModal";
 import {inject, observer} from "mobx-react";
@@ -27,39 +27,41 @@ class PasswordPage extends Component {
   }
 
   render() {
-    const {dataList, operateType, showModal, selectedKeys, rowSelection, firstSelected} = this.props.password;
+    const {password} = this.props;
+    const {dataList, operateType, showModal, selectedKeys, rowSelection, firstSelected, pagination} = password;
     return (
       <div className="base-layout password-page">
-        <header className="header">
-          <div className="label">
-            XXX管理
-            <Input.Search
-              className={'search'}
-              placeholder={'输入关键字搜索'}
-              onSearch={(val) => this.props.password.searchData(val)}
-            />
-          </div>
-          <ButtonGroup className="buttons">
-            <Button onClick={() => this.props.password.toggleModal('add')}>新建</Button>
-            <Button onClick={() => this.props.password.toggleModal('edit')}
-                    disabled={selectedKeys.length !== 1}>编辑</Button>
-            <Button onClick={() => this.props.password.deleteData()} disabled={selectedKeys.length === 0}>删除</Button>
-          </ButtonGroup>
+        <header className="title">
+          密码管理
         </header>
+        <div className="operate-bar">
+          <Input.Search
+            className={'search'}
+            placeholder={'输入关键字搜索'}
+            onSearch={(val) => password.searchData(val)}
+          />
+          <ButtonGroup className="buttons">
+            <Button onClick={() => password.toggleModal('add')} type='primary'>新增</Button>
+            <Button onClick={() => password.toggleModal('edit')}
+                    disabled={selectedKeys.length !== 1}>编辑</Button>
+            <Button onClick={() => password.deleteData()} disabled={selectedKeys.length === 0}>删除</Button>
+          </ButtonGroup>
+        </div>
         <Reactable
           columns={columns}
           dataSource={dataList}
           rowKey="id"
           tableId="password-table"
-          pagination={this.props.password.pagination}
+          pagination={password.pagination}
           rowSelection={{
             selectedRowKeys: selectedKeys,
-            onChange: (keys) => this.props.password.onChangeSelection(keys)
+            onChange: (keys) => password.onChangeSelection(keys)
           }}/>
+        <Pagination {...pagination}/>
         {showModal && (
           <PasswordModal
-            onCancel={() => this.props.password.toggleModal()}
-            onOk={(data) => this.props.password.onSaveData(data)}
+            onCancel={() => password.toggleModal()}
+            onOk={(data) => password.onSaveData(data)}
             operateType={operateType}
             formData={firstSelected}
           />
