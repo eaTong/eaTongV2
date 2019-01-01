@@ -9,6 +9,7 @@ import RoleModal from "./RoleModal";
 import Reactable from "@eatong/reactable";
 import {inject, observer} from "mobx-react";
 import GrantMenuModal from "~/pages/role/GrantMenuModal";
+import Title from "~/components/Title";
 
 const ButtonGroup = Button.Group;
 const columns = [
@@ -27,9 +28,7 @@ class RolePage extends Component {
     const {dataList, operateType, showModal, showGrantModal, selectedKeys, rowSelection, firstSelected} = this.props.role;
     return (
       <div className="base-layout">
-        <header className="title">
-          角色管理
-        </header>
+        <Title title='角色管理'/>
         <div className="operate-bar">
           <ButtonGroup className="buttons">
             <Button onClick={() => this.props.role.toggleModal('add')}>新建</Button>

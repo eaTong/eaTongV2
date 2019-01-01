@@ -8,6 +8,7 @@ import {Button, message, Input, Pagination} from 'antd';
 import Reactable from "@eatong/reactable";
 import PasswordModal from "./PasswordModal";
 import {inject, observer} from "mobx-react";
+import Title from "~/components/Title";
 
 const ButtonGroup = Button.Group;
 const columns = [
@@ -31,9 +32,7 @@ class PasswordPage extends Component {
     const {dataList, operateType, showModal, selectedKeys, rowSelection, firstSelected, pagination} = password;
     return (
       <div className="base-layout password-page">
-        <header className="title">
-          密码管理
-        </header>
+        <Title title='密码管理'/>
         <div className="operate-bar">
           <Input.Search
             className={'search'}

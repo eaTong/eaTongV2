@@ -9,6 +9,7 @@ import {Button, message ,Input , Pagination} from 'antd';
 import Reactable from "@eatong/reactable";
 import TaskModal from "./TaskModal";
 import {inject, observer} from "mobx-react";
+import Title from "~/components/Title";
 
 const ButtonGroup = Button.Group;
 const columns = [
@@ -26,9 +27,7 @@ class TaskPage extends Component {
     const {dataList, operateType, showModal, selectedKeys, rowSelection, firstSelected , pagination} = task;
     return (
       <div className="base-layout task-page">
-        <header className="title">
-          任务管理
-        </header>
+        <Title title='任务管理'/>
         <div className="operate-bar">
           <Input.Search
             className={'search'}

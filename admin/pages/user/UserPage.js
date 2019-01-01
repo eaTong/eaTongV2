@@ -9,6 +9,7 @@ import Reactable from '@eatong/reactable';
 import UserModal from "./UserModal";
 import {inject, observer} from "mobx-react";
 import GrantRoleModal from "~/pages/user/GrantRoleModal";
+import Title from "~/components/Title";
 
 const ButtonGroup = Button.Group;
 const columns = [
@@ -27,9 +28,7 @@ class UserPage extends Component {
     const {dataList, operateType, showModal, showGrantModal, selectedKeys, rowSelection, firstSelected} = this.props.user;
     return (
       <div className="base-layout">
-        <header className="title">
-          用户管理
-        </header>
+        <Title title='用户管理'/>
         <div className="operate-bar">
           <ButtonGroup className="buttons">
             <Button onClick={() => this.props.user.toggleModal('add')}>新建</Button>
