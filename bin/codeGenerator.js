@@ -138,7 +138,12 @@ function getAsyncModel(form) {
 }
 
 function getAsyncMenu(form) {
-  return ` {name: '${form}', icon: 'file', path: '/admin/${form}', enable: true},`;
+  return ` 
+    {name: '${form}', icon: 'file', path: '/admin/${form}', enable: true},
+    {name: '新增', icon: 'plus', path: '/admin/${form}/add', enable: true, parentPath: '/admin/${form}', type: 2},
+    {name: '编辑', icon: 'edit', path: '/admin/${form}/edit', enable: true, parentPath: '/admin/${form}', type: 2},
+    {name: '删除', icon: 'delete', path: '/admin/${form}/delete', enable: true, parentPath: '/admin/${form}', type: 2},
+  `;
 }
 
 function getFrontFormPath(form) {
