@@ -31,7 +31,7 @@ class UserPage extends Component {
         <Title title='用户管理'/>
         <div className="operate-bar">
           <ButtonGroup className="buttons">
-            <Button onClick={() => this.props.user.toggleModal('add')}>新建</Button>
+            <Button onClick={() => this.props.user.toggleModal('add')}>新增</Button>
             <Button onClick={() => this.props.user.toggleModal('edit')}
                     disabled={selectedKeys.length !== 1}>编辑</Button>
             <Button onClick={() => this.props.user.deleteData()} disabled={selectedKeys.length === 0}>删除</Button>

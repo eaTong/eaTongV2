@@ -9,13 +9,13 @@ const Menu = require('../models/Menu');
 const Role = require('../models/Role');
 
 class MenuService extends BaseService {
-  static async getMenus(log) {
-    // await Log.create(log);
-    return await Menu.findAll({where: {enable: true}});
+  static async getMenus() {
+    const menus = await Menu.findAll({where: {enable: true}});
+    return structureMenu(menus.map(menu => menu.dataValues));
   }
 
   static async getAuthorisedMenu(userId) {
-    return await Menu.findAll({
+    const menus = await Menu.findAll({
       where: {enable: true},
       include: [{
         model: Role,
@@ -25,10 +25,28 @@ class MenuService extends BaseService {
         ]
       }]
     });
-
+    return structureMenu(menus.map(menu => menu.dataValues))
   }
+}
+
+function structureMenu(menus) {
+  let keyMapping = {};
+  let parentKeyMapping = {};
+  for (let menu of menus) {
+    keyMapping[menu.path] = menu;
+    if (!parentKeyMapping[menu.parentPath]) {
+      parentKeyMapping[menu.parentPath] = [];
+    }
+    parentKeyMapping[menu.parentPath].push(menu);
+  }
+
+  function getChildrenPath(path) {
+    return (parentKeyMapping[path] || []).map(item => ({...item, children: getChildrenPath(item.path)}));
+  }
+
+  return getChildrenPath('')
 }
 
 module.exports = MenuService;
 
-// MenuService.getAuthorisedMenu(2);
+// MenuService.getMenus();

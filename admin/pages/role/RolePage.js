@@ -31,7 +31,7 @@ class RolePage extends Component {
         <Title title='角色管理'/>
         <div className="operate-bar">
           <ButtonGroup className="buttons">
-            <Button onClick={() => this.props.role.toggleModal('add')}>新建</Button>
+            <Button onClick={() => this.props.role.toggleModal('add')}>新增</Button>
             <Button onClick={() => this.props.role.toggleModal('edit')}
                     disabled={selectedKeys.length !== 1}>编辑</Button>
             <Button onClick={() => this.props.role.deleteData()} disabled={selectedKeys.length === 0}>删除</Button>

@@ -24,7 +24,6 @@ require('./framework/schedule');
 const projectConfig = require('../config/project.config');
 const serverConfig = require('../config/server.config');
 
-// const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
 const port = dev ? projectConfig.devServerPort : projectConfig.productionServerPort;
 const nextServer = next({dev});
@@ -33,7 +32,6 @@ nextServer.prepare()
   .then(() => {
     const app = new Koa();
     app.use(koaConnect(compression()));
-    // app.use(koaLogger());
     app.use(cookie());
 
 

@@ -35,13 +35,28 @@ async function initialDatabaseStructure() {
 
 async function initialMenu() {
   const menuList = [
-    {name: '用户管理', icon: 'user', path: '/admin/user', enable: true},
-    {name: '角色管理', icon: 'team', path: '/admin/role', enable: true},
-    {name: '任务管理', icon: 'database', path: '/admin/task', enable: true},
-    {name: '密码管理', icon: 'lock', path: '/admin/password', enable: true},
+    {name: '系统设置', icon: 'setting', path: '/admin/system', enable: true, parentPath: '', type: 0},
+    {name: '用户管理', icon: 'user', path: '/admin/user', enable: true, parentPath: '/admin/system', type: 1},
+    {name: '新增', icon: 'plus', path: '/admin/user/add', enable: true, parentPath: '/admin/user', type: 2},
+    {name: '编辑', icon: 'edit', path: '/admin/user/edit', enable: true, parentPath: '/admin/user', type: 2},
+    {name: '删除', icon: 'delete', path: '/admin/user/delete', enable: true, parentPath: '/admin/user', type: 2},
+    {name: '角色授权', icon: 'user', path: '/admin/user/grant', enable: true, parentPath: '/admin/user', type: 2},
+    {name: '角色管理', icon: 'team', path: '/admin/role', enable: true, parentPath: '/admin/system', type: 1},
+    {name: '新增', icon: 'plus', path: '/admin/role/add', enable: true, parentPath: '/admin/role', type: 2},
+    {name: '编辑', icon: 'edit', path: '/admin/role/edit', enable: true, parentPath: '/admin/role', type: 2},
+    {name: '删除', icon: 'delete', path: '/admin/role/delete', enable: true, parentPath: '/admin/role', type: 2},
+    {name: '分配菜单', icon: 'user', path: '/admin/role/grant', enable: true, parentPath: '/admin/role', type: 2},
+    {name: '任务管理', icon: 'database', path: '/admin/task', enable: true, parentPath: '', type: 1},
+    {name: '新增', icon: 'plus', path: '/admin/task/add', enable: true, parentPath: '/admin/task', type: 2},
+    {name: '编辑', icon: 'edit', path: '/admin/task/edit', enable: true, parentPath: '/admin/task', type: 2},
+    {name: '删除', icon: 'delete', path: '/admin/task/delete', enable: true, parentPath: '/admin/task', type: 2},
+    {name: '密码管理', icon: 'lock', path: '/admin/password', enable: true, parentPath: '', type: 1},
+    {name: '新增', icon: 'plus', path: '/admin/password/add', enable: true, parentPath: '/admin/password', type: 2},
+    {name: '编辑', icon: 'edit', path: '/admin/password/edit', enable: true, parentPath: '/admin/password', type: 2},
+    {name: '删除', icon: 'delete', path: '/admin/password/delete', enable: true, parentPath: '/admin/password', type: 2},
 //UPDATE_TAG:asyncMenu
   ];
-  await Menu.bulkCreate(menuList, {updateOnDuplicate: ['path', 'name', 'icon', 'enable']});
+  await Menu.bulkCreate(menuList, {updateOnDuplicate: ['path', 'name', 'icon', 'enable', 'parentPath', 'type']});
 }
 
 async function initRole() {

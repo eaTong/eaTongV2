@@ -5,6 +5,8 @@ import React, {Component} from 'react';
 import {Layout, Menu, Icon, Tooltip} from 'antd'
 import ajax from '~/utils/ajax';
 
+const SubMenu = Menu.SubMenu;
+const MenuItem = Menu.Item;
 const {Content, Sider} = Layout;
 
 class AdminLayout extends Component {
@@ -32,26 +34,34 @@ class AdminLayout extends Component {
     this.props.history.push('/');
   }
 
-  renderMenus() {
-    return this.state.menus.map(menu => (
-      <Menu.Item key={menu.path}>
-        <Icon type={menu.icon}/>
-        <span>{menu.name}</span>
-      </Menu.Item>
-    ))
+  childrenMenus(menus) {
+    return menus.map(menu => {
+      if (menu.type === 0) {
+        return (
+          <SubMenu key={menu.path} title={<span><Icon type={menu.icon}/><span>{menu.name}</span></span>}>
+            {this.childrenMenus(menu.children)}
+          </SubMenu>
+        )
+      }else if(menu.type === 1){
+        return (
+          <MenuItem key={menu.path}><span><Icon type={menu.icon}/><span>{menu.name}</span></span></MenuItem>
+        )
+      }
+    })
   }
 
   render() {
-    const {loginUser} = this.state;
+    const {loginUser, menus} = this.state;
     return (
       <Layout className="layout">
         <Sider breakpoint="lg">
           <Menu
+            mode="inline"
             theme="dark"
             selectedKeys={[window.location.pathname]}
             onClick={this.onSelectMenu.bind(this)}
           >
-            {this.renderMenus()}
+            {this.childrenMenus(menus)}
           </Menu>
           <div className='personal-info'>
             <span className="welcome">欢迎您：</span>
