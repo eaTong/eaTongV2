@@ -2,39 +2,33 @@
 
 .ant-layout {
   height: 100%;
-  .ant-layout-sider {
-    &.ant-layout-sider-collapsed {
-      .personal-info {
-        .welcome, .name {
-          display: none;
-        }
-      }
+  .ant-layout-header {
+    height: 50px;
+    line-height: unset;
+    overflow: hidden;;
+    color: #fff;
+    background-color: #000c17;
+    display: flex;
+    padding: 5px 10px;
+    align-items: center;
+    justify-content: center;
+    .brand {
+      flex: 1;
     }
+    .name {
+      padding-right: 5px;
+    }
+    .anticon {
+      cursor: pointer;
+      color: @error-color;
+    }
+  }
+  .ant-layout-sider {
     .ant-layout-sider-children {
       display: flex;
       flex-direction: column;
       .ant-menu {
         flex: 1;
-      }
-      .personal-info {
-        height: 40px;
-        overflow: hidden;;
-        color: #fff;
-        display: flex;
-        padding: 5px 10px;
-        align-items: center;
-        justify-content: center;
-        .name {
-          flex: 1;
-          padding-right: 5px;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-        .anticon {
-          cursor: pointer;
-          color: @error-color;
-        }
-
       }
     }
   }
@@ -53,11 +47,11 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  .title{
+  .title {
     text-align: left;
-    font-size:16px;
+    font-size: 16px;
     font-weight: bolder;
-    padding:10px;
+    padding: 10px;
     background-color: #fff;
     border-bottom: 1px solid @border-color-base;
   }

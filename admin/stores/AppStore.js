@@ -10,6 +10,9 @@ export default class AppStore {
   @observable ajaxCount = {};
   @observable loginUser = {};
   @observable menus = [];
+  @observable tabList = [
+    {path: '/admin/index', name: '首页', optionalData: {}}
+  ];
 
   @action
   async login(values) {
@@ -17,6 +20,10 @@ export default class AppStore {
     this.loginUser = data;
     window.sessionStorage.setItem('loginUser', JSON.stringify(data));
     return data;
+  }
+
+  @action initialLoginUser() {
+    this.loginUser = JSON.parse(window.sessionStorage.getItem('loginUser') || '{}');
   }
 
   @action

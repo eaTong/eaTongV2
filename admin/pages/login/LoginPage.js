@@ -11,19 +11,12 @@ const FormItem = Form.Item;
 
 @inject('app') @observer
 class LoginPage extends Component {
-  state = {};
-
-  componentDidMount() {
-
-  }
-
   handleSubmit(e) {
     e.preventDefault();
     this.props.form.validateFields(async (err, values) => {
       if (!err) {
-        const result = await this.props.app.login(values);
-        console.log(result);
-        this.props.history.push(window.localStorage.getItem('lastUrl') || '/admin/member');
+        await this.props.app.login(values);
+        this.props.history.push('/admin');
       }
     });
   }
