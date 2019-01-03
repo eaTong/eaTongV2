@@ -3,10 +3,12 @@
  */
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Modal, message, Checkbox} from 'antd';
+import {Modal, message, Checkbox, Tree} from 'antd';
 import ajax from "~/utils/ajax";
+import unique from 'array-unique'
 
-const CheckboxGroup = Checkbox.Group;
+const TreeNode = Tree.TreeNode;
+
 
 class GrantMenuModal extends Component {
   constructor(props) {
@@ -14,34 +16,91 @@ class GrantMenuModal extends Component {
     this.state = {
       menus: [],
       grantedMenus: [],
+
     };
   }
 
+  parentKeys = ['0'];
+  pathMapping = {};
+  keyMapping = {};
+  parentKeyMapping = {};
+
   async componentWillMount() {
-    this.state.grantedMenus = [...this.props.formData.menus || []];
+    this.state.grantedMenus = (this.props.formData.menus || []).map(id => id + '');
     const data = await ajax({url: '/api/menu/get'});
-    this.setState({menus: data})
+    this.initialParentMapping(data);
+    this.setState({menus: data});
   }
 
-  onChangeGrant(grantedMenus) {
-    this.setState({grantedMenus});
+  initialParentMapping(data) {
+    for (let menu of data) {
+      this.keyMapping[menu.id + ''] = menu.path;
+      this.pathMapping[menu.path] = menu.id + '';
+      this.parentKeyMapping[menu.path] = menu.parentPath;
+      if (menu.children && menu.children.length > 0) {
+        this.initialParentMapping(menu.children);
+        this.parentKeys.push(menu.id + '');
+      }
+    }
+  }
+
+  onCheckMenu(checkedKeys) {
+    let grantedMenus = [];
+    for (const key of checkedKeys) {
+      grantedMenus.push(key);
+      grantedMenus = grantedMenus.concat(this.getParentKeys(key));
+    }
+    this.setState({grantedMenus: unique(grantedMenus)});
+  }
+
+  getParentKeys(key) {
+    let parentId;
+    if (/\d+/.test(key) && key !== '0') {
+      parentId = this.pathMapping[this.parentKeyMapping[this.keyMapping[key]]] || '0';
+      return [parentId].concat(this.getParentKeys(parentId));
+    } else {
+      return '0';
+    }
   }
 
   onSaveData() {
     const {onOk, formData} = this.props;
-    onOk && onOk({menus: this.state.grantedMenus, roleId: formData.id});
+    onOk && onOk({menus: this.state.grantedMenus.map(id => ~~id).filter(id => !!id), roleId: formData.id});
+  }
+
+  renderTreeNodes(data) {
+    return data.map(item => {
+      if (item.children) {
+        return (
+          <TreeNode title={item.name} key={item.id + ''} dataRef={item}>
+            {this.renderTreeNodes(item.children)}
+          </TreeNode>
+        );
+      }
+      return <TreeNode title={item.name} key={item.id + ''} dataRef={item} {...item} />;
+    })
   }
 
   render() {
     const {menus, grantedMenus} = this.state;
-    const options = menus.map(menu => {
-      return {label: menu.name, value: menu.id}
-    });
     return (
-      <Modal title={'分配菜单'}
-             maskClosable={false}
-             visible={true} onOk={this.onSaveData.bind(this)} onCancel={this.props.onCancel}>
-        <CheckboxGroup options={options} onChange={this.onChangeGrant.bind(this)} value={grantedMenus}/>
+      <Modal
+        title={'分配菜单'}
+        maskClosable={false}
+        visible={true}
+        onOk={this.onSaveData.bind(this)}
+        onCancel={this.props.onCancel}
+      >
+        {menus.length > 0 && (
+          <Tree
+            checkable
+            autoExpandParent
+            checkedKeys={grantedMenus.filter(id => this.parentKeys.indexOf(id) === -1)}
+            onCheck={(...args) => this.onCheckMenu(...args)}
+          >
+            {this.renderTreeNodes(menus)}
+          </Tree>
+        )}
       </Modal>
     );
   }
