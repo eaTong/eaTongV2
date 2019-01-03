@@ -111,7 +111,7 @@ export default class BaseStore {
 
   @action
   async onSaveData(formData) {
-    if (this.operateType === 'add') {
+    if (/(add)|(copyAdd)/.test(this.operateType)) {
       await ajax({url: this.addApi, data: formData});
       message.success('新增成功');
       this.toggleModal();

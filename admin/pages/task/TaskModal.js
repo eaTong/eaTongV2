@@ -1,10 +1,9 @@
-
 /**
  * Created by eaTong on 2018-31-12 .
  * Description: auto generated in  2018-31-12
  */
 
-  import React, {Component} from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Modal, Form, Input, message} from 'antd';
 
@@ -22,7 +21,7 @@ const formItemLayout = {
 
 class TaskModal extends Component {
   componentDidMount() {
-    if (this.props.operateType === 'edit') {
+    if (/(edit)|(copyAdd)/.test(this.props.operateType)) {
       this.props.form.setFieldsValue(this.props.formData);
     }
   }

@@ -26,33 +26,34 @@ class UserPage extends PageBase {
   }
 
   render() {
-    const {dataList, operateType, showModal, showGrantModal, selectedKeys, rowSelection, firstSelected, pagination} = this.props.user;
+    const {user} = this.props;
+    const {dataList, operateType, showModal, showGrantModal, selectedKeys, firstSelected, pagination} = user;
     return (
       <div className="base-layout">
         <Title title='用户管理'/>
         <div className="operate-bar">
           <ButtonGroup className="buttons">
             <Button
-              onClick={() => this.props.user.toggleModal('add')}
+              onClick={() => user.toggleModal('add')}
               disabled={this.disableButton('add')}
               type={'primary'}
             >
               新增
             </Button>
             <Button
-              onClick={() => this.props.user.toggleModal('edit')}
+              onClick={() => user.toggleModal('edit')}
               disabled={this.disableButton('edit', selectedKeys.length !== 1)}
             >
               编辑
             </Button>
             <Button
-              onClick={() => this.props.user.deleteData()}
+              onClick={() => user.deleteData()}
               disabled={this.disableButton('delete', selectedKeys.length === 0)}
             >
               删除
             </Button>
             <Button
-              onClick={() => this.props.user.toggleGrantModal()}
+              onClick={() => user.toggleGrantModal()}
               disabled={this.disableButton('grant', selectedKeys.length !== 1)}
             >
               分配角色
@@ -64,24 +65,24 @@ class UserPage extends PageBase {
           dataSource={dataList}
           rowKey="id"
           tableId="user-table"
-          pagination={this.props.user.pagination}
+          pagination={pagination}
           rowSelection={{
             selectedRowKeys: selectedKeys,
-            onChange: (keys) => this.props.user.onChangeSelection(keys)
+            onChange: (keys) => user.onChangeSelection(keys)
           }}/>
         <Pagination {...pagination}/>
         {showModal && (
           <UserModal
-            onCancel={() => this.props.user.toggleModal()}
-            onOk={(data) => this.props.user.onSaveData(data)}
+            onCancel={() => user.toggleModal()}
+            onOk={(data) => user.onSaveData(data)}
             operateType={operateType}
             formData={firstSelected}
           />
         )}
         {showGrantModal && (
           <GrantRoleModal
-            onCancel={() => this.props.user.toggleGrantModal()}
-            onOk={(data) => this.props.user.grantRole(data)}
+            onCancel={() => user.toggleGrantModal()}
+            onOk={(data) => user.grantRole(data)}
             formData={firstSelected}
           />
         )}

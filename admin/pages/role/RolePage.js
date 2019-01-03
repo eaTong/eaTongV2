@@ -21,12 +21,12 @@ const columns = [
 @inject('role', 'app') @observer
 class RolePage extends PageBase {
   async componentDidMount() {
-    // this.props.role.clearData();
     await this.props.role.getDataList();
   }
 
   render() {
-    const {dataList, operateType, showModal, showGrantModal, selectedKeys, rowSelection, firstSelected, pagination} = this.props.role;
+    const {role} = this.props;
+    const {dataList, operateType, showModal, showGrantModal, selectedKeys, firstSelected, pagination} = role;
     return (
       <div className="base-layout">
         <Title title='角色管理'/>
@@ -34,26 +34,26 @@ class RolePage extends PageBase {
 
           <ButtonGroup className="buttons">
             <Button
-              onClick={() => this.props.role.toggleModal('add')}
+              onClick={() => role.toggleModal('add')}
               disabled={this.disableButton('add')}
               type={'primary'}
             >
               新增
             </Button>
             <Button
-              onClick={() => this.props.role.toggleModal('edit')}
+              onClick={() => role.toggleModal('edit')}
               disabled={this.disableButton('edit', selectedKeys.length !== 1)}
             >
               编辑
             </Button>
             <Button
-              onClick={() => this.props.role.deleteData()}
+              onClick={() => role.deleteData()}
               disabled={this.disableButton('delete', selectedKeys.length === 0)}
             >
               删除
             </Button>
             <Button
-              onClick={() => this.props.role.toggleGrantModal()}
+              onClick={() => role.toggleGrantModal()}
               disabled={this.disableButton('grant', selectedKeys.length !== 1)}
             >
               分配菜单
@@ -66,25 +66,25 @@ class RolePage extends PageBase {
           dataSource={dataList}
           rowKey="id"
           tableId="role-table"
-          pagination={this.props.role.pagination}
+          pagination={role.pagination}
           rowSelection={{
             selectedRowKeys: selectedKeys,
-            onChange: (keys) => this.props.role.onChangeSelection(keys)
+            onChange: (keys) => role.onChangeSelection(keys)
           }}/>
 
         <Pagination {...pagination}/>
         {showModal && (
           <RoleModal
-            onCancel={() => this.props.role.toggleModal()}
-            onOk={(data) => this.props.role.onSaveData(data)}
+            onCancel={() => role.toggleModal()}
+            onOk={(data) => role.onSaveData(data)}
             operateType={operateType}
             formData={firstSelected}
           />
         )}
         {showGrantModal && (
           <GrantMenuModal
-            onCancel={() => this.props.role.toggleGrantModal()}
-            onOk={(data) => this.props.role.grantRole(data)}
+            onCancel={() => role.toggleGrantModal()}
+            onOk={(data) => role.grantRole(data)}
             formData={firstSelected}
           />
         )}

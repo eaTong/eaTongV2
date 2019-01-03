@@ -25,7 +25,7 @@ class TaskPage extends PageBase {
 
   render() {
     const {task} = this.props;
-    const {dataList, operateType, showModal, selectedKeys, rowSelection, firstSelected , pagination} = task;
+    const {dataList, operateType, showModal, selectedKeys,  firstSelected , pagination} = task;
     return (
       <div className="base-layout task-page">
         <Title title='任务管理'/>
@@ -38,20 +38,26 @@ class TaskPage extends PageBase {
 
           <ButtonGroup className="buttons">
             <Button
-              onClick={() => this.props.task.toggleModal('add')}
+              onClick={() => task.toggleModal('add')}
               disabled={this.disableButton('add')}
               type={'primary'}
             >
               新增
             </Button>
             <Button
-              onClick={() => this.props.task.toggleModal('edit')}
+              onClick={() => task.toggleModal('copyAdd')}
+              disabled={this.disableButton('add', selectedKeys.length !== 1)}
+            >
+              复制并新增
+            </Button>
+            <Button
+              onClick={() => task.toggleModal('edit')}
               disabled={this.disableButton('edit', selectedKeys.length !== 1)}
             >
               编辑
             </Button>
             <Button
-              onClick={() => this.props.task.deleteData()}
+              onClick={() => task.deleteData()}
               disabled={this.disableButton('delete', selectedKeys.length === 0)}
             >
               删除

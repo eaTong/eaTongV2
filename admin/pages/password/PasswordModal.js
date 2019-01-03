@@ -23,7 +23,7 @@ const formItemLayout = {
 
 class PasswordModal extends Component {
   componentDidMount() {
-    if (this.props.operateType === 'edit') {
+    if (/(edit)|(copyAdd)/.test(this.props.operateType)) {
       const data = this.props.formData;
       this.props.form.setFieldsValue(this.getFormattedValues(this.props.formData, ['expireTime']));
 

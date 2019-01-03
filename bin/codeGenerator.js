@@ -205,6 +205,12 @@ class ${upperFirstLetter(form)}Page extends Component {
               新增
             </Button>
             <Button
+              onClick={() => ${form}.toggleModal('copyAdd')}
+              disabled={this.disableButton('add', selectedKeys.length !== 1)}
+            >
+              复制并新增
+            </Button>
+            <Button
               onClick={() => this.props.${form}.toggleModal('edit')}
               disabled={this.disableButton('edit', selectedKeys.length !== 1)}
             >
@@ -273,7 +279,7 @@ const formItemLayout = {
 
 class ${upperFirstLetter(form)}Modal extends Component {
   componentDidMount() {
-    if (this.props.operateType === 'edit') {
+    if (/(edit)|(copyAdd)/.test(this.props.operateType)) {
       this.props.form.setFieldsValue(this.props.formData);
     }
   }

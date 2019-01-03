@@ -17,7 +17,7 @@ class PageBase extends Component {
     if (typeof button === 'string') {
       const {app, path} = this.props;
       // 校验权限
-      if (app) {
+      if (app && app.authMapping[path]) {
         disabled = disabled || app.authMapping[path].indexOf(button) === -1;
       } else {
         disabled = true;
