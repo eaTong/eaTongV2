@@ -4,7 +4,7 @@
  */
 
 import React, {Component} from 'react';
-import {Button, message, Input} from 'antd';
+import {Button, message, Input, Pagination} from 'antd';
 import RoleModal from "./RoleModal";
 import Reactable from "@eatong/reactable";
 import {inject, observer} from "mobx-react";
@@ -25,7 +25,7 @@ class RolePage extends Component {
   }
 
   render() {
-    const {dataList, operateType, showModal, showGrantModal, selectedKeys, rowSelection, firstSelected} = this.props.role;
+    const {dataList, operateType, showModal, showGrantModal, selectedKeys, rowSelection, firstSelected,pagination} = this.props.role;
     return (
       <div className="base-layout">
         <Title title='角色管理'/>
@@ -50,6 +50,8 @@ class RolePage extends Component {
             selectedRowKeys: selectedKeys,
             onChange: (keys) => this.props.role.onChangeSelection(keys)
           }}/>
+
+        <Pagination {...pagination}/>
         {showModal && (
           <RoleModal
             onCancel={() => this.props.role.toggleModal()}

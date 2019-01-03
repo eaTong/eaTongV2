@@ -6,7 +6,7 @@ import GrantMenuPage from '~/pages/role/GrantMenuPage';
 import PasswordPage from './pages/password/PasswordPage';
 //UPDATE_TAG:importPage
 
-export default componentsMapping = {
+const componentsMapping = {
   '/admin/index': AdminIndexPage,
   '/admin/user': UserPage,
   '/admin/role': RolePage,
@@ -15,3 +15,5 @@ export default componentsMapping = {
   '/admin/password': PasswordPage,
 //UPDATE_TAG:addPageRoute
 };
+
+export default componentsMapping;

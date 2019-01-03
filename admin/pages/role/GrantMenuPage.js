@@ -20,7 +20,6 @@ class GrantMenuPage extends Component {
   render() {
     return (
       <div className="base-layout">
-        <Title title='角色管理'/>
 
       </div>
     )

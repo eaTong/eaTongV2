@@ -4,7 +4,7 @@
  */
 
 import React, {Component} from 'react';
-import {Button, message, Input} from 'antd';
+import {Button, message, Input, Pagination} from 'antd';
 import Reactable from '@eatong/reactable';
 import UserModal from "./UserModal";
 import {inject, observer} from "mobx-react";
@@ -25,7 +25,7 @@ class UserPage extends Component {
   }
 
   render() {
-    const {dataList, operateType, showModal, showGrantModal, selectedKeys, rowSelection, firstSelected} = this.props.user;
+    const {dataList, operateType, showModal, showGrantModal, selectedKeys, rowSelection, firstSelected, pagination} = this.props.user;
     return (
       <div className="base-layout">
         <Title title='用户管理'/>
@@ -49,6 +49,7 @@ class UserPage extends Component {
             selectedRowKeys: selectedKeys,
             onChange: (keys) => this.props.user.onChangeSelection(keys)
           }}/>
+        <Pagination {...pagination}/>
         {showModal && (
           <UserModal
             onCancel={() => this.props.user.toggleModal()}

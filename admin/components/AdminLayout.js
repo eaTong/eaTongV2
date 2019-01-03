@@ -5,6 +5,8 @@ import React, {Component} from 'react';
 import {Layout, Menu, Icon, Tooltip, Tabs} from 'antd'
 import ajax from '~/utils/ajax';
 import {inject, observer} from "mobx-react";
+import componentsMapping from '~/componentsMapping';
+import {REFRESH_TAG} from "~/utils/enums";
 
 const SubMenu = Menu.SubMenu;
 const MenuItem = Menu.Item;
@@ -35,15 +37,38 @@ class AdminLayout extends Component {
         )
       } else if (menu.type === 1) {
         return (
-          <MenuItem key={menu.path}><span><Icon type={menu.icon}/><span>{menu.name}</span></span></MenuItem>
+          <MenuItem key={menu.path} onClick={() => this.props.app.addTab(menu.path, menu.name)}>
+            <span><Icon type={menu.icon}/><span>{menu.name}</span></span>
+          </MenuItem>
         )
       }
     })
   }
 
+  renderTabs() {
+    return this.props.app.tabList.map((tab, index) => {
+      const {app} = this.props;
+      let tabName = index === 0 ?
+        (<span>
+          <span className="label">{tab.name}</span>
+          <Icon type="sync" onClick={() => app.refreshTab(tab, index)}/>
+        </span>) :
+        (<span>
+          <span className="label">{tab.name}</span>
+          <Icon type="sync" onClick={() => app.refreshTab(tab, index)}/>
+          <Icon type="close" onClick={(event) => app.closeTab(tab.path, event)}/>
+        </span>);
+
+      let realUrl = tab.path.split('?')[0].split(REFRESH_TAG)[0];
+      const Comp = componentsMapping[realUrl];
+      return (<TabPane tab={tabName} key={tab.path}><Comp {...(tab.optionalData || {})}/></TabPane>);
+    })
+
+  }
+
   render() {
     const {app} = this.props;
-    const {loginUser, menus , tabList} = app;
+    const {loginUser, menus, tabList, activeKey} = app;
     return (
       <Layout>
         <Header className="header">
@@ -62,8 +87,8 @@ class AdminLayout extends Component {
 
           </Sider>
           <Content>
-            <Tabs onChange={callback} type="card">
-              <TabPane tab="Tab 1" key="1">Content of Tab Pane 1</TabPane>
+            <Tabs onChange={(path) => app.onChangeTab(path)} type="card" activeKey={activeKey} animated>
+              {this.renderTabs()}
             </Tabs>
           </Content>
         </Layout>
