@@ -56,7 +56,7 @@ class RolePage extends PageBase {
               onClick={() => this.props.role.toggleGrantModal()}
               disabled={this.disableButton('grant', selectedKeys.length !== 1)}
             >
-              分配角色
+              分配菜单
             </Button>
           </ButtonGroup>
         </div>

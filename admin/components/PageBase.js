@@ -29,7 +29,6 @@ class PageBase extends Component {
     for (const addition of args) {
       disabled = disabled || addition;
     }
-    // console.log(button, this.props.app.authMapping);
     return disabled;
   }
 }

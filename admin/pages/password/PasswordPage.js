@@ -61,12 +61,6 @@ class PasswordPage extends PageBase {
             >
               删除
             </Button>
-            <Button
-              onClick={() => this.props.role.toggleGrantModal()}
-              disabled={this.disableButton('grant', selectedKeys.length !== 1)}
-            >
-              分配角色
-            </Button>
           </ButtonGroup>
         </div>
         <Reactable
