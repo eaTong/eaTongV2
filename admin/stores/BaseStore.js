@@ -78,6 +78,7 @@ export default class BaseStore {
   async onChangePageSize(current, pageSize) {
     this.pageIndex = 0;
     this.pageSize = pageSize;
+    this.selectedKeys = [];
     await this.getDataList();
   }
 
@@ -89,6 +90,7 @@ export default class BaseStore {
         data: {pageSize: this.pageSize, pageIndex: this.pageIndex, ...this.queryOption}
       });
       this.dataList = [];
+      this.selectedKeys = [];
       this.total = data.total;
       const dataList = data.list ? data.list : data;
       this.dataList = dataList;
