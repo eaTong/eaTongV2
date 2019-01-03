@@ -16,7 +16,7 @@ const routerPath = path.resolve(basePath, 'server', 'routers.js');
 const initDbPath = path.resolve(basePath, 'bin', 'initDB.js');
 const storePath = path.resolve(basePath, 'admin', 'stores');
 const storeIndexPath = path.resolve(basePath, 'admin', 'stores', 'index.js');
-const appPath = path.resolve(basePath, 'admin', 'App.js');
+const appPath = path.resolve(basePath, 'admin', 'componentsMapping.js');
 
 const description = `
 /**
