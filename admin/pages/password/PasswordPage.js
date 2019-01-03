@@ -9,6 +9,7 @@ import Reactable from "@eatong/reactable";
 import PasswordModal from "./PasswordModal";
 import {inject, observer} from "mobx-react";
 import Title from "~/components/Title";
+import PageBase from "~/components/PageBase";
 
 const ButtonGroup = Button.Group;
 const columns = [
@@ -21,8 +22,8 @@ const columns = [
   {title: '备注', key: 'remark'},
 ];
 
-@inject('password') @observer
-class PasswordPage extends Component {
+@inject('password', 'app') @observer
+class PasswordPage extends PageBase {
   async componentDidMount() {
     await this.props.password.getDataList();
   }
@@ -39,11 +40,33 @@ class PasswordPage extends Component {
             placeholder={'输入关键字搜索'}
             onSearch={(val) => password.searchData(val)}
           />
+
           <ButtonGroup className="buttons">
-            <Button onClick={() => password.toggleModal('add')} type='primary'>新增</Button>
-            <Button onClick={() => password.toggleModal('edit')}
-                    disabled={selectedKeys.length !== 1}>编辑</Button>
-            <Button onClick={() => password.deleteData()} disabled={selectedKeys.length === 0}>删除</Button>
+            <Button
+              onClick={() => this.props.role.toggleModal('add')}
+              disabled={this.disableButton('add')}
+              type={'primary'}
+            >
+              新增
+            </Button>
+            <Button
+              onClick={() => this.props.role.toggleModal('edit')}
+              disabled={this.disableButton('edit', selectedKeys.length !== 1)}
+            >
+              编辑
+            </Button>
+            <Button
+              onClick={() => this.props.role.deleteData()}
+              disabled={this.disableButton('delete', selectedKeys.length === 0)}
+            >
+              删除
+            </Button>
+            <Button
+              onClick={() => this.props.role.toggleGrantModal()}
+              disabled={this.disableButton('grant', selectedKeys.length !== 1)}
+            >
+              分配角色
+            </Button>
           </ButtonGroup>
         </div>
         <Reactable

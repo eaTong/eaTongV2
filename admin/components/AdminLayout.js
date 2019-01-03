@@ -61,7 +61,9 @@ class AdminLayout extends Component {
 
       let realUrl = tab.path.split('?')[0].split(REFRESH_TAG)[0];
       const Comp = componentsMapping[realUrl];
-      return (<TabPane tab={tabName} key={tab.path}><Comp {...(tab.optionalData || {})}/></TabPane>);
+      return (<TabPane tab={tabName} key={tab.path}>
+        <Comp {...(tab.optionalData || {})} path={realUrl}/>
+      </TabPane>);
     })
 
   }

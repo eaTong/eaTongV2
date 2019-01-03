@@ -10,6 +10,7 @@ import UserModal from "./UserModal";
 import {inject, observer} from "mobx-react";
 import GrantRoleModal from "~/pages/user/GrantRoleModal";
 import Title from "~/components/Title";
+import PageBase from "~/components/PageBase";
 
 const ButtonGroup = Button.Group;
 const columns = [
@@ -18,8 +19,8 @@ const columns = [
   {title: '角色', dataIndex: 'roles', render: (val) => val.map(role => role.name).join('、')}
 ];
 
-@inject('user') @observer
-class UserPage extends Component {
+@inject('user', 'app') @observer
+class UserPage extends PageBase {
   async componentDidMount() {
     await this.props.user.getDataList();
   }
@@ -31,12 +32,31 @@ class UserPage extends Component {
         <Title title='用户管理'/>
         <div className="operate-bar">
           <ButtonGroup className="buttons">
-            <Button onClick={() => this.props.user.toggleModal('add')}>新增</Button>
-            <Button onClick={() => this.props.user.toggleModal('edit')}
-                    disabled={selectedKeys.length !== 1}>编辑</Button>
-            <Button onClick={() => this.props.user.deleteData()} disabled={selectedKeys.length === 0}>删除</Button>
-            <Button onClick={() => this.props.user.toggleGrantModal()}
-                    disabled={selectedKeys.length !== 1}>分配角色</Button>
+            <Button
+              onClick={() => this.props.user.toggleModal('add')}
+              disabled={this.disableButton('add')}
+              type={'primary'}
+            >
+              新增
+            </Button>
+            <Button
+              onClick={() => this.props.user.toggleModal('edit')}
+              disabled={this.disableButton('edit', selectedKeys.length !== 1)}
+            >
+              编辑
+            </Button>
+            <Button
+              onClick={() => this.props.user.deleteData()}
+              disabled={this.disableButton('delete', selectedKeys.length === 0)}
+            >
+              删除
+            </Button>
+            <Button
+              onClick={() => this.props.user.toggleGrantModal()}
+              disabled={this.disableButton('grant', selectedKeys.length !== 1)}
+            >
+              分配角色
+            </Button>
           </ButtonGroup>
         </div>
         <Reactable

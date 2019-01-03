@@ -10,6 +10,7 @@ import Reactable from "@eatong/reactable";
 import {inject, observer} from "mobx-react";
 import GrantMenuModal from "~/pages/role/GrantMenuModal";
 import Title from "~/components/Title";
+import PageBase from "~/components/PageBase";
 
 const ButtonGroup = Button.Group;
 const columns = [
@@ -17,26 +18,46 @@ const columns = [
   {title: '备注', dataIndex: 'remark'},
 ];
 
-@inject('role') @observer
-class RolePage extends Component {
+@inject('role', 'app') @observer
+class RolePage extends PageBase {
   async componentDidMount() {
     // this.props.role.clearData();
     await this.props.role.getDataList();
   }
 
   render() {
-    const {dataList, operateType, showModal, showGrantModal, selectedKeys, rowSelection, firstSelected,pagination} = this.props.role;
+    const {dataList, operateType, showModal, showGrantModal, selectedKeys, rowSelection, firstSelected, pagination} = this.props.role;
     return (
       <div className="base-layout">
         <Title title='角色管理'/>
         <div className="operate-bar">
+
           <ButtonGroup className="buttons">
-            <Button onClick={() => this.props.role.toggleModal('add')}>新增</Button>
-            <Button onClick={() => this.props.role.toggleModal('edit')}
-                    disabled={selectedKeys.length !== 1}>编辑</Button>
-            <Button onClick={() => this.props.role.deleteData()} disabled={selectedKeys.length === 0}>删除</Button>
-            <Button onClick={() => this.props.role.toggleGrantModal()}
-                    disabled={selectedKeys.length !== 1}>分配菜单</Button>
+            <Button
+              onClick={() => this.props.role.toggleModal('add')}
+              disabled={this.disableButton('add')}
+              type={'primary'}
+            >
+              新增
+            </Button>
+            <Button
+              onClick={() => this.props.role.toggleModal('edit')}
+              disabled={this.disableButton('edit', selectedKeys.length !== 1)}
+            >
+              编辑
+            </Button>
+            <Button
+              onClick={() => this.props.role.deleteData()}
+              disabled={this.disableButton('delete', selectedKeys.length === 0)}
+            >
+              删除
+            </Button>
+            <Button
+              onClick={() => this.props.role.toggleGrantModal()}
+              disabled={this.disableButton('grant', selectedKeys.length !== 1)}
+            >
+              分配角色
+            </Button>
           </ButtonGroup>
         </div>
 

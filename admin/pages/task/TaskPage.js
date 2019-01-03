@@ -10,14 +10,15 @@ import Reactable from "@eatong/reactable";
 import TaskModal from "./TaskModal";
 import {inject, observer} from "mobx-react";
 import Title from "~/components/Title";
+import PageBase from "~/components/PageBase";
 
 const ButtonGroup = Button.Group;
 const columns = [
   {title: '名称', key: 'name'},
 ];
 
-@inject('task') @observer
-class TaskPage extends Component {
+@inject('task', 'app') @observer
+class TaskPage extends PageBase {
   async componentDidMount() {
     await this.props.task.getDataList();
   }
@@ -34,11 +35,27 @@ class TaskPage extends Component {
             placeholder={'输入关键字搜索'}
             onSearch={(val) => task.searchData(val)}
           />
+
           <ButtonGroup className="buttons">
-            <Button onClick={() => task.toggleModal('add')} type='primary'>新增</Button>
-            <Button onClick={() => task.toggleModal('edit')}
-                    disabled={selectedKeys.length !== 1}>编辑</Button>
-            <Button onClick={() => task.deleteData()} disabled={selectedKeys.length === 0}>删除</Button>
+            <Button
+              onClick={() => this.props.task.toggleModal('add')}
+              disabled={this.disableButton('add')}
+              type={'primary'}
+            >
+              新增
+            </Button>
+            <Button
+              onClick={() => this.props.task.toggleModal('edit')}
+              disabled={this.disableButton('edit', selectedKeys.length !== 1)}
+            >
+              编辑
+            </Button>
+            <Button
+              onClick={() => this.props.task.deleteData()}
+              disabled={this.disableButton('delete', selectedKeys.length === 0)}
+            >
+              删除
+            </Button>
           </ButtonGroup>
         </div>
         <Reactable

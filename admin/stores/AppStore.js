@@ -8,6 +8,7 @@ import {REFRESH_TAG} from "~/utils/enums";
 
 
 export default class AppStore {
+  authMapping = {};
   @observable ajaxCount = {};
   @observable loginUser = {};
   @observable menus = [];
@@ -47,6 +48,20 @@ export default class AppStore {
   async getAuthorisedMenu() {
     const data = await ajax({url: '/api/menu/authorised'});
     this.menus = data || [];
+    this.initialAuthMapping(data || []);
+    console.log(this.authMapping);
+  }
+
+  @action
+  initialAuthMapping(data) {
+    for (const item of data) {
+      if ((item.children || []).length > 0) {
+        this.authMapping[item.path] = item.children.map(child => child.path.replace(/.*\//g, ''));
+        this.initialAuthMapping(item.children);
+      } else {
+        this.authMapping[item.path] = true;
+      }
+    }
   }
 
   @action
