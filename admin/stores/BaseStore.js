@@ -91,8 +91,13 @@ export default class BaseStore {
       });
       this.dataList = [];
       this.selectedKeys = [];
-      this.total = data.total;
-      const dataList = data.list ? data.list : data;
+      let dataList;
+      if (data.total) {
+        this.total = data.total;
+        dataList = data.list ;
+      } else {
+        dataList = data;
+      }
       this.dataList = dataList;
       this.mappingData(dataList);
       return data;

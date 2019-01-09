@@ -11,6 +11,7 @@ const UserApi = require('./apis/UserApi');
 const RoleApi = require('./apis/RoleApi');
 const MenuApi = require('./apis/MenuApi');
 const TaskApi = require('./apis/TaskApi');
+const TaskProgressApi = require('./apis/TaskProgressApi');
 const PasswordApi = require('./apis/PasswordApi');
 //UPDATE_TAG:importApi
 
@@ -38,12 +39,18 @@ router.post('/api/user/delete', insertLog('delete'), checkArguments(['ids']), Us
 router.post('/api/user/logout', insertLog('login'), UserApi.logout);
 router.post('/api/user/grant', insertLog('grant'), checkArguments(['userId', 'roles']), UserApi.grantRole);
 
-
 router.post('/api/task/add', insertLog('add'), checkArguments(['name']), TaskApi.addTask);
 router.post('/api/task/get', TaskApi.getTasks);
 router.post('/api/task/update', insertLog('update'), checkArguments(['id', 'name']), TaskApi.updateTasks);
 router.post('/api/task/delete', insertLog('delete'), checkArguments(['ids']), TaskApi.deleteTasks);
 router.post('/api/task/detail', checkArguments(['id']), TaskApi.getTaskDetail);
+
+router.post('/api/task/progress/add', insertLog('add'), checkArguments(['name', 'taskId']), TaskProgressApi.addTaskProgress);
+router.post('/api/task/progress/getByTask', checkArguments(['taskId']), TaskProgressApi.getTaskProgressByTask);
+router.post('/api/task/progress/get', TaskProgressApi.getTaskProgress);
+router.post('/api/task/progress/update', insertLog('update'), checkArguments(['id', 'name']), TaskProgressApi.updateTaskProgress);
+router.post('/api/task/progress/delete', insertLog('delete'), checkArguments(['ids', 'taskId']), TaskProgressApi.deleteTaskProgress);
+router.post('/api/task/progress/detail', checkArguments(['id']), TaskProgressApi.getTaskProgressDetail);
 
 router.post('/api/password/add', insertLog('add'), checkArguments(['name']), PasswordApi.addPassword);
 router.post('/api/password/get', PasswordApi.getPasswords);

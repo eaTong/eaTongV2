@@ -8,6 +8,7 @@ const Role = require('../server/models/Role');
 const RoleMenu = require('../server/models/RoleMenu');
 const UserRole = require('../server/models/UserRole');
 const Task = require('../server/models/Task');
+const TaskProgress = require('../server/models/TaskProgress');
 const Password = require('../server/models/Password');
 //UPDATE_TAG:importModel
 
@@ -29,6 +30,7 @@ async function initialDatabaseStructure() {
   await RoleMenu.sync({alter: true});
   await UserRole.sync({alter: true});
   await Task.sync({alter: true});
+  await TaskProgress.sync({alter: true});
   await Password.sync({alter: true});
 //UPDATE_TAG:asyncModel
 }

@@ -7,13 +7,8 @@ const readline = require('readline');
 const path = require('path');
 const {updateFile, upperFirstLetter, writeFile} = require("./utils");
 const {
-  getAddPageRoute,
-  getApi, getAsyncMenu, getAsyncModel,
-  getDefineRouter, getFrontFormPath,
-  getImportApi,
-  getImportModel, getImportPage, getImportStore, getModal,
-  getModel, getPage, getRegisterStore,
-  getService, getStore
+  getAddPageRoute, getApi, getAsyncMenu, getAsyncModel, getDefineRouter, getFrontFormPath, getImportApi,
+  getImportModel, getImportPage, getImportStore, getModal, getModel, getPage, getRegisterStore, getService, getStore
 } = require("./templates");
 
 const basePath = path.resolve(process.cwd(), '..');
