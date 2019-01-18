@@ -330,5 +330,5 @@ module.exports.getImportPage = function (form) {
 };
 
 module.exports.getAddPageRoute = function (form) {
-  return `  {key: '/admin/${form}', component: ${upperFirstLetter(form)}Page},`;
+  return `   '/admin/${form}': ${upperFirstLetter(form)}Page,`;
 };

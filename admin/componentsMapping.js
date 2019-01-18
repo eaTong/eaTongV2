@@ -14,7 +14,7 @@ const componentsMapping = {
   '/admin/grant': GrantMenuPage,
   '/admin/task': TaskPage,
   '/admin/password': PasswordPage,
-  {key: '/admin/bug', component: BugPage},
+  '/admin/bug': BugPage,
 //UPDATE_TAG:addPageRoute
 };
 
