@@ -19,10 +19,6 @@ import './styles/components.less';
 import HomePage from '~/pages/HomePage';
 import LoginPage from '~/pages/login/LoginPage';
 
-function renderRoute() {
-  return routes.map(item => <Route exact path={item.key} key={item.key} component={item.component}/>)
-}
-
 export default class App extends Component {
   render() {
     return (

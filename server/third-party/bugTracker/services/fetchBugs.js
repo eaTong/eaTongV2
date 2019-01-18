@@ -4,38 +4,72 @@
  */
 const bugTrackerDB = require('../db');
 
-const Users = bugTrackerDB.import('../models/users.js');
-const Bugs = bugTrackerDB.import('../models/bugs.js');
-const {Op, fn, col} = require('sequelize');
+const status = ['hang', 'new', ''];
 
-// Channel.hasMany(Record, {foreignKey: 'channel_id'});
-// Record.belongsTo(Channel, {foreignKey: 'channel_id'});
 
-Bugs.belongsTo(Users, {foreignKey: 'bg_assigned_to_user', targetKey: 'us_id'});
-Users.hasMany(Bugs, {foreignKey: 'bg_assigned_to_user', targetKey: 'us_id'});
+async function getCurrentBugStatus(time) {
 
-async function getCurrentBusStatus() {
-  // const counts = await Bugs.findAll({
-  //   group: 'bg_status',
-  //   attributes: ['bg_status', [fn('count', 'Bugs.bg_status'), 'statusCount']],
-  //   order: [['bg_status']],
-  //   where: {bg_project: 12}
-  // });
+  const sql = `
+with userCount as (SELECT u.us_id,b.bg_status, count(*) as count
+                   FROM bugs b
+                          left join users u on u.us_id = b.bg_assigned_to_user
+                   where bg_project = 12
+                     and u.us_id is not null
+                     and (
+                       b.bg_status not in (2,5, 6, 7, 8, 9)
+                       or (b.bg_status = 5 and b.bg_last_updated_date > '${time}')
+                     )
+                   group by u.us_id, b.bg_status)
+select u.us_username as name,c.count as count, s.st_id as status
+from userCount c
+       left join users u on u.us_id = c.us_id
+       left join statuses s on s.st_id = c.bg_status;
 
-  // const UserCount = await Bugs.findAll({
-  //   group: 'bg_status',
-  //   attributes: ['bg_status',  [fn('count', 'Users.us_id'), 'statusCount']],
-  //   order: [['bg_status']],
-  //   where: {bg_project: 12},
-  //   include: [Users]
-  // });
-  // return 1;
-  const sql = `with userCount as (SELECT  u.us_id ,b.bg_status , count(*) as count FROM bugs b left join users u on u.us_id = b.bg_assigned_to_user  where bg_project =12   group by u.us_id , b.bg_status)
-select * from userCount c left join users u on u.us_id = c.us_id left join statuses s on s.st_id = c.bg_status;`;
-  const result = await bugTrackerDB.query('');
+`;
+  const result = await bugTrackerDB.query(sql, {type: bugTrackerDB.QueryTypes.SELECT});
 
-  return counts.map(count => count.dataValues.statusCount);
+  if (result && result.length > 0) {
+    const countMapping = {};
+    result.forEach(item => {
+      // console.log(item);
+      if (!countMapping[item.name]) {
+        countMapping[item.name] = {
+          new: 0,
+          test: 0,
+          complete: 0,
+          return: 0,
+          hang: 0
+        };
+      }
+
+      switch (item.status) {
+        case 0:
+          countMapping[item.name].hang = item.count;
+          break;
+        case 1:
+          countMapping[item.name].new = item.count;
+          break;
+        case 5:
+          countMapping[item.name].complete = item.count;
+          break;
+        case 3:
+          countMapping[item.name].test = item.count;
+          break;
+        case 10:
+          countMapping[item.name].return = item.count;
+          break;
+      }
+
+    });
+    const statics = [];
+    for (let key in countMapping) {
+      statics.push({...countMapping[key], name: key})
+    }
+    console.log(statics);
+    return statics;
+  }
+  return []
 }
 
 
-getCurrentBusStatus();
+getCurrentBugStatus('2019-01-18');
