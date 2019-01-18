@@ -4,9 +4,6 @@
  */
 const bugTrackerDB = require('../db');
 
-const status = ['hang', 'new', ''];
-
-
 async function getCurrentBugStatus(time) {
 
   const sql = `
@@ -31,7 +28,6 @@ from userCount c
   if (result && result.length > 0) {
     const countMapping = {};
     result.forEach(item => {
-      // console.log(item);
       if (!countMapping[item.name]) {
         countMapping[item.name] = {
           new: 0,
@@ -65,11 +61,9 @@ from userCount c
     for (let key in countMapping) {
       statics.push({...countMapping[key], name: key})
     }
-    console.log(statics);
     return statics;
   }
   return []
 }
 
-
-getCurrentBugStatus('2019-01-18');
+module.exports = getCurrentBugStatus;
