@@ -121,7 +121,7 @@ module.exports.getAsyncModel = function (form) {
 
 module.exports.getAsyncMenu = function (form) {
   return ` 
-    {name: '${form}', icon: 'file', path: '/admin/${form}', enable: true},
+    {name: '${form}', icon: 'file', path: '/admin/${form}', enable: true, parentPath: '',type:1},
     {name: '新增', icon: 'plus', path: '/admin/${form}/add', enable: true, parentPath: '/admin/${form}', type: 2},
     {name: '编辑', icon: 'edit', path: '/admin/${form}/edit', enable: true, parentPath: '/admin/${form}', type: 2},
     {name: '删除', icon: 'delete', path: '/admin/${form}/delete', enable: true, parentPath: '/admin/${form}', type: 2},
