@@ -45,8 +45,8 @@ readlineInstance.question('What\'s the form name ?', async form => {
 
 
 // generate code of frontend
-  await writeFile(path.resolve(frontPath, `${upperFirstLetter(form)}Modal.js`), getModal(form));
-  await writeFile(path.resolve(frontPath, `${upperFirstLetter(form)}Page.js`), getPage(form));
+  await writeFile(path.resolve(frontPath, form, `${upperFirstLetter(form)}Modal.js`), getModal(form));
+  await writeFile(path.resolve(frontPath, form, `${upperFirstLetter(form)}Page.js`), getPage(form));
   await writeFile(path.resolve(storePath, `${upperFirstLetter(form)}Store.js`), getStore(form));
   await updateFile(storeIndexPath, 'importStore', getImportStore(form));
   await updateFile(storeIndexPath, 'registerStore', getRegisterStore(form));

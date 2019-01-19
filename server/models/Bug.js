@@ -13,6 +13,7 @@ const Bug = sequelize.define('bug', {
   complete: {type: Sequelize.INTEGER},
   return: {type: Sequelize.INTEGER},
   hang: {type: Sequelize.INTEGER},
+  date: {type: Sequelize.DATEONLY},
   enable: Sequelize.BOOLEAN,
 });
 

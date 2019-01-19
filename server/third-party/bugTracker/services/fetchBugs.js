@@ -59,7 +59,7 @@ from userCount c
     });
     const statics = [];
     for (let key in countMapping) {
-      statics.push({...countMapping[key], name: key})
+      statics.push({...countMapping[key], name: key, date: time})
     }
     return statics;
   }
