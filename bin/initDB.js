@@ -17,7 +17,6 @@ const Bug = require('../server/models/Bug');
   await initialDatabaseStructure();
   await initialMenu();
   await initRole();
-  // await initZoomConfig();
   process.exit();
 })();
 
@@ -59,7 +58,7 @@ async function initialMenu() {
     {name: '编辑', icon: 'edit', path: '/admin/password/edit', enable: true, parentPath: '/admin/password', type: 2},
     {name: '删除', icon: 'delete', path: '/admin/password/delete', enable: true, parentPath: '/admin/password', type: 2},
 
-    {name: 'bug', icon: 'file', path: '/admin/bug', enable: true, parentPath: '', type: 1},
+    {name: 'bug', icon: 'exception', path: '/admin/bug', enable: true, parentPath: '', type: 1},
     {name: '新增', icon: 'plus', path: '/admin/bug/add', enable: true, parentPath: '/admin/bug', type: 2},
     {name: '编辑', icon: 'edit', path: '/admin/bug/edit', enable: true, parentPath: '/admin/bug', type: 2},
     {name: '删除', icon: 'delete', path: '/admin/bug/delete', enable: true, parentPath: '/admin/bug', type: 2},

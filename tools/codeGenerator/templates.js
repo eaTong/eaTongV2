@@ -144,7 +144,7 @@ const columns = [
 ];
 
 @inject('${form}','app') @observer
-class ${upperFirstLetter(form)}Page extends Component {
+class ${upperFirstLetter(form)}Page extends PageBase {
   async componentDidMount() {
     await this.props.${form}.getDataList();
   }

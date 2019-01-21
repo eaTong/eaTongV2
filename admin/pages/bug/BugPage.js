@@ -18,7 +18,7 @@ const columns = [
 ];
 
 @inject('bug','app') @observer
-class BugPage extends Component {
+class BugPage extends PageBase {
   async componentDidMount() {
     await this.props.bug.getDataList();
   }
@@ -35,7 +35,7 @@ class BugPage extends Component {
             placeholder={'输入关键字搜索'}
             onSearch={(val) => bug.searchData(val)}
           />
-          
+
           <ButtonGroup className="buttons">
             <Button
               onClick={() => this.props.bug.toggleModal('add')}
@@ -96,4 +96,3 @@ class BugPage extends Component {
 
 BugPage.propTypes = {};
 export default BugPage;
-  
