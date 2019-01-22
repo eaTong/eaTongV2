@@ -1,11 +1,10 @@
-
 /**
  * Created by eaTong on 2019-01-18 .
  * Description: auto generated in  2019-01-18
  */
 
 import React, {Component} from 'react';
-import {Button, message ,Input , Pagination} from 'antd';
+import {Button, message, Input, Pagination} from 'antd';
 import Reactable from "@eatong/reactable";
 import BugModal from "./BugModal";
 import {inject, observer} from "mobx-react";
@@ -17,7 +16,7 @@ const columns = [
   {title: '名称', key: 'name'},
 ];
 
-@inject('bug','app') @observer
+@inject('bug', 'app') @observer
 class BugPage extends PageBase {
   async componentDidMount() {
     await this.props.bug.getDataList();
@@ -25,10 +24,10 @@ class BugPage extends PageBase {
 
   render() {
     const {bug} = this.props;
-    const {dataList, operateType, showModal, selectedKeys, rowSelection, firstSelected , pagination} = bug;
+    const {dataList, operateType, showModal, selectedKeys, rowSelection, firstSelected, pagination} = bug;
     return (
       <div className="base-layout bug-page">
-        <Title title='XX管理'/>
+        <Title title='BUG管理'/>
         <div className="operate-bar">
           <Input.Search
             className={'search'}

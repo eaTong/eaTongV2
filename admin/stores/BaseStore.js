@@ -34,6 +34,7 @@ export default class BaseStore {
   @computed get pagination() {
     return {
       showSizeChanger: true,
+      hideOnSinglePage: true,
       showQuickJumper: true,
       current: this.pageIndex + 1,
       pageSize: this.pageSize,
@@ -92,9 +93,9 @@ export default class BaseStore {
       this.dataList = [];
       this.selectedKeys = [];
       let dataList;
-      if (data.total) {
+      if (data.hasOwnProperty('total')) {
         this.total = data.total;
-        dataList = data.list ;
+        dataList = data.list;
       } else {
         dataList = data;
       }
