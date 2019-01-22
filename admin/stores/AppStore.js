@@ -49,7 +49,6 @@ export default class AppStore {
     const data = await ajax({url: '/api/menu/authorised'});
     this.menus = data || [];
     this.initialAuthMapping(data || []);
-    console.log(this.authMapping);
   }
 
   @action
@@ -164,7 +163,6 @@ export default class AppStore {
       newIndex = newList.length - 2;
       newKey = newList[newIndex];
     }
-    console.log(12, newList, index, newIndex);
     if (index >= 0) {
       if (/\s\*/.test(newList[newIndex].name)) {
 
