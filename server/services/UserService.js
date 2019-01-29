@@ -34,7 +34,7 @@ class UserService extends BaseService {
   }
 
   static async getUsers() {
-    return await User.findAll({attributes: ['id', 'name', 'account'], where: {enable: true, name: {[Op.like]: `%${keywords}%`}}, include: [{model: Role}]});
+    return await User.findAll({attributes: ['id', 'name', 'account'], where: {enable: true}, include: [{model: Role}]});
   }
 
   static async grantRole(data) {
