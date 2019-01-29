@@ -30,7 +30,7 @@ class PasswordPage extends PageBase {
 
   render() {
     const {password} = this.props;
-    const {dataList, operateType, showModal, selectedKeys,  firstSelected, pagination} = password;
+    const {dataList, operateType, showFormModal, selectedKeys,  firstSelected, pagination} = password;
     return (
       <div className="base-layout password-page">
         <Title title='密码管理'/>
@@ -43,20 +43,20 @@ class PasswordPage extends PageBase {
 
           <ButtonGroup className="buttons">
             <Button
-              onClick={() => password.toggleModal('add')}
+              onClick={() => password.toggleFormModal('add')}
               disabled={this.disableButton('add')}
               type={'primary'}
             >
               新增
             </Button>
             <Button
-              onClick={() => password.toggleModal('copyAdd')}
+              onClick={() => password.toggleFormModal('copyAdd')}
               disabled={this.disableButton('add', selectedKeys.length !== 1)}
             >
               复制并新增
             </Button>
             <Button
-              onClick={() => password.toggleModal('edit')}
+              onClick={() => password.toggleFormModal('edit')}
               disabled={this.disableButton('edit', selectedKeys.length !== 1)}
             >
               编辑
@@ -80,9 +80,9 @@ class PasswordPage extends PageBase {
             onChange: (keys) => password.onChangeSelection(keys)
           }}/>
         <Pagination {...pagination}/>
-        {showModal && (
+        {showFormModal && (
           <PasswordModal
-            onCancel={() => password.toggleModal()}
+            onCancel={() => password.toggleFormModal()}
             onOk={(data) => password.onSaveData(data)}
             operateType={operateType}
             formData={firstSelected}

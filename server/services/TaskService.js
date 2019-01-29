@@ -1,4 +1,3 @@
-
 /**
  * Created by eaTong on 2018-31-12 .
  * Description: auto generated in  2018-31-12
@@ -6,7 +5,6 @@
 
 const {Op} = require('sequelize');
 const sequelize = require('../framework/database');
-const {LogicError} = require('../framework/errors');
 const BaseService = require('../framework/BaseService');
 const Task = require('../models/Task');
 
@@ -26,7 +24,7 @@ class TaskService extends BaseService {
   }
 
   static async getTasks({pageIndex = 0, pageSize = 20, keywords = ''}) {
-    const option = {where: {enable: true}};
+    const option = {where: {enable: true, name: {[Op.like]: `%${keywords}%`}}};
     const {dataValues: {total}} = await Task.findOne({
       ...option,
       attributes: [[sequelize.fn('COUNT', '*'), 'total']]
@@ -35,10 +33,9 @@ class TaskService extends BaseService {
     return {total, list}
   }
 
-  static async getTaskDetail(id) {
+  static async getTaskDetail({id}) {
     return await Task.findOne({where: {id}});
   }
 }
 
 module.exports = TaskService;
-  

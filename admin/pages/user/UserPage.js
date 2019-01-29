@@ -27,21 +27,21 @@ class UserPage extends PageBase {
 
   render() {
     const {user} = this.props;
-    const {dataList, operateType, showModal, showGrantModal, selectedKeys, firstSelected, pagination} = user;
+    const {dataList, operateType, showFormModal, showGrantModal, selectedKeys, firstSelected, pagination} = user;
     return (
       <div className="base-layout">
         <Title title='用户管理'/>
         <div className="operate-bar">
           <ButtonGroup className="buttons">
             <Button
-              onClick={() => user.toggleModal('add')}
+              onClick={() => user.toggleFormModal('add')}
               disabled={this.disableButton('add')}
               type={'primary'}
             >
               新增
             </Button>
             <Button
-              onClick={() => user.toggleModal('edit')}
+              onClick={() => user.toggleFormModal('edit')}
               disabled={this.disableButton('edit', selectedKeys.length !== 1)}
             >
               编辑
@@ -71,9 +71,9 @@ class UserPage extends PageBase {
             onChange: (keys) => user.onChangeSelection(keys)
           }}/>
         <Pagination {...pagination}/>
-        {showModal && (
+        {showFormModal && (
           <UserModal
-            onCancel={() => user.toggleModal()}
+            onCancel={() => user.toggleFormModal()}
             onOk={(data) => user.onSaveData(data)}
             operateType={operateType}
             formData={firstSelected}

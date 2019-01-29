@@ -10,11 +10,13 @@ const PAGE_SIZE = 20;
 export default class BaseStore {
   @observable dataList = [];
   @observable operateType = 'add';
-  @observable showModal = false;
+  @observable showFormModal = false;
+  @observable showDetailModal = false;
   @observable selectedKeys = [];
   @observable pageIndex = 0;
   @observable pageSize = PAGE_SIZE;
   @observable total = 0;
+  @observable detailData = {};
 
   listApi = '';
   addApi = '';
@@ -51,7 +53,7 @@ export default class BaseStore {
     this.pageIndex = 0;
     this.total = 0;
     this.keyMap = {};
-    this.showModal = false;
+    this.showFormModal = false;
   }
 
   @action onChangeQueryOption(field, value) {
@@ -60,9 +62,13 @@ export default class BaseStore {
     this.queryOption = queryOption;
   }
 
-  @action toggleModal(operateType) {
+  @action toggleFormModal(operateType, visible) {
     this.operateType = operateType;
-    this.showModal = !this.showModal;
+    this.showFormModal = typeof visible === 'undefined' ? !this.showFormModal : visible;
+  }
+
+  @action toggleDetailModal(visible) {
+    this.showDetailModal = typeof visible === 'undefined' ? !this.showFormModal : visible;
   }
 
   @action onChangeSelection(selectedKeys) {
@@ -122,12 +128,12 @@ export default class BaseStore {
     if (/(add)|(copyAdd)/.test(this.operateType)) {
       await ajax({url: this.addApi, data: formData});
       message.success('新增成功');
-      this.toggleModal();
+      this.toggleFormModal();
       await this.getDataList();
     } else {
       await ajax({url: this.updateApi, data: {id: this.getKey(this.firstSelected), ...formData}});
       message.success('编辑成功');
-      this.toggleModal();
+      this.toggleFormModal();
       await this.getDataList();
     }
   }
@@ -141,5 +147,17 @@ export default class BaseStore {
     }
     await this.getDataList();
     this.selectedKeys = [];
+  }
+
+  @action
+  async viewDetail(id) {
+    this.showDetailModal = true;
+    await this.getDetailData(id || this.selectedKeys[0]);
+  }
+
+  @action
+  async getDetailData(id) {
+    this.detailData = {};
+    this.detailData = await ajax({url: this.detailApi, data: {id: id || this.selectedKeys[0]}});
   }
 }

@@ -24,7 +24,7 @@ class BugPage extends PageBase {
 
   render() {
     const {bug} = this.props;
-    const {dataList, operateType, showModal, selectedKeys, rowSelection, firstSelected, pagination} = bug;
+    const {dataList, operateType, showFormModal, selectedKeys, rowSelection, firstSelected, pagination} = bug;
     return (
       <div className="base-layout bug-page">
         <Title title='BUG管理'/>
@@ -37,20 +37,20 @@ class BugPage extends PageBase {
 
           <ButtonGroup className="buttons">
             <Button
-              onClick={() => this.props.bug.toggleModal('add')}
+              onClick={() => this.props.bug.toggleFormModal('add')}
               disabled={this.disableButton('add')}
               type={'primary'}
             >
               新增
             </Button>
             <Button
-              onClick={() => bug.toggleModal('copyAdd')}
+              onClick={() => bug.toggleFormModal('copyAdd')}
               disabled={this.disableButton('add', selectedKeys.length !== 1)}
             >
               复制并新增
             </Button>
             <Button
-              onClick={() => this.props.bug.toggleModal('edit')}
+              onClick={() => this.props.bug.toggleFormModal('edit')}
               disabled={this.disableButton('edit', selectedKeys.length !== 1)}
             >
               编辑
@@ -80,9 +80,9 @@ class BugPage extends PageBase {
             onChange: (keys) => bug.onChangeSelection(keys)
           }}/>
         <Pagination {...pagination}/>
-        {showModal && (
+        {showFormModal && (
           <BugModal
-            onCancel={() => bug.toggleModal()}
+            onCancel={() => bug.toggleFormModal()}
             onOk={(data) => bug.onSaveData(data)}
             operateType={operateType}
             formData={firstSelected}

@@ -27,7 +27,7 @@ class BugService extends BaseService {
   }
 
   static async getBugs({pageIndex = 0, pageSize = 20, keywords = ''}) {
-    const option = {where: {enable: true}};
+    const option = {where: {enable: true, name: {[Op.like]: `%${keywords}%`}}};
     const {dataValues: {total}} = await Bug.findOne({
       ...option,
       attributes: [[sequelize.fn('COUNT', '*'), 'total']]
@@ -36,7 +36,7 @@ class BugService extends BaseService {
     return {total, list}
   }
 
-  static async getBugDetail(id) {
+  static async getBugDetail({id}) {
     return await Bug.findOne({where: {id}});
   }
 

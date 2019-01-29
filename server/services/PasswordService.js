@@ -59,7 +59,7 @@ class PasswordService extends BaseService {
   }
 
   static
-  async getPasswordDetail(id) {
+  async getPasswordDetail({id}) {
     return await Password.findOne({where: {id}});
   }
 

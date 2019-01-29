@@ -26,7 +26,7 @@ class RolePage extends PageBase {
 
   render() {
     const {role} = this.props;
-    const {dataList, operateType, showModal, showGrantModal, selectedKeys, firstSelected, pagination} = role;
+    const {dataList, operateType, showFormModal, showGrantModal, selectedKeys, firstSelected, pagination} = role;
     return (
       <div className="base-layout">
         <Title title='角色管理'/>
@@ -34,14 +34,14 @@ class RolePage extends PageBase {
 
           <ButtonGroup className="buttons">
             <Button
-              onClick={() => role.toggleModal('add')}
+              onClick={() => role.toggleFormModal('add')}
               disabled={this.disableButton('add')}
               type={'primary'}
             >
               新增
             </Button>
             <Button
-              onClick={() => role.toggleModal('edit')}
+              onClick={() => role.toggleFormModal('edit')}
               disabled={this.disableButton('edit', selectedKeys.length !== 1)}
             >
               编辑
@@ -73,9 +73,9 @@ class RolePage extends PageBase {
           }}/>
 
         <Pagination {...pagination}/>
-        {showModal && (
+        {showFormModal && (
           <RoleModal
-            onCancel={() => role.toggleModal()}
+            onCancel={() => role.toggleFormModal()}
             onOk={(data) => role.onSaveData(data)}
             operateType={operateType}
             formData={firstSelected}

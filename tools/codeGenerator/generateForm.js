@@ -7,8 +7,8 @@ const readline = require('readline');
 const path = require('path');
 const {updateFile, upperFirstLetter, writeFile} = require("./utils");
 const {
-  getAddPageRoute, getApi, getAsyncMenu, getAsyncModel, getDefineRouter, getFrontFormPath, getImportApi,
-  getImportModel, getImportPage, getImportStore, getModal, getModel, getPage, getRegisterStore, getService, getStore
+  getAddPageRoute, getApi, getAsyncMenu, getAsyncModel, getDefineRouter, getImportApi,
+  getImportModel, getImportPage, getImportStore, getFormModal, getModel, getPage, getRegisterStore, getService, getStore
 } = require("./templates");
 
 const basePath = path.resolve(process.cwd(), '..');
@@ -27,25 +27,19 @@ const readlineInstance = readline.createInterface({
   output: process.stdout
 });
 
-console.log(basePath);
-
 readlineInstance.question('What\'s the form name ?', async form => {
-  console.log(upperFirstLetter(form));
 // generate code of backend
   await writeFile(path.resolve(modelPath, `${upperFirstLetter(form)}.js`), getModel(form));
   await writeFile(path.resolve(apiPath, `${upperFirstLetter(form)}Api.js`), getApi(form));
   await writeFile(path.resolve(servicePath, `${upperFirstLetter(form)}Service.js`), getService(form));
-
   await updateFile(routerPath, 'importApi', getImportApi(form));
   await updateFile(routerPath, 'defineRouter', getDefineRouter(form));
-
   await updateFile(initDbPath, 'importModel', getImportModel(form));
   await updateFile(initDbPath, 'asyncModel', getAsyncModel(form));
   await updateFile(initDbPath, 'asyncMenu', getAsyncMenu(form));
 
-
 // generate code of frontend
-  await writeFile(path.resolve(frontPath, form, `${upperFirstLetter(form)}Modal.js`), getModal(form));
+  await writeFile(path.resolve(frontPath, form, `${upperFirstLetter(form)}FormModal.js`), getFormModal(form));
   await writeFile(path.resolve(frontPath, form, `${upperFirstLetter(form)}Page.js`), getPage(form));
   await writeFile(path.resolve(storePath, `${upperFirstLetter(form)}Store.js`), getStore(form));
   await updateFile(storeIndexPath, 'importStore', getImportStore(form));

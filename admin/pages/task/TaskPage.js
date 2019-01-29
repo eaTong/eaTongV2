@@ -1,31 +1,38 @@
-
 /**
  * Created by eaTong on 2018-31-12 .
  * Description: auto generated in  2018-31-12
  */
 
 import React, {Component} from 'react';
-import {Button, message ,Input , Pagination} from 'antd';
+import {Button, message, Input, Pagination} from 'antd';
 import Reactable from "@eatong/reactable";
-import TaskModal from "./TaskModal";
+import TaskFormModal from "./TaskFormModal";
 import {inject, observer} from "mobx-react";
 import Title from "~/components/Title";
 import PageBase from "~/components/PageBase";
+import TaskDetailModal from "~/pages/task/TaskDetailModal";
 
 const ButtonGroup = Button.Group;
-const columns = [
-  {title: '名称', key: 'name'},
-];
 
 @inject('task', 'app') @observer
 class TaskPage extends PageBase {
+  componentWillMount() {
+    this.columns = [
+      {
+        title: '名称', key: 'name', render: (text, row) => (
+          <span className="link-text" onClick={() => this.props.task.viewDetail(row.id)}>{text}</span>
+        )
+      },
+    ];
+  }
+
   async componentDidMount() {
     await this.props.task.getDataList();
   }
 
   render() {
     const {task} = this.props;
-    const {dataList, operateType, showModal, selectedKeys,  firstSelected , pagination} = task;
+    const {dataList, operateType, showFormModal, showDetailModal, selectedKeys, firstSelected, pagination} = task;
     return (
       <div className="base-layout task-page">
         <Title title='任务管理'/>
@@ -38,20 +45,20 @@ class TaskPage extends PageBase {
 
           <ButtonGroup className="buttons">
             <Button
-              onClick={() => task.toggleModal('add')}
+              onClick={() => task.toggleFormModal('add')}
               disabled={this.disableButton('add')}
               type={'primary'}
             >
               新增
             </Button>
             <Button
-              onClick={() => task.toggleModal('copyAdd')}
+              onClick={() => task.toggleFormModal('copyAdd')}
               disabled={this.disableButton('add', selectedKeys.length !== 1)}
             >
               复制并新增
             </Button>
             <Button
-              onClick={() => task.toggleModal('edit')}
+              onClick={() => task.toggleFormModal('edit')}
               disabled={this.disableButton('edit', selectedKeys.length !== 1)}
             >
               编辑
@@ -65,7 +72,7 @@ class TaskPage extends PageBase {
           </ButtonGroup>
         </div>
         <Reactable
-          columns={columns}
+          columns={this.columns}
           dataSource={dataList}
           rowKey="id"
           tableId="task-table"
@@ -75,12 +82,19 @@ class TaskPage extends PageBase {
             onChange: (keys) => task.onChangeSelection(keys)
           }}/>
         <Pagination {...pagination}/>
-        {showModal && (
-          <TaskModal
-            onCancel={() => task.toggleModal()}
+        {showFormModal && (
+          <TaskFormModal
+            onCancel={() => task.toggleFormModal()}
             onOk={(data) => task.onSaveData(data)}
             operateType={operateType}
             formData={firstSelected}
+          />
+        )}
+        {showDetailModal && (
+          <TaskDetailModal
+            title={'任务详情'}
+            onCancel={() => task.toggleDetailModal(false)}
+            detailData={task.detailData}
           />
         )}
       </div>

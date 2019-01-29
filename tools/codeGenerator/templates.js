@@ -79,7 +79,7 @@ class ${upperFirstLetter(form)}Service extends BaseService {
   }
 
   static async get${upperFirstLetter(form)}s({pageIndex = 0, pageSize = 20, keywords = ''}) {
-    const option = {where: {enable: true}};
+    const option = {where: {enable: true, name: {[Op.like]: \`%\${keywords}%\`}}};
     const {dataValues: {total}} = await ${upperFirstLetter(form)}.findOne({
       ...option,
       attributes: [[sequelize.fn('COUNT', '*'), 'total']]
@@ -88,7 +88,7 @@ class ${upperFirstLetter(form)}Service extends BaseService {
     return {total, list}
   }
 
-  static async get${upperFirstLetter(form)}Detail(id) {
+  static async get${upperFirstLetter(form)}Detail({id}) {
     return await ${upperFirstLetter(form)}.findOne({where: {id}});
   }
 }
@@ -133,7 +133,7 @@ module.exports.getPage = function (form) {
 import React, {Component} from 'react';
 import {Button, message ,Input , Pagination} from 'antd';
 import Reactable from "@eatong/reactable";
-import ${upperFirstLetter(form)}Modal from "./${upperFirstLetter(form)}Modal";
+import ${upperFirstLetter(form)}FormModal from "./${upperFirstLetter(form)}FormModal";
 import {inject, observer} from "mobx-react";
 import Title from "~/components/Title";
 import PageBase from "~/components/PageBase";
@@ -151,7 +151,7 @@ class ${upperFirstLetter(form)}Page extends PageBase {
 
   render() {
     const {${form}} = this.props;
-    const {dataList, operateType, showModal, selectedKeys, rowSelection, firstSelected , pagination} = ${form};
+    const {dataList, operateType, showFormModal, selectedKeys, rowSelection, firstSelected , pagination} = ${form};
     return (
       <div className="base-layout ${form}-page">
         <Title title='XX管理'/>
@@ -164,20 +164,20 @@ class ${upperFirstLetter(form)}Page extends PageBase {
           
           <ButtonGroup className="buttons">
             <Button
-              onClick={() => this.props.${form}.toggleModal('add')}
+              onClick={() => this.props.${form}.toggleFormModal('add')}
               disabled={this.disableButton('add')}
               type={'primary'}
             >
               新增
             </Button>
             <Button
-              onClick={() => ${form}.toggleModal('copyAdd')}
+              onClick={() => ${form}.toggleFormModal('copyAdd')}
               disabled={this.disableButton('add', selectedKeys.length !== 1)}
             >
               复制并新增
             </Button>
             <Button
-              onClick={() => this.props.${form}.toggleModal('edit')}
+              onClick={() => this.props.${form}.toggleFormModal('edit')}
               disabled={this.disableButton('edit', selectedKeys.length !== 1)}
             >
               编辑
@@ -207,9 +207,9 @@ class ${upperFirstLetter(form)}Page extends PageBase {
             onChange: (keys) => ${form}.onChangeSelection(keys)
           }}/>
         <Pagination {...pagination}/>
-        {showModal && (
-          <${upperFirstLetter(form)}Modal
-            onCancel={() => ${form}.toggleModal()}
+        {showFormModal && (
+          <${upperFirstLetter(form)}FormModal
+            onCancel={() => ${form}.toggleFormModal()}
             onOk={(data) => ${form}.onSaveData(data)}
             operateType={operateType}
             formData={firstSelected}
@@ -225,7 +225,7 @@ export default ${upperFirstLetter(form)}Page;
   `;
 };
 
-module.exports.getModal = function (form) {
+module.exports.getFormModal = function (form) {
   return `
   import React, {Component} from 'react';
 import PropTypes from 'prop-types';
@@ -243,7 +243,7 @@ const formItemLayout = {
   },
 };
 
-class ${upperFirstLetter(form)}Modal extends Component {
+class ${upperFirstLetter(form)}FormModal extends Component {
   componentDidMount() {
     if (/(edit)|(copyAdd)/.test(this.props.operateType)) {
       this.props.form.setFieldsValue(this.props.formData);

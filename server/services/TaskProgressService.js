@@ -43,7 +43,7 @@ class TaskProgressService extends BaseService {
     });
   }
 
-  static async getTaskProgressDetail(id) {
+  static async getTaskProgressDetail({id}) {
     return await TaskProgress.findOne({where: {id}});
   }
 }

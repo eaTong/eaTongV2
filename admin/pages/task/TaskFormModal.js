@@ -19,7 +19,7 @@ const formItemLayout = {
   },
 };
 
-class TaskModal extends Component {
+class TaskFormModal extends Component {
   componentDidMount() {
     if (/(edit)|(copyAdd)/.test(this.props.operateType)) {
       this.props.form.setFieldsValue(this.props.formData);
@@ -61,11 +61,11 @@ class TaskModal extends Component {
   }
 }
 
-TaskModal.propTypes = {
+TaskFormModal.propTypes = {
   operateType: PropTypes.string,
   onOk: PropTypes.func,
   onCancel: PropTypes.func,
   formData: PropTypes.object
 };
-TaskModal = Form.create()(TaskModal);
-export default TaskModal;
+TaskFormModal = Form.create()(TaskFormModal);
+export default TaskFormModal;
