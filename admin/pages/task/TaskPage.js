@@ -10,7 +10,7 @@ import TaskFormModal from "./TaskFormModal";
 import {inject, observer} from "mobx-react";
 import Title from "~/components/Title";
 import PageBase from "~/components/PageBase";
-import TaskDetailModal from "~/pages/task/TaskDetailModal";
+import DetailComponent from "~/components/DetailComponent";
 
 const ButtonGroup = Button.Group;
 
@@ -20,7 +20,9 @@ class TaskPage extends PageBase {
     this.columns = [
       {
         title: '名称', key: 'name', render: (text, row) => (
-          <span className="link-text" onClick={() => this.props.task.viewDetail(row.id)}>{text}</span>
+          <DetailComponent renderDetail={() => <span className="abc">llll</span>}>
+            {text}
+          </DetailComponent>
         )
       },
     ];
@@ -88,13 +90,6 @@ class TaskPage extends PageBase {
             onOk={(data) => task.onSaveData(data)}
             operateType={operateType}
             formData={firstSelected}
-          />
-        )}
-        {showDetailModal && (
-          <TaskDetailModal
-            title={'任务详情'}
-            onCancel={() => task.toggleDetailModal(false)}
-            detailData={task.detailData}
           />
         )}
       </div>
