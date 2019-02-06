@@ -154,7 +154,7 @@ class ${upperFirstLetter(form)}Page extends PageBase {
     const {dataList, operateType, showFormModal, selectedKeys, rowSelection, firstSelected , pagination} = ${form};
     return (
       <div className="base-layout ${form}-page">
-        <Title title='XX管理'/>
+        <Title title='${form}管理'/>
         <div className="operate-bar">
           <Input.Search
             className={'search'}

@@ -5,6 +5,7 @@
 
 const readline = require('readline');
 const path = require('path');
+const minimist = require('minimist');
 const {updateFile, upperFirstLetter, writeFile} = require("./utils");
 const {
   getAddPageRoute, getApi, getAsyncMenu, getAsyncModel, getDefineRouter, getImportApi,
@@ -28,6 +29,13 @@ const readlineInstance = readline.createInterface({
 });
 
 readlineInstance.question('What\'s the form name ?', async form => {
+  const args = minimist(process.argv.slice(2));
+
+  const specifyCode = args.hasOwnProperty('f') || args.hasOwnProperty('b');
+  const moduleName = args.m;
+
+  if (args.b || !specifyCode) {
+
 // generate code of backend
   await writeFile(path.resolve(modelPath, `${upperFirstLetter(form)}.js`), getModel(form));
   await writeFile(path.resolve(apiPath, `${upperFirstLetter(form)}Api.js`), getApi(form));
@@ -38,6 +46,8 @@ readlineInstance.question('What\'s the form name ?', async form => {
   await updateFile(initDbPath, 'asyncModel', getAsyncModel(form));
   await updateFile(initDbPath, 'asyncMenu', getAsyncMenu(form));
 
+  }
+  if (args.b || !specifyCode) {
 // generate code of frontend
   await writeFile(path.resolve(frontPath, form, `${upperFirstLetter(form)}FormModal.js`), getFormModal(form));
   await writeFile(path.resolve(frontPath, form, `${upperFirstLetter(form)}Page.js`), getPage(form));
@@ -48,6 +58,7 @@ readlineInstance.question('What\'s the form name ?', async form => {
   await updateFile(appPath, 'addPageRoute', getAddPageRoute(form));
   readlineInstance.close();
 
+  }
   process.exit();
 });
 

@@ -38,6 +38,7 @@
     "koa-router": "^7.4.0",
     "koa-session-minimal": "^3.0.4",
     "koa-static": "^5.0.0",
+    "minimist": "^1.2.0",
     "mssql": "^4.3.0",
     "mysql2": "^1.6.4",
     "next": "^7.0.2",
