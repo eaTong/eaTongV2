@@ -69,11 +69,10 @@ async function initialMenu() {
 }
 
 async function initRole() {
-  const role = await Role.findAll();
-  if (role.length === 0) {
-    const adminRole = await Role.create({name: '系统管理员', enable: true});
-    const menus = await Menu.findAll();
-    adminRole.setMenus(menus);
-    await adminRole.save();
+  let role = await Role.findOne();
+  if (!role) {
+    role = await Role.create({name: '系统管理员', enable: true});
   }
+  const menus = await Menu.findAll();
+  await role.addMenus(menus.map(item => item.id));
 }
