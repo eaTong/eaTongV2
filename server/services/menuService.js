@@ -3,18 +3,17 @@
  */
 const {Op} = require('sequelize');
 
-const BaseService = require('../framework/BaseService');
 const User = require('../models/User');
 const Menu = require('../models/Menu');
 const Role = require('../models/Role');
 
-class MenuService extends BaseService {
-  static async getMenus() {
+module.exports = {
+  getMenus: async () => {
     const menus = await Menu.findAll({where: {enable: true}});
     return structureMenu(menus.map(menu => menu.dataValues));
-  }
+  },
 
-  static async getAuthorisedMenu(userId) {
+  getAuthorisedMenu: async (userId) => {
     const menus = await Menu.findAll({
       where: {enable: true},
       include: [{
@@ -27,7 +26,7 @@ class MenuService extends BaseService {
     });
     return structureMenu(menus.map(menu => menu.dataValues))
   }
-}
+};
 
 function structureMenu(menus) {
   let keyMapping = {};
@@ -47,6 +46,3 @@ function structureMenu(menus) {
   return getChildrenPath('')
 }
 
-module.exports = MenuService;
-
-// MenuService.getMenus();

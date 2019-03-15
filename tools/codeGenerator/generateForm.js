@@ -47,7 +47,7 @@ readlineInstance.question('What\'s the form name ?', async form => {
   await updateFile(initDbPath, 'asyncMenu', getAsyncMenu(form));
 
   }
-  if (args.b || !specifyCode) {
+  if (args.f || !specifyCode) {
 // generate code of frontend
   await writeFile(path.resolve(frontPath, form, `${upperFirstLetter(form)}FormModal.js`), getFormModal(form));
   await writeFile(path.resolve(frontPath, form, `${upperFirstLetter(form)}Page.js`), getPage(form));

@@ -24,34 +24,25 @@ module.exports = ${upperFirstLetter(form)};
 module.exports.getApi = function (form) {
   return `
 const {LogicError} = require("../framework/errors");
-const ${upperFirstLetter(form)}Service = require('../services/${upperFirstLetter(form)}Service');
-const BaseApi = require('../framework/BaseApi');
+const ${form}Service = require('../services/${form}Service');
 
-
-class ${upperFirstLetter(form)}Api extends BaseApi {
-  static async add${upperFirstLetter(form)}(ctx) {
-    return await ${upperFirstLetter(form)}Service.add${upperFirstLetter(form)}(ctx.request.body);
+module.exports = {
+  add${upperFirstLetter(form)}: async (ctx) => {
+    return await ${form}Service.add${upperFirstLetter(form)}(ctx.request.body);
+  },
+  update${upperFirstLetter(form)}s: async (ctx) => {
+    return await ${form}Service.update${upperFirstLetter(form)}s(ctx.request.body);
+  },
+  delete${upperFirstLetter(form)}s: async (ctx) => {
+    return await ${form}Service.delete${upperFirstLetter(form)}s(ctx.request.body.ids);
+  },
+  get${upperFirstLetter(form)}s: async (ctx) => {
+    return await ${form}Service.get${upperFirstLetter(form)}s(ctx.request.body);
+  },
+  get${upperFirstLetter(form)}Detail: async (ctx) => {
+    return await ${form}Service.get${upperFirstLetter(form)}Detail(ctx.request.body);
   }
-
-  static async update${upperFirstLetter(form)}s(ctx) {
-    return await ${upperFirstLetter(form)}Service.update${upperFirstLetter(form)}s(ctx.request.body);
-  }
-
-  static async delete${upperFirstLetter(form)}s(ctx) {
-    return await ${upperFirstLetter(form)}Service.delete${upperFirstLetter(form)}s(ctx.request.body.ids);
-  }
-
-  static async get${upperFirstLetter(form)}s(ctx) {
-    return await ${upperFirstLetter(form)}Service.get${upperFirstLetter(form)}s(ctx.request.body);
-  }
-
-  static async get${upperFirstLetter(form)}Detail(ctx) {
-    return await ${upperFirstLetter(form)}Service.get${upperFirstLetter(form)}Detail(ctx.request.body);
-  }
-
-}
-
-module.exports = ${upperFirstLetter(form)}Api;
+};
   `;
 };
 
@@ -60,54 +51,53 @@ module.exports.getService = function (form) {
 const {Op} = require('sequelize');
 const sequelize = require('../framework/database');
 const {LogicError} = require('../framework/errors');
-const BaseService = require('../framework/BaseService');
 const ${upperFirstLetter(form)} = require('../models/${upperFirstLetter(form)}');
 
-class ${upperFirstLetter(form)}Service extends BaseService {
+module.exports = {
 
-  static async add${upperFirstLetter(form)}(${form}) {
+  add${upperFirstLetter(form)}: async (${form}) => {
+    ${form}.logo = JSON.stringify(${form}.logo || []);
     ${form}.enable = true;
     return await ${upperFirstLetter(form)}.create(${form});
-  }
+  },
 
-  static async update${upperFirstLetter(form)}s(data) {
-    return await ${upperFirstLetter(form)}.update(data, {where: {id: data.id}})
-  }
+  update${upperFirstLetter(form)}s: async (${form}) => {
+    ${form}.logo = JSON.stringify(${form}.logo || []);
+    return await ${upperFirstLetter(form)}.update(${form}, {where: {id: ${form}.id}})
+  },
 
-  static async delete${upperFirstLetter(form)}s(ids) {
+  delete${upperFirstLetter(form)}s: async (ids) => {
     return await ${upperFirstLetter(form)}.update({enable: false}, {where: {id: {[Op.in]: ids}}});
-  }
+  },
 
-  static async get${upperFirstLetter(form)}s({pageIndex = 0, pageSize = 20, keywords = ''}) {
-    const option = {where: {enable: true, name: {[Op.like]: \`%\${keywords}%\`}}};
+  get${upperFirstLetter(form)}s: async ({pageIndex = 0, pageSize = 20, keywords = ''}) => {
+    const option = {where: {enable: true, name: {[Op.like]: ${'`%keywords%`'}}};
     const {dataValues: {total}} = await ${upperFirstLetter(form)}.findOne({
       ...option,
       attributes: [[sequelize.fn('COUNT', '*'), 'total']]
     });
     const list = await ${upperFirstLetter(form)}.findAll({offset: pageIndex * pageSize, limit: pageSize, ...option});
     return {total, list}
-  }
+  },
 
-  static async get${upperFirstLetter(form)}Detail({id}) {
+  get${upperFirstLetter(form)}Detail: async ({id}) => {
     return await ${upperFirstLetter(form)}.findOne({where: {id}});
   }
-}
-
-module.exports = ${upperFirstLetter(form)}Service;
+};
   `;
 };
 
 module.exports.getImportApi = function (form) {
-  return `const ${upperFirstLetter(form)}Api = require('./apis/${upperFirstLetter(form)}Api');`
+  return `const ${form}Api = require('./apis/${form}Api');`
 };
 
 module.exports.getDefineRouter = function (form) {
   return `
-router.post('/api/${form}/add', insertLog('add'), checkArguments(['name']), ${upperFirstLetter(form)}Api.add${upperFirstLetter(form)});
-router.post('/api/${form}/get', ${upperFirstLetter(form)}Api.get${upperFirstLetter(form)}s);
-router.post('/api/${form}/update', insertLog('update'), checkArguments(['id', 'name']), ${upperFirstLetter(form)}Api.update${upperFirstLetter(form)}s);
-router.post('/api/${form}/delete', insertLog('delete'), checkArguments(['ids']), ${upperFirstLetter(form)}Api.delete${upperFirstLetter(form)}s);  
-router.post('/api/${form}/detail',  checkArguments(['id']), ${upperFirstLetter(form)}Api.get${upperFirstLetter(form)}Detail); \
+router.post('/api/${form}/add', insertLog('add'), checkArguments(['name']), ${form}Api.add${form});
+router.post('/api/${form}/get', ${form}Api.get${form}s);
+router.post('/api/${form}/update', insertLog('update'), checkArguments(['id', 'name']), ${form}Api.update${form}s);
+router.post('/api/${form}/delete', insertLog('delete'), checkArguments(['ids']), ${form}Api.delete${form}s);  
+router.post('/api/${form}/detail',  checkArguments(['id']), ${form}Api.get${form}Detail); \
 `
 };
 
@@ -230,18 +220,9 @@ module.exports.getFormModal = function (form) {
   import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Modal, Form, Input, message} from 'antd';
+import {GLOBAL_LAYOUT} from '~/utils/constants';
 
 const FormItem = Form.Item;
-const formItemLayout = {
-  labelCol: {
-    xs: {span: 24},
-    sm: {span: 6},
-  },
-  wrapperCol: {
-    xs: {span: 24},
-    sm: {span: 14},
-  },
-};
 
 class ${upperFirstLetter(form)}FormModal extends Component {
   componentDidMount() {
@@ -268,7 +249,7 @@ class ${upperFirstLetter(form)}FormModal extends Component {
              visible={true} onOk={this.onSaveData.bind(this)} onCancel={this.props.onCancel}>
         <Form>
           <FormItem
-            {...formItemLayout}
+            {...GLOBAL_LAYOUT}
             label="名称"
             hasFeedback>
             {getFieldDecorator('name', {
@@ -285,14 +266,14 @@ class ${upperFirstLetter(form)}FormModal extends Component {
   }
 }
 
-${upperFirstLetter(form)}Modal.propTypes = {
+${upperFirstLetter(form)}FormModal.propTypes = {
   operateType: PropTypes.string,
   onOk: PropTypes.func,
   onCancel: PropTypes.func,
   formData: PropTypes.object
 };
-${upperFirstLetter(form)}Modal = Form.create()(${upperFirstLetter(form)}Modal);
-export default ${upperFirstLetter(form)}Modal;`;
+${upperFirstLetter(form)}FormModal = Form.create()(${upperFirstLetter(form)}FormModal);
+export default ${upperFirstLetter(form)}FormModal;`;
 };
 
 module.exports.getStore = function (form) {

@@ -2,7 +2,7 @@
  * Created by eaTong on 2019/1/6 .
  * Description:
  */
-const fs = require('fs');
+const fs = require('fs-extra');
 const moment = require('moment');
 
 const currentDate = moment().format('YYYY-MM-DD');
@@ -29,6 +29,7 @@ module.exports.upperFirstLetter = function (word) {
 
 module.exports.writeFile = function (filePath, string) {
   return new Promise((resolve, reject) => {
+    fs.ensureFileSync(filePath)
     fs.writeFile(filePath, description + string, (err) => {
       if (err) {
         console.log(err);
