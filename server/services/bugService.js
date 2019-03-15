@@ -12,13 +12,11 @@ const Bug = require('../models/Bug');
 module.exports = {
 
   addBug: async (bug) => {
-    bug.logo = JSON.stringify(bug.logo || []);
     bug.enable = true;
     return await Bug.create(bug);
   },
 
   updateBugs: async (bug) => {
-    bug.logo = JSON.stringify(bug.logo || []);
     return await Bug.update(bug, {where: {id: bug.id}})
   },
 

@@ -4,6 +4,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {message, Upload, Icon} from "antd";
+import {getUrls} from "~/utils/utils";
 
 class ImageUploader extends Component {
   state = {
@@ -13,6 +14,7 @@ class ImageUploader extends Component {
   handleChange(info, a, b, c) {
 
     const status = info.file.status;
+    console.log(status);
     switch (status) {
       case 'uploading':
         this.setState({loading: true});
@@ -20,18 +22,16 @@ class ImageUploader extends Component {
       case 'done':
         this.setState({loading: false});
         const {file: {response: {data}}} = info;
-        const {onChange, value} = this.props;
-        onChange && onChange([...(value || []), data]);
+        this.props.onChange && this.props.onChange([...getUrls(this.props.value, data)]);
 
-      // console.log()
     }
 
   }
 
   render() {
     const {value} = this.props;
-    const fileList = (value || []).map(item => (
-      {uid: item, name: item, status: 'done', url: `/upload/img/${item}`}
+    const fileList = getUrls(value).map(item => (
+      {uid: item, name: item, status: 'done', url: item}
     ));
     const uploadButton = (
       <div>
@@ -45,14 +45,14 @@ class ImageUploader extends Component {
           action="/api/image/upload"
           listType="picture-card"
           defaultFileList={fileList}
-          onChange={this.handleChange.bind(this)}
+          onChange={(info) => this.handleChange(info)}
           beforeUpload={(file) => {
             return new Promise((resolve, reject) => {
-              if (/^image/.test(file.typ)) {
+              if (/^image/.test(file.type)) {
+                resolve();
+              } else {
                 message.error('图片格式错误！');
                 reject();
-              } else {
-                resolve();
               }
             })
           }}

@@ -12,13 +12,11 @@ const Task = require('../models/Task');
 module.exports = {
 
   addTask: async (task) => {
-    task.logo = JSON.stringify(task.logo || []);
     task.enable = true;
     return await Task.create(task);
   },
 
   updateTasks: async (task) => {
-    task.logo = JSON.stringify(task.logo || []);
     return await Task.update(task, {where: {id: task.id}})
   },
 

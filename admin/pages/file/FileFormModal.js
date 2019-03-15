@@ -8,6 +8,7 @@
 import PropTypes from 'prop-types';
 import {Modal, Form, Input, message} from 'antd';
 import {GLOBAL_LAYOUT} from '~/utils/constants';
+import AttachmentUploader from "../../components/AttachmentUploader";
 
 const FormItem = Form.Item;
 
@@ -46,6 +47,16 @@ class FileFormModal extends Component {
             })(
               <Input/>
             )}
+          </FormItem>
+          <FormItem {...GLOBAL_LAYOUT} label="类型" hasFeedback>
+            {getFieldDecorator('type', {
+              rules: [{
+                required: true, message: '请填写类型!',
+              }],
+            })(<Input/>)}
+          </FormItem>
+          <FormItem {...GLOBAL_LAYOUT} label="附件">
+            {getFieldDecorator('attachment')(<AttachmentUploader/>)}
           </FormItem>
         </Form>
       </Modal>

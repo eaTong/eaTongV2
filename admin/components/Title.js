@@ -4,14 +4,11 @@
  */
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import DocumentTitle from 'react-document-title';
 
 const Title = (props) => {
   const {title} = props;
   return (
-    <DocumentTitle title={title}>
       <header className="title">{title}</header>
-    </DocumentTitle>
   );
 };
 

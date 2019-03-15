@@ -5,7 +5,9 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Modal, Form, Input, message} from 'antd';
+import {Modal, Form, Input, message, DatePicker} from 'antd';
+import moment from "moment";
+import AttachmentUploader from "../../components/AttachmentUploader";
 import {GLOBAL_LAYOUT} from '~/utils/constants';
 
 const FormItem = Form.Item;

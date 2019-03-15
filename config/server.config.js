@@ -3,12 +3,13 @@
  * Description:
  */
 
-
+const fs = require('fs-extra');
+const path = require('path');
 
 let config = {
   mysql: {
-    user: "eaTong",
-    password: "eaTong@eaTong123",
+    user: "user",
+    password: "123456",
     database: "eaTong",
     host: "127.0.0.1"
   },
@@ -17,21 +18,27 @@ let config = {
     port: 465,
     auth: {
       user: 'zhouyidong@aikesi-soft.com',
-      pass: 'wlf19910102'
+      pass: '123456'
     }
+  },
+  oss: {
+    region: 'oss-cn-beijing',
+    accessKeyId: '123',
+    accessKeySecret: '123',
+    bucket: 'eatong'
   },
   thirdParty: {
     bugTracker: {
       host: 'beta.erpstrong.com',
       port: 4000,
       user: 'btview',
-      password: 'GVWcQ0t*QIxoajxo',
-      database: 'BTNET'
+      password: '123',
+      database: 'db'
     }
   }
 };
 
-if(process.env.NODEV_ENV === 'production'){
+if (fs.existsSync(path.resolve(__dirname, 'server.config.production.js'))) {
   config = require("./server.config.production")
 }
 

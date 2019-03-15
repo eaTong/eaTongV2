@@ -15,13 +15,13 @@ const {mail} = require('../../config/server.config');
 module.exports = {
 
   addPassword: async (password) => {
-    password.logo = JSON.stringify(password.logo || []);
     password.enable = true;
+    password.attachment = password.attachment ? JSON.stringify(password.attachment) : '';
     return await Password.create(password);
   },
 
   updatePasswords: async (password) => {
-    password.logo = JSON.stringify(password.logo || []);
+    password.attachment = password.attachment ? JSON.stringify(password.attachment) : '';
     return await Password.update(password, {where: {id: password.id}})
   },
 
@@ -50,7 +50,11 @@ module.exports = {
       ...option,
       attributes: [[sequelize.fn('COUNT', '*'), 'total']]
     });
-    const list = await Password.findAll({offset: pageIndex * pageSize, limit: pageSize, ...option});
+    const passwords = await Password.findAll({offset: pageIndex * pageSize, limit: pageSize, ...option});
+    const list = passwords.map(item => ({
+      ...item.dataValues,
+      attachment: item.attachment ? JSON.parse(item.dataValues.attachment) : []
+    }));
     return {total, list}
   },
 

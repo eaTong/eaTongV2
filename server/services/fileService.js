@@ -12,13 +12,13 @@ const File = require('../models/File');
 module.exports = {
 
   addFile: async (file) => {
-    file.logo = JSON.stringify(file.logo || []);
+    file.attachment = file.attachment ? JSON.stringify(file.attachment) : '';
     file.enable = true;
     return await File.create(file);
   },
 
   updateFiles: async (file) => {
-    file.logo = JSON.stringify(file.logo || []);
+    file.attachment = file.attachment ? JSON.stringify(file.attachment) : '';
     return await File.update(file, {where: {id: file.id}})
   },
 
@@ -32,7 +32,11 @@ module.exports = {
       ...option,
       attributes: [[sequelize.fn('COUNT', '*'), 'total']]
     });
-    const list = await File.findAll({offset: pageIndex * pageSize, limit: pageSize, ...option});
+    const files = await File.findAll({offset: pageIndex * pageSize, limit: pageSize, ...option});
+    const list = files.map(item => ({
+      ...item.dataValues,
+      attachment: item.attachment ? JSON.parse(item.dataValues.attachment) : []
+    }));
     return {total, list}
   },
 

@@ -7,6 +7,7 @@ import ajax from '~/utils/ajax';
 import {inject, observer} from "mobx-react";
 import componentsMapping from '~/componentsMapping';
 import {REFRESH_TAG} from "~/utils/constants";
+import ChangePassword from '~/pages/personalCenter/ChangePassword';
 
 const SubMenu = Menu.SubMenu;
 const MenuItem = Menu.Item;

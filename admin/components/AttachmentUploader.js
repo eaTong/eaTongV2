@@ -11,7 +11,6 @@ class AttachmentUploader extends Component {
   };
 
   handleChange(info, a, b, c) {
-
     const status = info.file.status;
     switch (status) {
       case 'uploading':
@@ -20,8 +19,13 @@ class AttachmentUploader extends Component {
       case 'done':
         this.setState({loading: false});
         const {file: {response: {data}}} = info;
-        const {onChange, value} = this.props;
-        onChange && onChange([...(value || []), data]);
+        this.props.onChange && this.props.onChange([...(this.props.value || []), data]);
+        break;
+      case 'removed':
+        console.log(info.file, this.state, this.props);
+        const fileList = this.props.value.filter(item => item !== info.file.uid);
+        this.props.onChange && this.props.onChange(fileList);
+
     }
 
   }
@@ -29,7 +33,7 @@ class AttachmentUploader extends Component {
   render() {
     const {value} = this.props;
     const fileList = (value || []).map(item => (
-      {uid: item, name: item, status: 'done', url: `/upload/img/${item}`}
+      {uid: item, name: item, status: 'done', url: `${item}`}
     ));
     const uploadButton = (
       <div>
