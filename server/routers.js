@@ -10,6 +10,10 @@ const systemFileApi = require('./apis/systemFileApi');
 const userApi = require('./apis/userApi');
 const roleApi = require('./apis/roleApi');
 const menuApi = require('./apis/menuApi');
+const passwordApi = require('./apis/passwordApi');
+const taskApi = require('./apis/taskApi');
+const bugApi = require('./apis/bugApi');
+const fileApi = require('./apis/fileApi');
 //UPDATE_TAG:importApi
 
 const router = new Router();
@@ -37,6 +41,30 @@ router.post('/api/user/logout', insertLog('login'), userApi.logout);
 router.post('/api/user/grant', insertLog('grant'), checkArguments(['userId', 'roles']), userApi.grantRole);
 router.post('/api/user/changePassword', insertLog('changePassword'), checkArguments(['password', 'originPassword']), userApi.changePassword);
 
+
+router.post('/api/password/add', insertLog('add'), checkArguments(['name']), passwordApi.addPassword);
+router.post('/api/password/get', passwordApi.getPasswords);
+router.post('/api/password/update', insertLog('update'), checkArguments(['id', 'name']), passwordApi.updatePasswords);
+router.post('/api/password/delete', insertLog('delete'), checkArguments(['ids']), passwordApi.deletePasswords);
+router.post('/api/password/detail',  checkArguments(['id']), passwordApi.getPasswordDetail);
+
+router.post('/api/task/add', insertLog('add'), checkArguments(['name']), taskApi.addTask);
+router.post('/api/task/get', taskApi.getTasks);
+router.post('/api/task/update', insertLog('update'), checkArguments(['id', 'name']), taskApi.updateTasks);
+router.post('/api/task/delete', insertLog('delete'), checkArguments(['ids']), taskApi.deleteTasks);
+router.post('/api/task/detail',  checkArguments(['id']), taskApi.getTaskDetail);
+
+router.post('/api/bug/add', insertLog('add'), checkArguments(['name']), bugApi.addBug);
+router.post('/api/bug/get', bugApi.getBugs);
+router.post('/api/bug/update', insertLog('update'), checkArguments(['id', 'name']), bugApi.updateBugs);
+router.post('/api/bug/delete', insertLog('delete'), checkArguments(['ids']), bugApi.deleteBugs);
+router.post('/api/bug/detail',  checkArguments(['id']), bugApi.getBugDetail);
+
+router.post('/api/file/add', insertLog('add'), checkArguments(['name']), fileApi.addFile);
+router.post('/api/file/get', fileApi.getFiles);
+router.post('/api/file/update', insertLog('update'), checkArguments(['id', 'name']), fileApi.updateFiles);
+router.post('/api/file/delete', insertLog('delete'), checkArguments(['ids']), fileApi.deleteFiles);
+router.post('/api/file/detail',  checkArguments(['id']), fileApi.getFileDetail);
 //UPDATE_TAG:defineRouter
 
 router.post('/api/*', async ctx => {

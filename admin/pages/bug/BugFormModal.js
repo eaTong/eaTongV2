@@ -1,26 +1,17 @@
 
 /**
- * Created by eaTong on 2019-01-18 .
- * Description: auto generated in  2019-01-18
+ * Created by eaTong on 2019-03-15 .
+ * Description: auto generated in  2019-03-15
  */
 
   import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Modal, Form, Input, message} from 'antd';
+import {GLOBAL_LAYOUT} from '~/utils/constants';
 
 const FormItem = Form.Item;
-const formItemLayout = {
-  labelCol: {
-    xs: {span: 24},
-    sm: {span: 6},
-  },
-  wrapperCol: {
-    xs: {span: 24},
-    sm: {span: 14},
-  },
-};
 
-class BugModal extends Component {
+class BugFormModal extends Component {
   componentDidMount() {
     if (/(edit)|(copyAdd)/.test(this.props.operateType)) {
       this.props.form.setFieldsValue(this.props.formData);
@@ -45,7 +36,7 @@ class BugModal extends Component {
              visible={true} onOk={this.onSaveData.bind(this)} onCancel={this.props.onCancel}>
         <Form>
           <FormItem
-            {...formItemLayout}
+            {...GLOBAL_LAYOUT}
             label="名称"
             hasFeedback>
             {getFieldDecorator('name', {
@@ -62,11 +53,11 @@ class BugModal extends Component {
   }
 }
 
-BugModal.propTypes = {
+BugFormModal.propTypes = {
   operateType: PropTypes.string,
   onOk: PropTypes.func,
   onCancel: PropTypes.func,
   formData: PropTypes.object
 };
-BugModal = Form.create()(BugModal);
-export default BugModal;
+BugFormModal = Form.create()(BugFormModal);
+export default BugFormModal;

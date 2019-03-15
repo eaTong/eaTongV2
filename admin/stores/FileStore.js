@@ -8,12 +8,12 @@ import {observable, action} from 'mobx';
 import ajax from "~/utils/ajax";
 import BaseStore from '~/stores/BaseStore'
 
-export default class BugStore extends BaseStore {
-  listApi = '/api/bug/get';
-  addApi = '/api/bug/add';
-  updateApi = '/api/bug/update';
-  deleteApi = '/api/bug/delete';
-  detailApi = '/api/bug/detail';
+export default class FileStore extends BaseStore {
+  listApi = '/api/file/get';
+  addApi = '/api/file/add';
+  updateApi = '/api/file/update';
+  deleteApi = '/api/file/delete';
+  detailApi = '/api/file/detail';
   
   @action
   async searchData(keywords) {

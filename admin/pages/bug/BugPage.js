@@ -1,12 +1,13 @@
+
 /**
- * Created by eaTong on 2019-01-18 .
- * Description: auto generated in  2019-01-18
+ * Created by eaTong on 2019-03-15 .
+ * Description: auto generated in  2019-03-15
  */
 
 import React, {Component} from 'react';
-import {Button, message, Input, Pagination} from 'antd';
+import {Button, message ,Input , Pagination} from 'antd';
 import Reactable from "@eatong/reactable";
-import BugModal from "./BugModal";
+import BugFormModal from "./BugFormModal";
 import {inject, observer} from "mobx-react";
 import Title from "~/components/Title";
 import PageBase from "~/components/PageBase";
@@ -16,7 +17,7 @@ const columns = [
   {title: '名称', key: 'name'},
 ];
 
-@inject('bug', 'app') @observer
+@inject('bug','app') @observer
 class BugPage extends PageBase {
   async componentDidMount() {
     await this.props.bug.getDataList();
@@ -24,7 +25,7 @@ class BugPage extends PageBase {
 
   render() {
     const {bug} = this.props;
-    const {dataList, operateType, showFormModal, selectedKeys, rowSelection, firstSelected, pagination} = bug;
+    const {dataList, operateType, showFormModal, selectedKeys, rowSelection, firstSelected , pagination} = bug;
     return (
       <div className="base-layout bug-page">
         <Title title='BUG管理'/>
@@ -81,7 +82,7 @@ class BugPage extends PageBase {
           }}/>
         <Pagination {...pagination}/>
         {showFormModal && (
-          <BugModal
+          <BugFormModal
             onCancel={() => bug.toggleFormModal()}
             onOk={(data) => bug.onSaveData(data)}
             operateType={operateType}

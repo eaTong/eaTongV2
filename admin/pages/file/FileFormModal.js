@@ -11,7 +11,7 @@ import {GLOBAL_LAYOUT} from '~/utils/constants';
 
 const FormItem = Form.Item;
 
-class TaskFormModal extends Component {
+class FileFormModal extends Component {
   componentDidMount() {
     if (/(edit)|(copyAdd)/.test(this.props.operateType)) {
       this.props.form.setFieldsValue(this.props.formData);
@@ -53,11 +53,11 @@ class TaskFormModal extends Component {
   }
 }
 
-TaskFormModal.propTypes = {
+FileFormModal.propTypes = {
   operateType: PropTypes.string,
   onOk: PropTypes.func,
   onCancel: PropTypes.func,
   formData: PropTypes.object
 };
-TaskFormModal = Form.create()(TaskFormModal);
-export default TaskFormModal;
+FileFormModal = Form.create()(FileFormModal);
+export default FileFormModal;

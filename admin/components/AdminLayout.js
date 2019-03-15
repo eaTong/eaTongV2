@@ -6,7 +6,7 @@ import {Layout, Menu, Icon, Tooltip, Tabs} from 'antd'
 import ajax from '~/utils/ajax';
 import {inject, observer} from "mobx-react";
 import componentsMapping from '~/componentsMapping';
-import {REFRESH_TAG} from "~/utils/enums";
+import {REFRESH_TAG} from "~/utils/constants";
 
 const SubMenu = Menu.SubMenu;
 const MenuItem = Menu.Item;

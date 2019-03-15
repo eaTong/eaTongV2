@@ -2,7 +2,7 @@
  * Created by eatong on 17-12-28.
  */
 const {ArgMissError, LogicError} = require('./errors');
-const LogService = require('../services/LogService');
+const logService = require('../services/logService');
 const whiteList = ['/api/user/login', '/api/user/loginByCode', '/api/user/bind'];
 
 module.exports.checkArguments = (args) => {
@@ -61,7 +61,7 @@ module.exports.insertLog = (type) => {
     const operator = ctx.session.loginUser ? ctx.session.loginUser.id : 0,
       url = ctx.originalUrl,
       req = JSON.stringify(ctx.request.body);
-    await LogService.insertLog({operator, req, type, url});
+    await logService.insertLog({operator, req, type, url});
     return await next();
   }
 };

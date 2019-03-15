@@ -8,9 +8,9 @@ const Role = require('../server/models/Role');
 const RoleMenu = require('../server/models/RoleMenu');
 const UserRole = require('../server/models/UserRole');
 const Task = require('../server/models/Task');
-const TaskProgress = require('../server/models/TaskProgress');
 const Password = require('../server/models/Password');
 const Bug = require('../server/models/Bug');
+const File = require('../server/models/File');
 //UPDATE_TAG:importModel
 
 (async () => {
@@ -30,9 +30,12 @@ async function initialDatabaseStructure() {
   await RoleMenu.sync({alter: true});
   await UserRole.sync({alter: true});
   await Task.sync({alter: true});
-  await TaskProgress.sync({alter: true});
   await Password.sync({alter: true});
   await Bug.sync({alter: true});
+  await Password.sync({alter: true});
+  await Task.sync({alter: true});
+  await Bug.sync({alter: true});
+  await File.sync({alter: true});
 //UPDATE_TAG:asyncModel
 }
 
@@ -62,6 +65,12 @@ async function initialMenu() {
     {name: '新增', icon: 'plus', path: '/admin/bug/add', enable: true, parentPath: '/admin/bug', type: 2},
     {name: '编辑', icon: 'edit', path: '/admin/bug/edit', enable: true, parentPath: '/admin/bug', type: 2},
     {name: '删除', icon: 'delete', path: '/admin/bug/delete', enable: true, parentPath: '/admin/bug', type: 2},
+
+
+    {name: 'file', icon: 'file', path: '/admin/file', enable: true, parentPath: '',type:1},
+    {name: '新增', icon: 'plus', path: '/admin/file/add', enable: true, parentPath: '/admin/file', type: 2},
+    {name: '编辑', icon: 'edit', path: '/admin/file/edit', enable: true, parentPath: '/admin/file', type: 2},
+    {name: '删除', icon: 'delete', path: '/admin/file/delete', enable: true, parentPath: '/admin/file', type: 2},
 
 //UPDATE_TAG:asyncMenu
   ];

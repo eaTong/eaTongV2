@@ -1,6 +1,7 @@
+
 /**
- * Created by eaTong on 2018-25-11 .
- * Description: auto generated in  2018-25-11
+ * Created by eaTong on 2019-03-15 .
+ * Description: auto generated in  2019-03-15
  */
 
 import {observable, action} from 'mobx';
@@ -13,7 +14,7 @@ export default class TaskStore extends BaseStore {
   updateApi = '/api/task/update';
   deleteApi = '/api/task/delete';
   detailApi = '/api/task/detail';
-
+  
   @action
   async searchData(keywords) {
     this.queryOption = {keywords};

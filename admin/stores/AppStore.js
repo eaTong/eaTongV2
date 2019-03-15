@@ -4,7 +4,7 @@
  */
 import {observable, action} from 'mobx';
 import ajax from "~/utils/ajax";
-import {REFRESH_TAG} from "~/utils/enums";
+import {REFRESH_TAG} from "~/utils/constants";
 
 
 export default class AppStore {

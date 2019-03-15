@@ -1,27 +1,16 @@
 /**
- * Created by eaTong on 2018-30-11 .
- * Description: auto generated in  2018-30-11
+ * Created by eaTong on 2019-03-15 .
+ * Description: auto generated in  2019-03-15
  */
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Modal, Form, Input, message, DatePicker} from 'antd';
-import moment from "moment";
-import AttachmentUploader from "../../components/AttachmentUploader";
+import {Modal, Form, Input, message} from 'antd';
+import {GLOBAL_LAYOUT} from '~/utils/constants';
 
 const FormItem = Form.Item;
-const formItemLayout = {
-  labelCol: {
-    xs: {span: 24},
-    sm: {span: 6},
-  },
-  wrapperCol: {
-    xs: {span: 24},
-    sm: {span: 14},
-  },
-};
 
-class PasswordModal extends Component {
+class PasswordFormModal extends Component {
   componentDidMount() {
     if (/(edit)|(copyAdd)/.test(this.props.operateType)) {
       const data = this.props.formData;
@@ -59,36 +48,39 @@ class PasswordModal extends Component {
              maskClosable={false}
              visible={true} onOk={this.onSaveData.bind(this)} onCancel={this.props.onCancel}>
         <Form>
-          <FormItem {...formItemLayout} label="名称" hasFeedback>
+          <FormItem
+            {...GLOBAL_LAYOUT}
+            label="名称"
+            hasFeedback>
             {getFieldDecorator('name', {
               rules: [{
                 required: true, message: '请填写名称!',
               }],
             })(<Input/>)}
           </FormItem>
-          <FormItem {...formItemLayout} label="类型" hasFeedback>
+          <FormItem {...GLOBAL_LAYOUT} label="类型" hasFeedback>
             {getFieldDecorator('type', {
               rules: [{
                 required: true, message: '请填写类型!',
               }],
             })(<Input/>)}
           </FormItem>
-          <FormItem {...formItemLayout} label="host" hasFeedback>
+          <FormItem {...GLOBAL_LAYOUT} label="host" hasFeedback>
             {getFieldDecorator('host')(<Input/>)}
           </FormItem>
-          <FormItem {...formItemLayout} label="帐号" hasFeedback>
+          <FormItem {...GLOBAL_LAYOUT} label="帐号" hasFeedback>
             {getFieldDecorator('account')(<Input/>)}
           </FormItem>
-          <FormItem {...formItemLayout} label="密码" hasFeedback>
+          <FormItem {...GLOBAL_LAYOUT} label="密码" hasFeedback>
             {getFieldDecorator('password')(<Input/>)}
           </FormItem>
-          <FormItem {...formItemLayout} label="过期时间">
+          <FormItem {...GLOBAL_LAYOUT} label="过期时间">
             {getFieldDecorator('expireTime')(<DatePicker/>)}
           </FormItem>
-          <FormItem {...formItemLayout} label="附件">
+          <FormItem {...GLOBAL_LAYOUT} label="附件">
             {getFieldDecorator('attachment')(<AttachmentUploader/>)}
           </FormItem>
-          <FormItem {...formItemLayout} label="备注">
+          <FormItem {...GLOBAL_LAYOUT} label="备注">
             {getFieldDecorator('remark')(<Input.TextArea/>)}
           </FormItem>
 
@@ -98,11 +90,11 @@ class PasswordModal extends Component {
   }
 }
 
-PasswordModal.propTypes = {
+PasswordFormModal.propTypes = {
   operateType: PropTypes.string,
   onOk: PropTypes.func,
   onCancel: PropTypes.func,
   formData: PropTypes.object
 };
-PasswordModal = Form.create()(PasswordModal);
-export default PasswordModal;
+PasswordFormModal = Form.create()(PasswordFormModal);
+export default PasswordFormModal;

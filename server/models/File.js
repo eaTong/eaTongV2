@@ -7,9 +7,9 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../framework/database');
 
-const Task = sequelize.define('task', {
+const File = sequelize.define('file', {
   name: {type: Sequelize.STRING},
   enable: Sequelize.BOOLEAN,
 });
 
-module.exports = Task;
+module.exports = File;

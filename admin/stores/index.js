@@ -8,6 +8,7 @@ import UserStore from "~/stores/UserStore";
 import RoleStore from "~/stores/RoleStore";
 import PasswordStore from './PasswordStore';
 import BugStore from './BugStore';
+import FileStore from './FileStore';
 //UPDATE_TAG:importStore
 
 export default {
@@ -15,7 +16,8 @@ export default {
   task: new TaskStore(),
   user: new UserStore(),
   role: new RoleStore(),
-password: new PasswordStore(),
-bug: new BugStore(),
+  password: new PasswordStore(),
+  bug: new BugStore(),
+  file: new FileStore(),
 //UPDATE_TAG:registerStore
 }

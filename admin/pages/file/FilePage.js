@@ -7,7 +7,7 @@
 import React, {Component} from 'react';
 import {Button, message ,Input , Pagination} from 'antd';
 import Reactable from "@eatong/reactable";
-import PasswordFormModal from "./PasswordFormModal";
+import FileFormModal from "./FileFormModal";
 import {inject, observer} from "mobx-react";
 import Title from "~/components/Title";
 import PageBase from "~/components/PageBase";
@@ -15,61 +15,55 @@ import PageBase from "~/components/PageBase";
 const ButtonGroup = Button.Group;
 const columns = [
   {title: '名称', key: 'name'},
-  {title: '类型', key: 'type'},
-  {title: 'host', key: 'host', width: 200},
-  {title: '帐号', key: 'account', width: 150},
-  {title: '密码', key: 'password', width: 150},
-  {title: '过期时间', key: 'expireTime'},
-  {title: '备注', key: 'remark'},
 ];
 
-@inject('password','app') @observer
-class PasswordPage extends PageBase {
+@inject('file','app') @observer
+class FilePage extends PageBase {
   async componentDidMount() {
-    await this.props.password.getDataList();
+    await this.props.file.getDataList();
   }
 
   render() {
-    const {password} = this.props;
-    const {dataList, operateType, showFormModal, selectedKeys,  firstSelected, pagination} = password;
+    const {file} = this.props;
+    const {dataList, operateType, showFormModal, selectedKeys, rowSelection, firstSelected , pagination} = file;
     return (
-      <div className="base-layout password-page">
-        <Title title='密码管理'/>
+      <div className="base-layout file-page">
+        <Title title='file管理'/>
         <div className="operate-bar">
           <Input.Search
             className={'search'}
             placeholder={'输入关键字搜索'}
-            onSearch={(val) => password.searchData(val)}
+            onSearch={(val) => file.searchData(val)}
           />
-
+          
           <ButtonGroup className="buttons">
             <Button
-              onClick={() => this.props.password.toggleFormModal('add')}
+              onClick={() => this.props.file.toggleFormModal('add')}
               disabled={this.disableButton('add')}
               type={'primary'}
             >
               新增
             </Button>
             <Button
-              onClick={() => password.toggleFormModal('copyAdd')}
+              onClick={() => file.toggleFormModal('copyAdd')}
               disabled={this.disableButton('add', selectedKeys.length !== 1)}
             >
               复制并新增
             </Button>
             <Button
-              onClick={() => this.props.password.toggleFormModal('edit')}
+              onClick={() => this.props.file.toggleFormModal('edit')}
               disabled={this.disableButton('edit', selectedKeys.length !== 1)}
             >
               编辑
             </Button>
             <Button
-              onClick={() => this.props.password.deleteData()}
+              onClick={() => this.props.file.deleteData()}
               disabled={this.disableButton('delete', selectedKeys.length === 0)}
             >
               删除
             </Button>
             <Button
-              onClick={() => this.props.password.toggleGrantModal()}
+              onClick={() => this.props.file.toggleGrantModal()}
               disabled={this.disableButton('grant', selectedKeys.length !== 1)}
             >
               分配角色
@@ -80,17 +74,17 @@ class PasswordPage extends PageBase {
           columns={columns}
           dataSource={dataList}
           rowKey="id"
-          tableId="password-table"
-          pagination={password.pagination}
+          tableId="file-table"
+          pagination={file.pagination}
           rowSelection={{
             selectedRowKeys: selectedKeys,
-            onChange: (keys) => password.onChangeSelection(keys)
+            onChange: (keys) => file.onChangeSelection(keys)
           }}/>
         <Pagination {...pagination}/>
         {showFormModal && (
-          <PasswordFormModal
-            onCancel={() => password.toggleFormModal()}
-            onOk={(data) => password.onSaveData(data)}
+          <FileFormModal
+            onCancel={() => file.toggleFormModal()}
+            onOk={(data) => file.onSaveData(data)}
             operateType={operateType}
             formData={firstSelected}
           />
@@ -100,5 +94,6 @@ class PasswordPage extends PageBase {
   }
 }
 
-PasswordPage.propTypes = {};
-export default PasswordPage;
+FilePage.propTypes = {};
+export default FilePage;
+  
