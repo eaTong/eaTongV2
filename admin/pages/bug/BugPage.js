@@ -11,6 +11,15 @@ import BugFormModal from "./BugFormModal";
 import {inject, observer} from "mobx-react";
 import Title from "~/components/Title";
 import PageBase from "~/components/PageBase";
+import DataSet from '@antv/data-set';
+import {
+  G2,
+  Chart,
+  Geom,
+  Axis,
+  Tooltip,
+  Legend,
+} from "bizcharts";
 
 const ButtonGroup = Button.Group;
 const columns = [
@@ -25,70 +34,54 @@ class BugPage extends PageBase {
 
   render() {
     const {bug} = this.props;
-    const {dataList, operateType, showFormModal, selectedKeys, rowSelection, firstSelected , pagination} = bug;
+    const {dataList} = bug;
+    const ds = new DataSet();
+    const dv = ds.createView().source(dataList.filter(item=>item.name==='高鹏杰'));
+    dv.transform({
+      type: "fold",
+      fields: ["new", "complete", "test", "hang"],
+      // 展开字段集
+      key: "type",
+      // key字段
+      value: "count" // value字段
+    });
+
+    const cols = {
+      date: {
+        range: [0, 1]
+      }
+    };
     return (
       <div className="base-layout bug-page">
         <Title title='BUG管理'/>
         <div className="operate-bar">
-          <Input.Search
-            className={'search'}
-            placeholder={'输入关键字搜索'}
-            onSearch={(val) => bug.searchData(val)}
-          />
 
-          <ButtonGroup className="buttons">
-            <Button
-              onClick={() => this.props.bug.toggleFormModal('add')}
-              disabled={this.disableButton('add')}
-              type={'primary'}
-            >
-              新增
-            </Button>
-            <Button
-              onClick={() => bug.toggleFormModal('copyAdd')}
-              disabled={this.disableButton('add', selectedKeys.length !== 1)}
-            >
-              复制并新增
-            </Button>
-            <Button
-              onClick={() => this.props.bug.toggleFormModal('edit')}
-              disabled={this.disableButton('edit', selectedKeys.length !== 1)}
-            >
-              编辑
-            </Button>
-            <Button
-              onClick={() => this.props.bug.deleteData()}
-              disabled={this.disableButton('delete', selectedKeys.length === 0)}
-            >
-              删除
-            </Button>
-            <Button
-              onClick={() => this.props.bug.toggleGrantModal()}
-              disabled={this.disableButton('grant', selectedKeys.length !== 1)}
-            >
-              分配角色
-            </Button>
-          </ButtonGroup>
+
         </div>
-        <Reactable
-          columns={columns}
-          dataSource={dataList}
-          rowKey="id"
-          tableId="bug-table"
-          pagination={bug.pagination}
-          rowSelection={{
-            selectedRowKeys: selectedKeys,
-            onChange: (keys) => bug.onChangeSelection(keys)
-          }}/>
-        <Pagination {...pagination}/>
-        {showFormModal && (
-          <BugFormModal
-            onCancel={() => bug.toggleFormModal()}
-            onOk={(data) => bug.onSaveData(data)}
-            operateType={operateType}
-            formData={firstSelected}
+        <Chart height={400} data={dv} scale={cols}  forceFit>
+          <Legend />
+          <Axis name="date" />
+          <Axis
+            name="count"
+            label={{
+              formatter: val => val
+            }}
           />
-        )}
+          <Tooltip
+            crosshairs={{
+              type: "y"
+            }}
+          />
+          <Geom
+            type="line"
+            position="date*count"
+            size={2}
+            color={"type"}
+            shape={"smooth"}
+          />
+        </Chart>
+
+
       </div>
     );
   }

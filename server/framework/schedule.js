@@ -13,5 +13,5 @@ schedule.scheduleJob('42 59 23 * * *', async function () {
 
 //auto statics bugs every day
 schedule.scheduleJob('42 59 23 * * *', async function () {
-  await bugService.staticsBugs();
+  await bugService.staticsBugsByUser();
 });

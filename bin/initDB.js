@@ -10,6 +10,7 @@ const UserRole = require('../server/models/UserRole');
 const Task = require('../server/models/Task');
 const Password = require('../server/models/Password');
 const Bug = require('../server/models/Bug');
+const BugByName = require('../server/models/BugByName');
 const File = require('../server/models/File');
 //UPDATE_TAG:importModel
 
@@ -36,6 +37,7 @@ async function initialDatabaseStructure() {
   await Task.sync({alter: true});
   await Bug.sync({alter: true});
   await File.sync({alter: true});
+  await BugByName.sync({alter: true});
 //UPDATE_TAG:asyncModel
 }
 

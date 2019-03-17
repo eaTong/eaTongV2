@@ -46,9 +46,14 @@ class PasswordFormModal extends Component {
     const {operateType} = this.props;
     const {getFieldDecorator} = this.props.form;
     return (
-      <Modal title={(operateType === 'add' ? '新增' : '编辑') + '密码'}
-             maskClosable={false}
-             visible={true} onOk={this.onSaveData.bind(this)} onCancel={this.props.onCancel}>
+      <Modal
+        wrapClassName={'detail-component-modal'}
+        title={(operateType === 'add' ? '新增' : '编辑') + '密码'}
+        maskClosable={false}
+        visible={true}
+        onOk={this.onSaveData.bind(this)}
+        onCancel={this.props.onCancel}
+      >
         <Form>
           <FormItem
             {...GLOBAL_LAYOUT}
