@@ -35,7 +35,7 @@ class FilePage extends PageBase {
             placeholder={'输入关键字搜索'}
             onSearch={(val) => file.searchData(val)}
           />
-          
+
           <ButtonGroup className="buttons">
             <Button
               onClick={() => this.props.file.toggleFormModal('add')}
@@ -80,7 +80,6 @@ class FilePage extends PageBase {
             selectedRowKeys: selectedKeys,
             onChange: (keys) => file.onChangeSelection(keys)
           }}/>
-        <Pagination {...pagination}/>
         {showFormModal && (
           <FileFormModal
             onCancel={() => file.toggleFormModal()}
@@ -96,4 +95,3 @@ class FilePage extends PageBase {
 
 FilePage.propTypes = {};
 export default FilePage;
-  

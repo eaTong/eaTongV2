@@ -35,7 +35,7 @@ class TaskPage extends PageBase {
             placeholder={'输入关键字搜索'}
             onSearch={(val) => task.searchData(val)}
           />
-          
+
           <ButtonGroup className="buttons">
             <Button
               onClick={() => this.props.task.toggleFormModal('add')}
@@ -80,7 +80,6 @@ class TaskPage extends PageBase {
             selectedRowKeys: selectedKeys,
             onChange: (keys) => task.onChangeSelection(keys)
           }}/>
-        <Pagination {...pagination}/>
         {showFormModal && (
           <TaskFormModal
             onCancel={() => task.toggleFormModal()}
@@ -96,4 +95,3 @@ class TaskPage extends PageBase {
 
 TaskPage.propTypes = {};
 export default TaskPage;
-  

@@ -71,8 +71,6 @@ class RolePage extends PageBase {
             selectedRowKeys: selectedKeys,
             onChange: (keys) => role.onChangeSelection(keys)
           }}/>
-
-        <Pagination {...pagination}/>
         {showFormModal && (
           <RoleModal
             onCancel={() => role.toggleFormModal()}

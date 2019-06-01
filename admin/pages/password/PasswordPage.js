@@ -86,7 +86,6 @@ class PasswordPage extends PageBase {
             selectedRowKeys: selectedKeys,
             onChange: (keys) => password.onChangeSelection(keys)
           }}/>
-        <Pagination {...pagination}/>
         {showFormModal && (
           <PasswordFormModal
             onCancel={() => password.toggleFormModal()}

@@ -70,7 +70,6 @@ class UserPage extends PageBase {
             selectedRowKeys: selectedKeys,
             onChange: (keys) => user.onChangeSelection(keys)
           }}/>
-        <Pagination {...pagination}/>
         {showFormModal && (
           <UserModal
             onCancel={() => user.toggleFormModal()}

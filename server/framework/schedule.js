@@ -10,8 +10,3 @@ const bugService = require("../services/bugService");
 schedule.scheduleJob('42 59 23 * * *', async function () {
   await passwordService.checkNearly();
 });
-
-//auto statics bugs every day
-schedule.scheduleJob('42 59 23 * * *', async function () {
-  await bugService.staticsBugsByUser();
-});
