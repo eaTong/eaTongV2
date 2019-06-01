@@ -63,7 +63,7 @@
     "@babel/polyfill": "^7.2.5",
     "@babel/preset-env": "^7.2.3",
     "@babel/preset-react": "^7.0.0",
-    "@eatong/reactable": "^0.4.3",
+    "@eatong/reactable": "^0.15.12",
     "antd": "^3.11.6",
     "archiver": "^3.0.0",
     "autoprefixer": "^9.4.4",
