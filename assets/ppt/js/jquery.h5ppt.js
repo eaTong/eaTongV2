@@ -55,10 +55,7 @@ $.h5ppt = {
                 }
                 $.h5ppt.config[pageIndex].orderList = res;
             });
-            $('<span class="hp-display-button">Play</span>').appendTo($body).bind('click',function(event){
-                $.h5ppt.display();
-                event.stopPropagation();
-            });
+
             addNavBar(options.navColor);
         }
 
@@ -271,7 +268,7 @@ $.h5ppt.defaults = {
             fade: $.h5ppt.defaults.fade
         }
         var options = $.extend(defaults, options);
-        if (options.angle == 'random') {
+        if (options.angle === 'random') {
             options.angle = Math.random() * 360;
         }
         this.each(function () {

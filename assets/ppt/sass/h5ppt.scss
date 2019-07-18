@@ -2,16 +2,15 @@
 @import "mixin";
 
 $pagination-li-width: 25px;
-$bgColor: #B9E6EB;
-$borderColor: #999999;
-$frontColor: #333366;
-$highLight: #18A7B7;
+$bgColor: #f0f5ff;
+$borderColor: #adc6ff;
+$frontColor: #061178;
+$highLight: #1890ff;
+
 * {
   color: $frontColor;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  font-size:12px;
 }
 
 html, body {
@@ -31,6 +30,10 @@ html, body {
   background-color: $borderColor;
 }
 
+h2 {
+  margin-bottom: 1em;
+}
+
 .hp-page, .hp-title, .hp-content {
   width: 100%;
   box-sizing: border-box;
@@ -40,10 +43,12 @@ html, body {
 .hp-page {
   height: 100%;
   background-color: $bgColor;
+  display: flex;
+  flex-direction: column;
 }
 
 .hp-title {
-  height: 10%;
+  padding: 20px 0;
   text-align: center;
 }
 
@@ -52,11 +57,17 @@ html, body {
 }
 
 .hp-content {
-  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.hp-title + .hp-content {
-  height: 90%;
+.hp-footer {
+  text-align: right;
+  padding-right: 30px;
+  padding-bottom: 50px;
 }
 
 .hp-shadow {
@@ -107,22 +118,24 @@ html, body {
   color: $highLight;
   border-bottom: 1px solid $borderColor;
 }
-.hp-display-button{
+
+.hp-display-button {
   position: absolute;
   display: block;
-  right:0;
-  bottom:0;
+  right: 0;
+  bottom: 0;
   cursor: pointer;
   width: 2em;
   height: 2em;
   border-radius: 1em;
-  border:1px solid $borderColor;
+  border: 1px solid $borderColor;
   text-align: center;
   line-height: 200%;
   z-index: 99;
 
 }
-.hp-cursor{
+
+.hp-cursor {
   position: absolute;
   display: block;
   width: 2px;
@@ -134,7 +147,14 @@ html, body {
 }
 
 @include keyframes(cursor) {
-  0% {background: $highLight;}
-  50% {background: red;@include opacity(0.5);}
-  100% {background: $highLight;}
+  0% {
+    background: $highLight;
+  }
+  50% {
+    background: red;
+    @include opacity(0.5);
+  }
+  100% {
+    background: $highLight;
+  }
 }
