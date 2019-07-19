@@ -96,6 +96,8 @@ h2 {
   width: $pagination-li-width;
   background-color: $borderColor;
   clear: both;
+  position: fixed;
+  top: 0;
 }
 
 .hp-pagination-li {
@@ -157,4 +159,28 @@ h2 {
   100% {
     background: $highLight;
   }
+}
+
+.hp-h1 {
+  font-size: 36px;
+}
+
+.hp-h2 {
+  font-size: 32px;
+}
+
+.hp-h3 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.hp-info {
+  font-size: 20px;
+  margin-bottom: 20px;
+  max-width: 800px;
+}
+
+.charts {
+  width: 800px;
+  height: 500px;
 }
