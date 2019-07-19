@@ -38,6 +38,8 @@ h2 {
   width: 100%;
   box-sizing: border-box;
   overflow: hidden;
+  padding-bottom: 50px;
+  position: relative;
 }
 
 .hp-page {
@@ -67,7 +69,6 @@ h2 {
 .hp-footer {
   text-align: right;
   padding-right: 30px;
-  padding-bottom: 50px;
 }
 
 .hp-shadow {
@@ -148,6 +149,12 @@ h2 {
   @include animation-iteration-count(infinite);
 }
 
+.qr-code {
+  position: absolute;
+  bottom: 50px;
+  left: 30px;
+}
+
 @include keyframes(cursor) {
   0% {
     background: $highLight;
@@ -183,4 +190,31 @@ h2 {
 .charts {
   width: 800px;
   height: 500px;
+}
+
+@media screen and (max-width: 600px) {
+
+  .hp-h1 {
+    font-size: 24px;
+  }
+
+  .hp-h2 {
+    font-size: 20px;
+  }
+
+  .hp-h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+
+  .hp-info {
+    font-size: 14px;
+    margin-bottom: 20px;
+    max-width: 90vw;
+  }
+
+  .charts {
+    max-width: 90vw;
+    height: 500px;
+  }
 }
