@@ -9,8 +9,6 @@ const RoleMenu = require('../server/models/RoleMenu');
 const UserRole = require('../server/models/UserRole');
 const Task = require('../server/models/Task');
 const Password = require('../server/models/Password');
-const Bug = require('../server/models/Bug');
-const BugByName = require('../server/models/BugByName');
 const File = require('../server/models/File');
 //UPDATE_TAG:importModel
 
@@ -32,12 +30,9 @@ async function initialDatabaseStructure() {
   await UserRole.sync({alter: true});
   await Task.sync({alter: true});
   await Password.sync({alter: true});
-  await Bug.sync({alter: true});
   await Password.sync({alter: true});
   await Task.sync({alter: true});
-  await Bug.sync({alter: true});
   await File.sync({alter: true});
-  await BugByName.sync({alter: true});
 //UPDATE_TAG:asyncModel
 }
 
@@ -63,10 +58,10 @@ async function initialMenu() {
     {name: '编辑', icon: 'edit', path: '/admin/password/edit', enable: true, parentPath: '/admin/password', type: 2},
     {name: '删除', icon: 'delete', path: '/admin/password/delete', enable: true, parentPath: '/admin/password', type: 2},
 
-    {name: 'bug', icon: 'exception', path: '/admin/bug', enable: true, parentPath: '', type: 1},
-    {name: '新增', icon: 'plus', path: '/admin/bug/add', enable: true, parentPath: '/admin/bug', type: 2},
-    {name: '编辑', icon: 'edit', path: '/admin/bug/edit', enable: true, parentPath: '/admin/bug', type: 2},
-    {name: '删除', icon: 'delete', path: '/admin/bug/delete', enable: true, parentPath: '/admin/bug', type: 2},
+    {name: 'bug', icon: 'exception', path: '/admin/bug', enable: false, parentPath: '', type: 1},
+    {name: '新增', icon: 'plus', path: '/admin/bug/add', enable: false, parentPath: '/admin/bug', type: 2},
+    {name: '编辑', icon: 'edit', path: '/admin/bug/edit', enable: false, parentPath: '/admin/bug', type: 2},
+    {name: '删除', icon: 'delete', path: '/admin/bug/delete', enable: false, parentPath: '/admin/bug', type: 2},
 
 
     {name: 'file', icon: 'file', path: '/admin/file', enable: true, parentPath: '',type:1},
