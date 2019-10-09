@@ -25,10 +25,10 @@ export default Component => class Page extends React.Component {
       this.stores = stores;
       return {stores};
     }
-    return {};
+    return {app: {}};
   }
-
-  componentWillMount() {
+  componentDidMount() {
+    const query = parse(window.location.search);
     const propStore = this.props.stores || {};
     for (let key in propStore) {
       for (let dataKey in propStore[key]) {
@@ -38,10 +38,6 @@ export default Component => class Page extends React.Component {
       }
     }
     this.stores = stores;
-  }
-
-  componentDidMount() {
-    const query = parse(window.location.search);
     this.setState({query});
   }
 

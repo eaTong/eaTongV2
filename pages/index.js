@@ -3,11 +3,16 @@
  * Description:
  */
 
-import React from 'react'
-import Link from 'next/link'
+import React, {Component} from 'react';
+import Page from "../website/components/Page";
 
-export default () => (
-  <p>
-    Hello all , I'm back !
-  </p>
-)
+
+class IndexPage extends Component {
+  render() {
+    return (
+      <div className="index-page">asdf</div>
+    )
+  }
+}
+
+export default Page(IndexPage);

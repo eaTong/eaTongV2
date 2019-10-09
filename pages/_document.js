@@ -19,7 +19,7 @@ export default class MyDocument extends Document {
         ) : (
           <Head>
             <link rel="shortcut icon" href="/favicon.ico"/>
-            <style global dangerouslySetInnerHTML={{__html: globalStyle}}/>
+            <style dangerouslySetInnerHTML={{__html: globalStyle}}/>
           </Head>
         )}
       <body>
