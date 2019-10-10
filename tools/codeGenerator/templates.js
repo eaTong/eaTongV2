@@ -83,7 +83,7 @@ module.exports = {
   get${upperFirstLetter(form)}Detail: async ({id}) => {
     return await ${upperFirstLetter(form)}.findOne({where: {id}});
   }
-};
+}; 
   `;
 };
 
