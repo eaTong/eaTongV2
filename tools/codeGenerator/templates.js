@@ -71,7 +71,7 @@ module.exports = {
   },
 
   get${upperFirstLetter(form)}s: async ({pageIndex = 0, pageSize = 20, keywords = ''}) => {
-    const option = {where: {enable: true, name: {[Op.like]: '\`\%\${keywords}%\`'}}};
+    const option = {where: {enable: true, name: {[Op.like]: '\`\%\${keywords}%\`'}}}; 
     const {dataValues: {total}} = await ${upperFirstLetter(form)}.findOne({
       ...option,
       attributes: [[sequelize.fn('COUNT', '*'), 'total']]
