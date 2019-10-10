@@ -5,9 +5,8 @@
 import React, {Component, Fragment} from 'react';
 import {Router, Route} from 'react-router';
 import {HashRouter, BrowserRouter} from 'react-router-dom';
-import {LocaleProvider} from 'antd';
+import {ConfigProvider} from 'antd';
 import zhCN from 'antd/lib/locale-provider/zh_CN';
-import PropTypes from 'prop-types';
 import AdminLayout from './components/AdminLayout';
 import {Provider} from 'mobx-react';
 import '~/utils/prototype';
@@ -22,7 +21,7 @@ import LoginPage from '~/pages/login/LoginPage';
 export default class App extends Component {
   render() {
     return (
-      <LocaleProvider locale={zhCN}>
+      <ConfigProvider locale={zhCN}>
         <Provider {...stores}>
           <BrowserRouter>
             <Fragment>
@@ -32,7 +31,7 @@ export default class App extends Component {
             </Fragment>
           </BrowserRouter>
         </Provider>
-      </LocaleProvider>
+      </ConfigProvider>
     )
   }
 }

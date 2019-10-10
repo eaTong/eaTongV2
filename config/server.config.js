@@ -27,15 +27,6 @@ let config = {
     accessKeySecret: '123',
     bucket: 'eatong'
   },
-  thirdParty: {
-    bugTracker: {
-      host: 'beta.erpstrong.com',
-      port: 4000,
-      user: 'btview',
-      password: '123',
-      database: 'db'
-    }
-  }
 };
 
 if (fs.existsSync(path.resolve(__dirname, 'server.config.production.js'))) {
