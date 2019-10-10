@@ -8,6 +8,7 @@ import UserStore from "~/stores/UserStore";
 import RoleStore from "~/stores/RoleStore";
 import PasswordStore from './PasswordStore';
 import FileStore from './FileStore';
+import BlogStore from './BlogStore';
 //UPDATE_TAG:importStore
 
 export default {
@@ -17,5 +18,6 @@ export default {
   role: new RoleStore(),
   password: new PasswordStore(),
   file: new FileStore(),
+blog: new BlogStore(),
 //UPDATE_TAG:registerStore
 }

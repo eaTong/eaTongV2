@@ -10,6 +10,7 @@ const UserRole = require('../server/models/UserRole');
 const Task = require('../server/models/Task');
 const Password = require('../server/models/Password');
 const File = require('../server/models/File');
+const Blog = require('../server/models/Blog');
 //UPDATE_TAG:importModel
 
 (async () => {
@@ -33,6 +34,7 @@ async function initialDatabaseStructure() {
   await Password.sync({alter: true});
   await Task.sync({alter: true});
   await File.sync({alter: true});
+  await Blog.sync({alter: true});
 //UPDATE_TAG:asyncModel
 }
 
@@ -63,13 +65,16 @@ async function initialMenu() {
     {name: '编辑', icon: 'edit', path: '/admin/bug/edit', enable: false, parentPath: '/admin/bug', type: 2},
     {name: '删除', icon: 'delete', path: '/admin/bug/delete', enable: false, parentPath: '/admin/bug', type: 2},
 
-
     {name: 'file', icon: 'file', path: '/admin/file', enable: true, parentPath: '',type:1},
     {name: '新增', icon: 'plus', path: '/admin/file/add', enable: true, parentPath: '/admin/file', type: 2},
     {name: '编辑', icon: 'edit', path: '/admin/file/edit', enable: true, parentPath: '/admin/file', type: 2},
     {name: '删除', icon: 'delete', path: '/admin/file/delete', enable: true, parentPath: '/admin/file', type: 2},
 
-//UPDATE_TAG:asyncMenu
+    {name: 'blog', icon: 'file', path: '/admin/blog', enable: true, parentPath: '',type:1},
+    {name: '新增', icon: 'plus', path: '/admin/blog/add', enable: true, parentPath: '/admin/blog', type: 2},
+    {name: '编辑', icon: 'edit', path: '/admin/blog/edit', enable: true, parentPath: '/admin/blog', type: 2},
+    {name: '删除', icon: 'delete', path: '/admin/blog/delete', enable: true, parentPath: '/admin/blog', type: 2},
+  //UPDATE_TAG:asyncMenu
   ];
   await Menu.bulkCreate(menuList, {updateOnDuplicate: ['path', 'name', 'icon', 'enable', 'parentPath', 'type']});
 }

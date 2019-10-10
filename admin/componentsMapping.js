@@ -5,6 +5,7 @@ import GrantMenuPage from '~/pages/role/GrantMenuPage';
 import PasswordPage from './pages/password/PasswordPage';
 import TaskPage from './pages/task/TaskPage';
 import FilePage from './pages/file/FilePage';
+import BlogPage from './pages/blog/BlogPage';
 //UPDATE_TAG:importPage
 
 const componentsMapping = {
@@ -15,6 +16,7 @@ const componentsMapping = {
   '/admin/password': PasswordPage,
   '/admin/task': TaskPage,
   '/admin/file': FilePage,
+   '/admin/blog': BlogPage,
 //UPDATE_TAG:addPageRoute
 };
 

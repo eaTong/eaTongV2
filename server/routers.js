@@ -13,6 +13,7 @@ const menuApi = require('./apis/menuApi');
 const passwordApi = require('./apis/passwordApi');
 const taskApi = require('./apis/taskApi');
 const fileApi = require('./apis/fileApi');
+const blogApi = require('./apis/blogApi');
 //UPDATE_TAG:importApi
 
 const router = new Router();
@@ -58,6 +59,12 @@ router.post('/api/file/get', fileApi.getFiles);
 router.post('/api/file/update', insertLog('update'), checkArguments(['id', 'name']), fileApi.updateFiles);
 router.post('/api/file/delete', insertLog('delete'), checkArguments(['ids']), fileApi.deleteFiles);
 router.post('/api/file/detail',  checkArguments(['id']), fileApi.getFileDetail);
+
+router.post('/api/blog/add', insertLog('add'), checkArguments(['name']), blogApi.addBlog);
+router.post('/api/blog/get', blogApi.getBlogs);
+router.post('/api/blog/update', insertLog('update'), checkArguments(['id', 'name']), blogApi.updateBlogs);
+router.post('/api/blog/delete', insertLog('delete'), checkArguments(['ids']), blogApi.deleteBlogs);
+router.post('/api/blog/detail',  checkArguments(['id']), blogApi.getBlogDetail);
 //UPDATE_TAG:defineRouter
 
 router.post('/api/*', async ctx => {
