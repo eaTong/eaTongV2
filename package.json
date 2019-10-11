@@ -54,7 +54,8 @@
     "react-dom": "^16.10.2",
     "sequelize": "^5.19.4",
     "tedious": "^6.4.0",
-    "uuid": "^3.3.3"
+    "uuid": "^3.3.3",
+    "webpack-stylesheet-variable-replacer-plugin": "^1.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.6.3",

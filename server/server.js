@@ -17,7 +17,6 @@ const session = require('koa-session-minimal');
 const MysqlStore = require('koa-mysql-session');
 const router = require('./routers');
 const routes = require('../page-routes');
-const {proxy} = require('./framework/middleWare');
 require('./framework/schedule');
 
 

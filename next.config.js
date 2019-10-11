@@ -1,6 +1,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const autoprefixer = require('autoprefixer');
+const WebpackVariableReplacer = require('webpack-stylesheet-variable-replacer-plugin');
 
 module.exports = {
   webpack: (config, {dev}) => {
@@ -58,10 +59,21 @@ module.exports = {
       });
 
       config.plugins.push(new MiniCssExtractPlugin({
-        filename: '[name]-[hash].css',
+        filename: 'static/app.css',
         chunkFilename: '[id].css',
         ignoreOrder: false, // Enable to remove warnings about conflicting order
       }),);
+      config.plugins.push(
+        new WebpackVariableReplacer({
+          publicPath: '',
+          buildPath: 'static/',
+          nextSupport: true,
+          specifyEntry:/_app\.js/,
+          matchVariables: {
+            main: '#209CEE',
+          }
+        }),
+      )
     } else {
       config.module.rules.push({
         test: /\.css$/,
