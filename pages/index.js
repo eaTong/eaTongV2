@@ -10,7 +10,7 @@ import Page from "../website/components/Page";
 class IndexPage extends Component {
   render() {
     return (
-      <div className="index-page">asdf</div>
+      <div className="index-page">hello all , I'm back!</div>
     )
   }
 }
