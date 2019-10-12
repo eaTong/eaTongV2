@@ -22,6 +22,11 @@ const router = new Router();
 router.post('/api/*', checkLogin);
 router.post('/api/*', structureData);
 
+router.post('/api/pub/blog/get', blogApi.getBlogs);
+router.post('/api/pub/category/get', categoryApi.getCategoryies);
+router.post('/api/pub/blog/detail', checkArguments(['id']), blogApi.getBlogDetail);
+
+
 router.post('/api/user/login', insertLog('login'), checkArguments(['account', 'password']), userApi.login);
 router.post('/api/image/upload', systemFileApi.uploadImage);
 router.post('/api/file/upload', systemFileApi.uploadFile);

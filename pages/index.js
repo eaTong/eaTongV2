@@ -5,10 +5,21 @@
 
 import React, {Component} from 'react';
 import Page from "../website/components/Page";
+import {inject, observer} from "mobx-react";
+import ajax from "../website/util/ajax";
+import Link from 'next/link';
+import '../website/util/prototype'
 
-
+@inject('home', 'app') @observer
 class IndexPage extends Component {
+  static async init(ctx) {
+    const {list, total} = await ajax({ctx, url: '/api/pub/blog/get'});
+    const categoryResult = await ajax({ctx, url: '/api/pub/category/get'});
+    return {home: {blog: list, total, categories: categoryResult.list}};
+  }
+
   render() {
+    const {home} = this.props;
     return (
       <div className="index-page">
         <section className="hero  is-primary">
@@ -30,24 +41,32 @@ class IndexPage extends Component {
         <div className="section container">
           <section className="media">
             <div className="media-content">
-              <div className="media">
-                <div className="media-content">
-                  <h1><strong>文章标题</strong></h1>
-                  <article>文章摘要</article>
-                </div>
-              </div>
-              <div className="media">
-                <div className="media-content">
-                  <h1><strong>文章标题</strong></h1>
-                  <article>文章摘要</article>
-                </div>
-              </div>
+              {home.blog.map(blog => (
+                <Link key={blog.id} href={`/blog/${blog.id}`}>
+                  <div className="media">
+                    <div className="media-content">
+                      <p>
+                        <strong>{blog.title}</strong>
+                        <small className={'tag'}>{blog.category.name}</small>
+                      </p>
+                      <article>{blog.description.slice(0, 200)}</article>
+                      <small>{blog.publishTime}</small>
+                    </div>
+                  </div>
+                </Link>
+              ))}
             </div>
 
             <div className="media-right box categories">
+              <small className="category">文章分类</small>
               <ul>
-                <li>分类1</li>
-                <li>分类2</li>
+                {home.categories.map(category => (
+                  <li className="category" key={category.id}>
+                    <strong>
+                      {category.name}
+                    </strong>
+                  </li>
+                ))}
               </ul>
             </div>
           </section>

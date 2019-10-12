@@ -14,7 +14,6 @@ class ImageUploader extends Component {
   handleChange(info, a, b, c) {
 
     const status = info.file.status;
-    console.log(status);
     switch (status) {
       case 'uploading':
         this.setState({loading: true});

@@ -17,6 +17,7 @@ const columns = [
   {title: '描述', key: 'description'},
   {title: '字数', key: 'contentSize'},
   {title: '阅读数', key: 'viewCount'},
+  {title: '所属分类', dataIndex: 'category', render: (val) => val.name}
 ];
 
 @inject('blog', 'app') @observer

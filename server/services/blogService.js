@@ -6,6 +6,7 @@ const {Op} = require('sequelize');
 const sequelize = require('../framework/database');
 const {LogicError} = require('../framework/errors');
 const Blog = require('../models/Blog');
+const Category = require('../models/Category');
 const {extractDescription} = require("../framework/utils");
 
 module.exports = {
@@ -33,9 +34,13 @@ module.exports = {
     const option = {where: {enable: true, title: {[Op.like]: `%${keywords}%`}, content: {[Op.like]: `%${keywords}%`}}};
     const {dataValues: {total}} = await Blog.findOne({
       ...option,
-      attributes: [[sequelize.fn('COUNT', '*'), 'total']]
+      attributes: [[sequelize.fn('COUNT', '*'), 'total']],
     });
-    const list = await Blog.findAll({offset: pageIndex * pageSize, limit: pageSize, ...option});
+    const list = await Blog.findAll({
+      offset: pageIndex * pageSize,
+      limit: pageSize, ...option,
+      include: [{model: Category}]
+    });
     return {total, list}
   },
 

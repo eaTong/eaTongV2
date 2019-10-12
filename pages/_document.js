@@ -1,6 +1,7 @@
 import React from 'react';
 import Document, {Head, Main, NextScript} from 'next/document';
 import globalStyle from '../website/styles/global.sass'
+import highlightStyle from 'highlight.js/styles/vs.css';
 
 export default class MyDocument extends Document {
   render() {
@@ -20,6 +21,7 @@ export default class MyDocument extends Document {
           <Head>
             <link rel="shortcut icon" href="/favicon.ico"/>
             <style dangerouslySetInnerHTML={{__html: globalStyle}}/>
+            <style dangerouslySetInnerHTML={{__html: highlightStyle}}/>
           </Head>
         )}
       <body>
