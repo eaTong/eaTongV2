@@ -7,8 +7,8 @@ const webpack = require('webpack');
 const ROOT_PATH = path.resolve(__dirname,'../');
 const APP_PATH = path.resolve(ROOT_PATH, 'admin');
 const HtmlwebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const autoPrefixer = require('autoprefixer');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   mode: 'production',
@@ -18,7 +18,7 @@ module.exports = {
   output: {
     path: path.resolve(ROOT_PATH, 'adminDist'),
     filename: 'bundle.js',
-    publicPath: '/static/'
+    publicPath: '/'
   },
   resolve: {
     extensions: ['.js', '.jsx', '.json'],
@@ -34,14 +34,23 @@ module.exports = {
       template: path.resolve(ROOT_PATH, 'index-production.html'),
       filename: 'admin.html',
       //要把script插入到标签里
-      inject: false,
+      inject: true,
     }),
-    new ExtractTextPlugin("style.css")
+    new MiniCssExtractPlugin({
+      filename: '[name]-[hash].css',
+      chunkFilename: '[id].css',
+      ignoreOrder: false, // Enable to remove warnings about conflicting order
+    }),
   ],
   module: {
     rules: [{
       test: /\.css$/,
-      use: ['style-loader', {
+      use: [
+        MiniCssExtractPlugin.loader,
+        {
+          loader: 'css-loader',
+        },
+        {
         loader: 'postcss-loader', options: {
           plugins: [autoPrefixer]
         }
@@ -49,7 +58,10 @@ module.exports = {
     }, {
       test: /\.less$/,
       use: [
-        'style-loader',
+        MiniCssExtractPlugin.loader,
+        {
+          loader: 'css-loader',
+        },
         {
           loader: 'postcss-loader', options: {
             plugins: [autoPrefixer]

@@ -126,16 +126,26 @@ export default class BaseStore {
   @action
   async onSaveData(formData) {
     if (/(add)|(copyAdd)/.test(this.operateType)) {
-      await ajax({url: this.addApi, data: formData});
-      message.success('新增成功');
-      this.toggleFormModal();
-      await this.getDataList();
+      this.addData(formData);
     } else {
-      await ajax({url: this.updateApi, data: {id: this.getKey(this.firstSelected), ...formData}});
-      message.success('编辑成功');
-      this.toggleFormModal();
-      await this.getDataList();
+      this.updateData(formData);
     }
+  }
+
+  @action
+  async addData(data) {
+    await ajax({url: this.addApi, data});
+    message.success('新增成功');
+    this.showFormModal = false;
+    await this.getDataList();
+  }
+
+  @action
+  async updateData(data) {
+    await ajax({url: this.updateApi, data: {id: this.getKey(this.firstSelected), ...data}});
+    message.success('编辑成功');
+    this.showFormModal = false;
+    await this.getDataList();
   }
 
   @action

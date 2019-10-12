@@ -1,30 +1,25 @@
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const autoprefixer = require('autoprefixer');
-
+const WebpackVariableReplacer = require('webpack-stylesheet-variable-replacer-plugin');
 
 module.exports = {
   webpack: (config, {dev}) => {
     config.module.rules.push({
-      test: /(\.s[ac]ss$)|(\.css$)|(\.less$)/,
-      loader: 'emit-file-loader',
-      options: {
-        name: 'dist/[path][name].[ext]',
-      },
+      test: /\.(jpg|png|gif)$/,
+      use: {
+        loader: 'url-loader',
+        options: {
+          limit: 25000,
+          name: '[name].[ext]'
+        }
+      }
     });
 
     if (!dev) {
       const preLoader = [
         {
           loader: 'css-loader',
-          options: {
-            importLoaders: 2,
-            modules: false,
-            url: true,
-            sourceMap: false,
-            minimize: true,
-            localIdentName: '[hash:base64:5]',
-          },
         }, {
           loader: 'postcss-loader',
           options: {
@@ -36,46 +31,52 @@ module.exports = {
         }];
       config.module.rules.push({
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          use: preLoader
-        })
+        use: [
+          MiniCssExtractPlugin.loader,
+          ...preLoader
+        ]
       }, {
         test: /\.s[ac]ss$/,
-        use: ExtractTextPlugin.extract({
-          use: [
-            ...preLoader,
-            {
-              loader: 'sass-loader',
-              options: {
-                sourceMap: false,
-                includePaths: [
-                  path.resolve(__dirname, 'website'),
-                  path.resolve(__dirname, 'pages'),
-                ],
-              },
+        use: [
+          MiniCssExtractPlugin.loader,
+          ...preLoader,
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: false,
             },
-          ],
-        }),
+          },
+        ],
       }, {
         test: /\.less$/,
-        use: ExtractTextPlugin.extract({
-          use: [
-            ...preLoader,
-            {
-              loader: 'less-loader',
-              options: {
-                sourceMap: true,
-                includePaths: [
-                  path.resolve(__dirname, 'website'),
-                  path.resolve(__dirname, 'pages'),
-                ],
-              },
+        use: [
+          MiniCssExtractPlugin.loader,
+          ...preLoader,
+          {
+            loader: 'less-loader',
+            options: {
+              sourceMap: true,
             },
-          ],
-        }),
+          },
+        ],
       });
 
-      config.plugins.push(new ExtractTextPlugin('/static/app.css'));
+      config.plugins.push(new MiniCssExtractPlugin({
+        filename: 'static/app.css',
+        chunkFilename: '[id].css',
+        ignoreOrder: false, // Enable to remove warnings about conflicting order
+      }),);
+      config.plugins.push(
+        new WebpackVariableReplacer({
+          publicPath: '',
+          buildPath: 'static/',
+          nextSupport: true,
+          specifyEntry: /_app\.js/,
+          matchVariables: {
+            main: '#209CEE',
+          }
+        }),
+      )
     } else {
       config.module.rules.push({
         test: /\.css$/,

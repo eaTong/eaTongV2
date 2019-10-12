@@ -62,7 +62,6 @@ module.exports = {
   },
 
   update${upperFirstLetter(form)}s: async (${form}) => {
-    ${form}.logo = JSON.stringify(${form}.logo || []);
     return await ${upperFirstLetter(form)}.update(${form}, {where: {id: ${form}.id}})
   },
 
@@ -71,7 +70,7 @@ module.exports = {
   },
 
   get${upperFirstLetter(form)}s: async ({pageIndex = 0, pageSize = 20, keywords = ''}) => {
-    const option = {where: {enable: true, name: {[Op.like]: ${'`%keywords%`'}}};
+    const option = {where: {enable: true, name: {[Op.like]: \`\%\${keywords}%\`}}}; 
     const {dataValues: {total}} = await ${upperFirstLetter(form)}.findOne({
       ...option,
       attributes: [[sequelize.fn('COUNT', '*'), 'total']]
@@ -83,7 +82,7 @@ module.exports = {
   get${upperFirstLetter(form)}Detail: async ({id}) => {
     return await ${upperFirstLetter(form)}.findOne({where: {id}});
   }
-};
+}; 
   `;
 };
 
@@ -93,11 +92,11 @@ module.exports.getImportApi = function (form) {
 
 module.exports.getDefineRouter = function (form) {
   return `
-router.post('/api/${form}/add', insertLog('add'), checkArguments(['name']), ${form}Api.add${form});
-router.post('/api/${form}/get', ${form}Api.get${form}s);
-router.post('/api/${form}/update', insertLog('update'), checkArguments(['id', 'name']), ${form}Api.update${form}s);
-router.post('/api/${form}/delete', insertLog('delete'), checkArguments(['ids']), ${form}Api.delete${form}s);  
-router.post('/api/${form}/detail',  checkArguments(['id']), ${form}Api.get${form}Detail); \
+router.post('/api/${form}/add', insertLog('add'), checkArguments(['name']), ${form}Api.add${upperFirstLetter(form)});
+router.post('/api/${form}/get', ${form}Api.get${upperFirstLetter(form)}s);
+router.post('/api/${form}/update', insertLog('update'), checkArguments(['id', 'name']), ${form}Api.update${upperFirstLetter(form)}s);
+router.post('/api/${form}/delete', insertLog('delete'), checkArguments(['ids']), ${form}Api.delete${upperFirstLetter(form)}s);  
+router.post('/api/${form}/detail',  checkArguments(['id']), ${form}Api.get${upperFirstLetter(form)}Detail); \
 `
 };
 

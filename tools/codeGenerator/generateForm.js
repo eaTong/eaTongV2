@@ -38,8 +38,8 @@ readlineInstance.question('What\'s the form name ?', async form => {
 
 // generate code of backend
   await writeFile(path.resolve(modelPath, `${upperFirstLetter(form)}.js`), getModel(form));
-  await writeFile(path.resolve(apiPath, `${upperFirstLetter(form)}Api.js`), getApi(form));
-  await writeFile(path.resolve(servicePath, `${upperFirstLetter(form)}Service.js`), getService(form));
+  await writeFile(path.resolve(apiPath, `${form}Api.js`), getApi(form));
+  await writeFile(path.resolve(servicePath, `${form}Service.js`), getService(form));
   await updateFile(routerPath, 'importApi', getImportApi(form));
   await updateFile(routerPath, 'defineRouter', getDefineRouter(form));
   await updateFile(initDbPath, 'importModel', getImportModel(form));

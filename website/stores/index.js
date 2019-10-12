@@ -1,7 +1,9 @@
 import App from './App';
-import yzz from './Yzz';
+import Home from './Home';
+import Blog from './Blog';
 
 export default {
   app: new App(),
-  yzz: new yzz(),
+  home: new Home(),
+  blog: new Blog(),
 }

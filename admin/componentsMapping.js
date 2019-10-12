@@ -4,8 +4,10 @@ import RolePage from '~/pages/role/RolePage';
 import GrantMenuPage from '~/pages/role/GrantMenuPage';
 import PasswordPage from './pages/password/PasswordPage';
 import TaskPage from './pages/task/TaskPage';
-import BugPage from './pages/bug/BugPage';
 import FilePage from './pages/file/FilePage';
+import BlogPage from './pages/blog/BlogPage';
+import CategoryPage from './pages/category/CategoryPage';
+import AddBlogPage from "./pages/blog/AddBlogPage";
 //UPDATE_TAG:importPage
 
 const componentsMapping = {
@@ -15,8 +17,10 @@ const componentsMapping = {
   '/admin/grant': GrantMenuPage,
   '/admin/password': PasswordPage,
   '/admin/task': TaskPage,
-  '/admin/bug': BugPage,
   '/admin/file': FilePage,
+  '/admin/blog': BlogPage,
+  '/admin/blog/add': AddBlogPage,
+  '/admin/category': CategoryPage,
 //UPDATE_TAG:addPageRoute
 };
 

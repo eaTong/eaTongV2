@@ -9,9 +9,9 @@ const RoleMenu = require('../server/models/RoleMenu');
 const UserRole = require('../server/models/UserRole');
 const Task = require('../server/models/Task');
 const Password = require('../server/models/Password');
-const Bug = require('../server/models/Bug');
-const BugByName = require('../server/models/BugByName');
 const File = require('../server/models/File');
+const Blog = require('../server/models/Blog');
+const Category = require('../server/models/Category');
 //UPDATE_TAG:importModel
 
 (async () => {
@@ -32,12 +32,11 @@ async function initialDatabaseStructure() {
   await UserRole.sync({alter: true});
   await Task.sync({alter: true});
   await Password.sync({alter: true});
-  await Bug.sync({alter: true});
   await Password.sync({alter: true});
   await Task.sync({alter: true});
-  await Bug.sync({alter: true});
   await File.sync({alter: true});
-  await BugByName.sync({alter: true});
+  await Category.sync({alter: true});
+  await Blog.sync({alter: true});
 //UPDATE_TAG:asyncModel
 }
 
@@ -63,16 +62,25 @@ async function initialMenu() {
     {name: '编辑', icon: 'edit', path: '/admin/password/edit', enable: true, parentPath: '/admin/password', type: 2},
     {name: '删除', icon: 'delete', path: '/admin/password/delete', enable: true, parentPath: '/admin/password', type: 2},
 
-    {name: 'bug', icon: 'exception', path: '/admin/bug', enable: true, parentPath: '', type: 1},
-    {name: '新增', icon: 'plus', path: '/admin/bug/add', enable: true, parentPath: '/admin/bug', type: 2},
-    {name: '编辑', icon: 'edit', path: '/admin/bug/edit', enable: true, parentPath: '/admin/bug', type: 2},
-    {name: '删除', icon: 'delete', path: '/admin/bug/delete', enable: true, parentPath: '/admin/bug', type: 2},
-
+    {name: 'bug', icon: 'exception', path: '/admin/bug', enable: false, parentPath: '', type: 1},
+    {name: '新增', icon: 'plus', path: '/admin/bug/add', enable: false, parentPath: '/admin/bug', type: 2},
+    {name: '编辑', icon: 'edit', path: '/admin/bug/edit', enable: false, parentPath: '/admin/bug', type: 2},
+    {name: '删除', icon: 'delete', path: '/admin/bug/delete', enable: false, parentPath: '/admin/bug', type: 2},
 
     {name: 'file', icon: 'file', path: '/admin/file', enable: true, parentPath: '',type:1},
     {name: '新增', icon: 'plus', path: '/admin/file/add', enable: true, parentPath: '/admin/file', type: 2},
     {name: '编辑', icon: 'edit', path: '/admin/file/edit', enable: true, parentPath: '/admin/file', type: 2},
     {name: '删除', icon: 'delete', path: '/admin/file/delete', enable: true, parentPath: '/admin/file', type: 2},
+
+    {name: 'blog', icon: 'file', path: '/admin/blog', enable: true, parentPath: '',type:1},
+    {name: '新增blog', icon: 'plus', path: '/admin/blog/add', enable: true, parentPath: '', type: 1},
+    {name: '编辑', icon: 'edit', path: '/admin/blog/edit', enable: true, parentPath: '/admin/blog', type: 2},
+    {name: '删除', icon: 'delete', path: '/admin/blog/delete', enable: true, parentPath: '/admin/blog', type: 2},
+
+    {name: 'category', icon: 'file', path: '/admin/category', enable: true, parentPath: '',type:1},
+    {name: '新增', icon: 'plus', path: '/admin/category/add', enable: true, parentPath: '/admin/category', type: 2},
+    {name: '编辑', icon: 'edit', path: '/admin/category/edit', enable: true, parentPath: '/admin/category', type: 2},
+    {name: '删除', icon: 'delete', path: '/admin/category/delete', enable: true, parentPath: '/admin/category', type: 2},
 
 //UPDATE_TAG:asyncMenu
   ];

@@ -1,7 +1,7 @@
 
 /**
- * Created by eaTong on 2019-03-15 .
- * Description: auto generated in  2019-03-15
+ * Created by eaTong on 2019-10-12 .
+ * Description: auto generated in  2019-10-12
  */
 
   import React, {Component} from 'react';
@@ -11,7 +11,7 @@ import {GLOBAL_LAYOUT} from '~/utils/constants';
 
 const FormItem = Form.Item;
 
-class BugFormModal extends Component {
+class CategoryFormModal extends Component {
   componentDidMount() {
     if (/(edit)|(copyAdd)/.test(this.props.operateType)) {
       this.props.form.setFieldsValue(this.props.formData);
@@ -53,11 +53,11 @@ class BugFormModal extends Component {
   }
 }
 
-BugFormModal.propTypes = {
+CategoryFormModal.propTypes = {
   operateType: PropTypes.string,
   onOk: PropTypes.func,
   onCancel: PropTypes.func,
   formData: PropTypes.object
 };
-BugFormModal = Form.create()(BugFormModal);
-export default BugFormModal;
+CategoryFormModal = Form.create()(CategoryFormModal);
+export default CategoryFormModal;

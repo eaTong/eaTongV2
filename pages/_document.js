@@ -1,11 +1,12 @@
 import React from 'react';
 import Document, {Head, Main, NextScript} from 'next/document';
 import globalStyle from '../website/styles/global.sass'
+import highlightStyle from 'highlight.js/styles/vs.css';
 
 export default class MyDocument extends Document {
   render() {
     return (
-      <html lang="zh-cn">
+      <html lang="zh-cn" className={'has-navbar-fixed-top'}>
       {process.env.NODE_ENV === 'production'
         ? (
           <Head>
@@ -19,7 +20,8 @@ export default class MyDocument extends Document {
         ) : (
           <Head>
             <link rel="shortcut icon" href="/favicon.ico"/>
-            <style global dangerouslySetInnerHTML={{__html: globalStyle}}/>
+            <style dangerouslySetInnerHTML={{__html: globalStyle}}/>
+            <style dangerouslySetInnerHTML={{__html: highlightStyle}}/>
           </Head>
         )}
       <body>
