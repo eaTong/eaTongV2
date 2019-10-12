@@ -5,7 +5,7 @@ import globalStyle from '../website/styles/global.sass'
 export default class MyDocument extends Document {
   render() {
     return (
-      <html lang="zh-cn">
+      <html lang="zh-cn" className={'has-navbar-fixed-top'}>
       {process.env.NODE_ENV === 'production'
         ? (
           <Head>

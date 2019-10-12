@@ -6,11 +6,14 @@ const WebpackVariableReplacer = require('webpack-stylesheet-variable-replacer-pl
 module.exports = {
   webpack: (config, {dev}) => {
     config.module.rules.push({
-      test: /(\.s[ac]ss$)|(\.css$)|(\.less$)/,
-      loader: 'emit-file-loader',
-      options: {
-        name: 'dist/[path][name].[ext]',
-      },
+      test: /\.(jpg|png|gif)$/,
+      use: {
+        loader: 'url-loader',
+        options: {
+          limit: 25000,
+          name: '[name].[ext]'
+        }
+      }
     });
 
     if (!dev) {
@@ -68,7 +71,7 @@ module.exports = {
           publicPath: '',
           buildPath: 'static/',
           nextSupport: true,
-          specifyEntry:/_app\.js/,
+          specifyEntry: /_app\.js/,
           matchVariables: {
             main: '#209CEE',
           }

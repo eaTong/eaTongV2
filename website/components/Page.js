@@ -4,8 +4,10 @@ import stores from '../stores';
 import {parse} from 'query-string';
 import Head from 'next/head';
 import Loading from './Loading';
+import WebsiteNavBar from './WebsiteNavBar';
+import WebsiteFooter from "./WebsiteFooter";
 
-export default Component => class Page extends React.Component {
+export default (Component, options = {}) => class Page extends React.Component {
   constructor(props) {
     super(props);
     this.stores = stores;
@@ -27,6 +29,7 @@ export default Component => class Page extends React.Component {
     }
     return {app: {}};
   }
+
   componentDidMount() {
     const query = parse(window.location.search);
     const propStore = this.props.stores || {};
@@ -47,10 +50,12 @@ export default Component => class Page extends React.Component {
         <div className="layout-default">
           <Loading/>
           <Head>
-            <title>eaTong write a blog with Next.js</title>
+            <title>eaTong个人站</title>
             <meta name="viewport" content="initial-scale=1.0, width=device-width" key="viewport"/>
           </Head>
+          <WebsiteNavBar/>
           <Component query={this.state.query || {}}/>
+          <WebsiteFooter/>
         </div>
       </Provider>
     )
