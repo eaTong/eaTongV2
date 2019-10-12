@@ -9,6 +9,7 @@ import RoleStore from "~/stores/RoleStore";
 import PasswordStore from './PasswordStore';
 import FileStore from './FileStore';
 import BlogStore from './BlogStore';
+import CategoryStore from './CategoryStore';
 //UPDATE_TAG:importStore
 
 export default {
@@ -19,5 +20,6 @@ export default {
   password: new PasswordStore(),
   file: new FileStore(),
 blog: new BlogStore(),
+category: new CategoryStore(),
 //UPDATE_TAG:registerStore
 }

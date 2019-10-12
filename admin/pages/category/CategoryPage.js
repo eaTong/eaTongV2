@@ -1,71 +1,69 @@
+
 /**
- * Created by eaTong on 2019-10-10 .
- * Description: auto generated in  2019-10-10
+ * Created by eaTong on 2019-10-12 .
+ * Description: auto generated in  2019-10-12
  */
 
 import React, {Component} from 'react';
-import {Button, message, Input, Pagination} from 'antd';
+import {Button, message ,Input , Pagination} from 'antd';
 import Reactable from "@eatong/reactable";
-import BlogFormModal from "./BlogFormModal";
+import CategoryFormModal from "./CategoryFormModal";
 import {inject, observer} from "mobx-react";
 import Title from "~/components/Title";
 import PageBase from "~/components/PageBase";
 
 const ButtonGroup = Button.Group;
 const columns = [
-  {title: '标题', key: 'title'},
-  {title: '描述', key: 'description'},
-  {title: '字数', key: 'contentSize'},
-  {title: '阅读数', key: 'viewCount'},
+  {title: '名称', key: 'name'},
 ];
 
-@inject('blog', 'app') @observer
-class BlogPage extends PageBase {
+@inject('category','app') @observer
+class CategoryPage extends PageBase {
   async componentDidMount() {
-    await this.props.blog.getDataList();
+    await this.props.category.getDataList();
   }
 
   render() {
-    const {blog} = this.props;
-    const {dataList, operateType, showFormModal, selectedKeys, rowSelection, firstSelected, pagination} = blog;
+    const {category} = this.props;
+    const {dataList, operateType, showFormModal, selectedKeys, rowSelection, firstSelected , pagination} = category;
     return (
-      <div className="base-layout blog-page">
-        <Title title='blog管理'/>
+      <div className="base-layout category-page">
+        <Title title='category管理'/>
         <div className="operate-bar">
           <Input.Search
             className={'search'}
             placeholder={'输入关键字搜索'}
-            onSearch={(val) => blog.searchData(val)}
+            onSearch={(val) => category.searchData(val)}
           />
-
+          
           <ButtonGroup className="buttons">
             <Button
-              onClick={() => this.props.blog.toggleFormModal('add')}
+              onClick={() => this.props.category.toggleFormModal('add')}
               disabled={this.disableButton('add')}
               type={'primary'}
             >
               新增
             </Button>
             <Button
-              onClick={() => blog.toggleFormModal('copyAdd')}
+              onClick={() => category.toggleFormModal('copyAdd')}
               disabled={this.disableButton('add', selectedKeys.length !== 1)}
             >
               复制并新增
             </Button>
             <Button
-              onClick={() => this.props.blog.toggleFormModal('edit')}
+              onClick={() => this.props.category.toggleFormModal('edit')}
               disabled={this.disableButton('edit', selectedKeys.length !== 1)}
             >
               编辑
             </Button>
             <Button
-              onClick={() => this.props.blog.deleteData()}
+              onClick={() => this.props.category.deleteData()}
               disabled={this.disableButton('delete', selectedKeys.length === 0)}
             >
               删除
             </Button>
             <Button
-              onClick={() => this.props.blog.toggleGrantModal()}
+              onClick={() => this.props.category.toggleGrantModal()}
               disabled={this.disableButton('grant', selectedKeys.length !== 1)}
             >
               分配角色
@@ -76,17 +74,17 @@ class BlogPage extends PageBase {
           columns={columns}
           dataSource={dataList}
           rowKey="id"
-          tableId="blog-table"
-          pagination={blog.pagination}
+          tableId="category-table"
+          pagination={category.pagination}
           rowSelection={{
             selectedRowKeys: selectedKeys,
-            onChange: (keys) => blog.onChangeSelection(keys)
+            onChange: (keys) => category.onChangeSelection(keys)
           }}/>
         <Pagination {...pagination}/>
         {showFormModal && (
-          <BlogFormModal
-            onCancel={() => blog.toggleFormModal()}
-            onOk={(data) => blog.onSaveData(data)}
+          <CategoryFormModal
+            onCancel={() => category.toggleFormModal()}
+            onOk={(data) => category.onSaveData(data)}
             operateType={operateType}
             formData={firstSelected}
           />
@@ -96,5 +94,6 @@ class BlogPage extends PageBase {
   }
 }
 
-BlogPage.propTypes = {};
-export default BlogPage;
+CategoryPage.propTypes = {};
+export default CategoryPage;
+  

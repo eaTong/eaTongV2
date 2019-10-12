@@ -14,6 +14,7 @@ const passwordApi = require('./apis/passwordApi');
 const taskApi = require('./apis/taskApi');
 const fileApi = require('./apis/fileApi');
 const blogApi = require('./apis/blogApi');
+const categoryApi = require('./apis/categoryApi');
 //UPDATE_TAG:importApi
 
 const router = new Router();
@@ -46,25 +47,31 @@ router.post('/api/password/add', insertLog('add'), checkArguments(['name']), pas
 router.post('/api/password/get', passwordApi.getPasswords);
 router.post('/api/password/update', insertLog('update'), checkArguments(['id', 'name']), passwordApi.updatePasswords);
 router.post('/api/password/delete', insertLog('delete'), checkArguments(['ids']), passwordApi.deletePasswords);
-router.post('/api/password/detail',  checkArguments(['id']), passwordApi.getPasswordDetail);
+router.post('/api/password/detail', checkArguments(['id']), passwordApi.getPasswordDetail);
 
 router.post('/api/task/add', insertLog('add'), checkArguments(['name']), taskApi.addTask);
 router.post('/api/task/get', taskApi.getTasks);
 router.post('/api/task/update', insertLog('update'), checkArguments(['id', 'name']), taskApi.updateTasks);
 router.post('/api/task/delete', insertLog('delete'), checkArguments(['ids']), taskApi.deleteTasks);
-router.post('/api/task/detail',  checkArguments(['id']), taskApi.getTaskDetail);
+router.post('/api/task/detail', checkArguments(['id']), taskApi.getTaskDetail);
 
 router.post('/api/file/add', insertLog('add'), checkArguments(['name']), fileApi.addFile);
 router.post('/api/file/get', fileApi.getFiles);
 router.post('/api/file/update', insertLog('update'), checkArguments(['id', 'name']), fileApi.updateFiles);
 router.post('/api/file/delete', insertLog('delete'), checkArguments(['ids']), fileApi.deleteFiles);
-router.post('/api/file/detail',  checkArguments(['id']), fileApi.getFileDetail);
+router.post('/api/file/detail', checkArguments(['id']), fileApi.getFileDetail);
 
-router.post('/api/blog/add', insertLog('add'), checkArguments(['name']), blogApi.addBlog);
+router.post('/api/blog/add', insertLog('add'), checkArguments(['title', 'content']), blogApi.addBlog);
 router.post('/api/blog/get', blogApi.getBlogs);
-router.post('/api/blog/update', insertLog('update'), checkArguments(['id', 'name']), blogApi.updateBlogs);
+router.post('/api/blog/update', insertLog('update'), checkArguments(['id', 'title', 'content']), blogApi.updateBlogs);
 router.post('/api/blog/delete', insertLog('delete'), checkArguments(['ids']), blogApi.deleteBlogs);
-router.post('/api/blog/detail',  checkArguments(['id']), blogApi.getBlogDetail);
+router.post('/api/blog/detail', checkArguments(['id']), blogApi.getBlogDetail);
+
+router.post('/api/category/add', insertLog('add'), checkArguments(['name']), categoryApi.addCategory);
+router.post('/api/category/get', categoryApi.getCategoryies);
+router.post('/api/category/update', insertLog('update'), checkArguments(['id', 'name']), categoryApi.updateCategoryies);
+router.post('/api/category/delete', insertLog('delete'), checkArguments(['ids']), categoryApi.deleteCategoryies);
+router.post('/api/category/detail', checkArguments(['id']), categoryApi.getCategoryDetail);
 //UPDATE_TAG:defineRouter
 
 router.post('/api/*', async ctx => {
