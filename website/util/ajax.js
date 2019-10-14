@@ -2,7 +2,7 @@ import axios from 'axios';
 import store from '../stores';
 import {notify} from '../components';
 
-export default function ajax(config) {
+export default function ajax(config = {}) {
   const {url, data, ctx, headers} = config;
 
   config.method = config.method || 'post';
@@ -39,14 +39,12 @@ export default function ajax(config) {
       let result;
       store.app.loading();
       try {
-        const formData = headers ? data : {...data, pageUrl: window.location.pathname + window.location.search};
-        // result = await axios.post(url, formData, {headers: headers});
         const requestData = {...data, pageUrl: window.location.pathname + window.location.search};
         const result = await axios({
           url,
+          headers,
           data: requestData,
           params: config.method === 'get' ? requestData : {},
-          headers: ctx.req.headers
         });
         if (!result.data.success) {
           notify.error({content: result.data.message});
@@ -55,6 +53,7 @@ export default function ajax(config) {
         store.app.cancelLoading();
         resolve(result.data.data);
       } catch (ex) {
+        console.log(ex);
         store.app.cancelLoading();
         notify.error({content: ex.message});
         reject(result.data.message);

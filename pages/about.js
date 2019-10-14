@@ -9,7 +9,6 @@ import ajax from "../website/util/ajax";
 @inject('home', 'app') @observer
 class AboutPage extends Component {
   static async init(ctx) {
-    const {list, total} = await ajax({ctx, url: '/api/pub/about/get'});
     return {about: {}};
   }
 
