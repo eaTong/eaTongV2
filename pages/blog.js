@@ -26,7 +26,7 @@ class BlogPage extends Component {
   }
 
   static async init(ctx) {
-    const blog = await ajax({data: {id: ctx.query.id}, ctx, url: '/api/pub/blog/detail'});
+    const blog = await ajax({method: 'get', data: {id: ctx.query.id}, ctx, url: '/api/pub/blog/detail'});
     return {blog: {blog}};
   }
 

@@ -34,6 +34,7 @@
     "fs-extra": "^8.1.0",
     "highlight.js": "^9.15.10",
     "koa": "^2.8.2",
+    "koa-better-body": "^3.1.6",
     "koa-body": "^4.1.1",
     "koa-connect": "^2.0.1",
     "koa-cookie": "^1.0.0",

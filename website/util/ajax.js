@@ -5,12 +5,21 @@ import {notify} from '../components';
 export default function ajax(config) {
   const {url, data, ctx, headers} = config;
 
+  config.method = config.method || 'post';
+
   return new Promise((async (resolve, reject) => {
     //if ctx.req is not null or undefined means this request is called from server-side,
     if (ctx && ctx.req) {
+      const requestData = {...data, __server: true};
       try {
         const host = ctx.req.headers.host;
-        const result = await axios.post('http://' + host + url, {...data, __server: true}, {headers: ctx.req.headers});
+        const result = await axios({
+          url: 'http://' + host + url,
+          data: requestData,
+          params: config.method === 'get' ? requestData : {},
+          headers: ctx.req.headers
+        });
+        // const result = await axios.post('http://' + host + url, {...data, __server: true}, {headers: ctx.req.headers});
         if (!result.data.success) {
           ctx.res.statusCode = 200;
           ctx.res.end(result.data.message);
@@ -31,7 +40,14 @@ export default function ajax(config) {
       store.app.loading();
       try {
         const formData = headers ? data : {...data, pageUrl: window.location.pathname + window.location.search};
-        result = await axios.post(url, formData, {headers: headers});
+        // result = await axios.post(url, formData, {headers: headers});
+        const requestData = {...data, pageUrl: window.location.pathname + window.location.search};
+        const result = await axios({
+          url,
+          data: requestData,
+          params: config.method === 'get' ? requestData : {},
+          headers: ctx.req.headers
+        });
         if (!result.data.success) {
           notify.error({content: result.data.message});
           reject(result.data);
