@@ -8,7 +8,6 @@ import Page from "../website/components/Page";
 import {inject, observer} from "mobx-react";
 import ajax from "../website/util/ajax";
 import {Link} from '../page-routes';
-import '../website/util/prototype';
 
 @inject('home', 'app') @observer
 class IndexPage extends Component {

@@ -1,10 +1,9 @@
-
 /**
  * Created by eaTong on 2019-10-12 .
  * Description: auto generated in  2019-10-12
  */
 
-  import React, {Component} from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Modal, Form, Input, message} from 'antd';
 import {GLOBAL_LAYOUT} from '~/utils/constants';
@@ -45,6 +44,18 @@ class CategoryFormModal extends Component {
               }],
             })(
               <Input/>
+            )}
+          </FormItem>
+          <FormItem
+            {...GLOBAL_LAYOUT}
+            label="描述"
+            hasFeedback>
+            {getFieldDecorator('description', {
+              rules: [{
+                required: true, message: '分类描述!',
+              }],
+            })(
+              <Input.TextArea/>
             )}
           </FormItem>
         </Form>

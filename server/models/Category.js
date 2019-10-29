@@ -9,6 +9,7 @@ const sequelize = require('../framework/database');
 
 const Category = sequelize.define('category', {
   name: {type: Sequelize.STRING},
+  description: {type: Sequelize.STRING},
   enable: Sequelize.BOOLEAN,
 });
 
