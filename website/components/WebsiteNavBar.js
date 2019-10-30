@@ -1,5 +1,6 @@
 import React from 'react';
-import Link from 'next/link'
+import Link from 'next/link';
+import ColorPicker from "./ColorPicker";
 
 export default function WebsiteNavBar(props) {
   return (
@@ -25,6 +26,13 @@ export default function WebsiteNavBar(props) {
               关于
             </a>
           </Link>
+          <div className="navbar-end">
+            <a className="navbar-item"><span>
+              换肤
+            </span>
+              <ColorPicker onChange={(val) => console.log(val)}/>
+            </a>
+          </div>
         </div>
       </div>
     </nav>

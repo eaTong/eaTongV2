@@ -15,6 +15,7 @@ const serve = require('koa-static');
 const koaLogger = require('koa-logger');
 const session = require('koa-session-minimal');
 const MysqlStore = require('koa-mysql-session');
+const queryString = require('query-string');
 const router = require('./routers');
 const routes = require('../page-routes');
 require('./framework/schedule');
@@ -32,7 +33,16 @@ nextServer.prepare()
     const app = new Koa();
     app.use(koaConnect(compression()));
     app.use(cookie());
+    app.use(koaLogger());
+//use koaBody to resolve data
+    app.use(koaBody({multipart: true}));
 
+    app.use(async (ctx, next) => {
+      if (ctx.request.method === 'GET' && /.*\?/.test(ctx.request.url)) {
+        ctx.request.body = queryString.parse(ctx.request.url.replace(/.*\?/, ''));
+      }
+      await next();
+    });
 
     app.use(serve('.next/server/static', {
       maxAge: 365 * 24 * 60 * 60,
@@ -58,9 +68,6 @@ nextServer.prepare()
         maxage: 24 * 60 * 60 * 1000
       }
     }));
-//use koaBody to resolve data
-    app.use(koaBody({multipart: true}));
-
     router.get('/login', async ctx => {
       ctx.type = 'html';
       ctx.body = createReadStream('adminDist/admin.html');

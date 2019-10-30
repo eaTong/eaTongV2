@@ -19,12 +19,12 @@ const categoryApi = require('./apis/categoryApi');
 
 const router = new Router();
 //define data structure for all API
-router.post('/api/*', checkLogin);
-router.post('/api/*', structureData);
+router.all('/api/*', checkLogin);
+router.all('/api/*', structureData);
 
-router.post('/api/pub/blog/get', blogApi.getBlogs);
-router.post('/api/pub/category/get', categoryApi.getCategoryies);
-router.post('/api/pub/blog/detail', checkArguments(['id']), blogApi.getBlogDetail);
+router.all('/api/pub/blog/get', blogApi.getBlogs);
+router.all('/api/pub/category/get', categoryApi.getCategoryies);
+router.all('/api/pub/blog/detail', checkArguments(['id']), blogApi.getBlogDetail);
 
 
 router.post('/api/user/login', insertLog('login'), checkArguments(['account', 'password']), userApi.login);
@@ -79,7 +79,7 @@ router.post('/api/category/delete', insertLog('delete'), checkArguments(['ids'])
 router.post('/api/category/detail', checkArguments(['id']), categoryApi.getCategoryDetail);
 //UPDATE_TAG:defineRouter
 
-router.post('/api/*', async ctx => {
+router.all('/api/*', async ctx => {
   ctx.status = 404;
   ctx.body = 'api not found';
 });

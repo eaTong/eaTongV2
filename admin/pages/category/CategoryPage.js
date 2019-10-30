@@ -1,11 +1,10 @@
-
 /**
  * Created by eaTong on 2019-10-12 .
  * Description: auto generated in  2019-10-12
  */
 
 import React, {Component} from 'react';
-import {Button, message ,Input , Pagination} from 'antd';
+import {Button, message, Input, Pagination} from 'antd';
 import Reactable from "@eatong/reactable";
 import CategoryFormModal from "./CategoryFormModal";
 import {inject, observer} from "mobx-react";
@@ -15,9 +14,10 @@ import PageBase from "~/components/PageBase";
 const ButtonGroup = Button.Group;
 const columns = [
   {title: '名称', key: 'name'},
+  {title: '描述', key: 'description'},
 ];
 
-@inject('category','app') @observer
+@inject('category', 'app') @observer
 class CategoryPage extends PageBase {
   async componentDidMount() {
     await this.props.category.getDataList();
@@ -25,7 +25,7 @@ class CategoryPage extends PageBase {
 
   render() {
     const {category} = this.props;
-    const {dataList, operateType, showFormModal, selectedKeys, rowSelection, firstSelected , pagination} = category;
+    const {dataList, operateType, showFormModal, selectedKeys, rowSelection, firstSelected, pagination} = category;
     return (
       <div className="base-layout category-page">
         <Title title='category管理'/>
@@ -35,7 +35,7 @@ class CategoryPage extends PageBase {
             placeholder={'输入关键字搜索'}
             onSearch={(val) => category.searchData(val)}
           />
-          
+
           <ButtonGroup className="buttons">
             <Button
               onClick={() => this.props.category.toggleFormModal('add')}
@@ -96,4 +96,3 @@ class CategoryPage extends PageBase {
 
 CategoryPage.propTypes = {};
 export default CategoryPage;
-  

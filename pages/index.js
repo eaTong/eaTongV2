@@ -7,14 +7,13 @@ import React, {Component} from 'react';
 import Page from "../website/components/Page";
 import {inject, observer} from "mobx-react";
 import ajax from "../website/util/ajax";
-import Link from 'next/link';
-import '../website/util/prototype'
+import {Link} from '../page-routes';
 
 @inject('home', 'app') @observer
 class IndexPage extends Component {
   static async init(ctx) {
-    const {list, total} = await ajax({ctx, url: '/api/pub/blog/get'});
-    const categoryResult = await ajax({ctx, url: '/api/pub/category/get'});
+    const {list, total} = await ajax({ctx, method: 'get', url: '/api/pub/blog/get'});
+    const categoryResult = await ajax({ctx, method: 'get', url: '/api/pub/category/get'});
     return {home: {blog: list, total, categories: categoryResult.list}};
   }
 
@@ -42,7 +41,7 @@ class IndexPage extends Component {
           <section className="media">
             <div className="media-content">
               {home.blog.map(blog => (
-                <Link key={blog.id} href={`/blog/${blog.id}`}>
+                <Link key={blog.id} href={`/blog/${blog.id}`} prefetch={false}>
                   <div className="media">
                     <div className="media-content">
                       <p>
