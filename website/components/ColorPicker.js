@@ -28,7 +28,7 @@ class ColorPicker extends Component {
       >
         {showPopover && (
           <div className="color-picker-container" onClick={event => event.stopPropagation()}>
-            <SketchPicker onChange={this.props.onChange}/>
+            <SketchPicker onChange={(val) => this.props.onChange(val.hex)} color={this.props.value}/>
           </div>
         )}
       </div>

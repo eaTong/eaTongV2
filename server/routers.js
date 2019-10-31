@@ -15,6 +15,7 @@ const taskApi = require('./apis/taskApi');
 const fileApi = require('./apis/fileApi');
 const blogApi = require('./apis/blogApi');
 const categoryApi = require('./apis/categoryApi');
+const visiteLogApi = require('./apis/visiteLogApi');
 //UPDATE_TAG:importApi
 
 const router = new Router();
@@ -77,6 +78,9 @@ router.post('/api/category/get', categoryApi.getCategoryies);
 router.post('/api/category/update', insertLog('update'), checkArguments(['id', 'name']), categoryApi.updateCategoryies);
 router.post('/api/category/delete', insertLog('delete'), checkArguments(['ids']), categoryApi.deleteCategoryies);
 router.post('/api/category/detail', checkArguments(['id']), categoryApi.getCategoryDetail);
+
+router.post('/api/visiteLog/get', visiteLogApi.getVisiteLogs);
+router.post('/api/visiteLog/delete', insertLog('delete'), checkArguments(['ids']), visiteLogApi.deleteVisiteLogs);
 //UPDATE_TAG:defineRouter
 
 router.all('/api/*', async ctx => {

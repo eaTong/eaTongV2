@@ -3,6 +3,7 @@
  * Description:
  */
 
+
 const Koa = require('koa');
 const {createReadStream} = require('fs');
 const next = require('next');
@@ -19,7 +20,7 @@ const queryString = require('query-string');
 const router = require('./routers');
 const routes = require('../page-routes');
 require('./framework/schedule');
-
+const visiteService = require("./services/visiteLogService");
 
 const projectConfig = require('../config/project.config');
 const serverConfig = require('../config/server.config');
@@ -68,6 +69,21 @@ nextServer.prepare()
         maxage: 24 * 60 * 60 * 1000
       }
     }));
+    router.all('*', async (ctx, next) => {
+      const time = new Date().getTime();
+      await next();
+      const visitPath = ctx.originalUrl;
+      if (!/(\.js(\.map)?)|(\.(png)|(jgp)|(gif))/.test(visitPath.toLowerCase())) {
+        await visiteService.addVisiteLog({
+          path: visitPath,
+          time: new Date().getTime() - time,
+          userAgent: ctx.req.headers['user-agent'],
+          ip: getClientIP(ctx.req),
+          method: ctx.req.method,
+          status: ctx.res.statusCode
+        });
+      }
+    });
     router.get('/login', async ctx => {
       ctx.type = 'html';
       ctx.body = createReadStream('adminDist/admin.html');
@@ -90,3 +106,10 @@ nextServer.prepare()
       console.log(`> Ready on http://localhost:${port}`)
     });
   });
+
+function getClientIP(req) {
+  return req.headers['x-forwarded-for'] || // 判断是否有反向代理 IP
+    req.connection.remoteAddress || // 判断 connection 的远程 IP
+    req.socket.remoteAddress || // 判断后端的 socket 的 IP
+    req.connection.socket.remoteAddress;
+};

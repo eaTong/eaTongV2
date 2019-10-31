@@ -10,6 +10,7 @@ import PasswordStore from './PasswordStore';
 import FileStore from './FileStore';
 import BlogStore from './BlogStore';
 import CategoryStore from './CategoryStore';
+import VisiteLogStore from './VisiteLogStore';
 //UPDATE_TAG:importStore
 
 export default {
@@ -21,5 +22,6 @@ export default {
   file: new FileStore(),
 blog: new BlogStore(),
 category: new CategoryStore(),
+visiteLog: new VisiteLogStore(),
 //UPDATE_TAG:registerStore
 }
