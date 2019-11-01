@@ -1,4 +1,3 @@
-
 /**
  * Created by eaTong on 2019-10-31 .
  * Description: auto generated in  2019-10-31
@@ -25,7 +24,19 @@ module.exports = {
   },
 
   getVisiteLogs: async ({pageIndex = 0, pageSize = 20, keywords = ''}) => {
-    const option = {where: {enable: true, userAgent: {[Op.like]: `%${keywords}%`}}};
+    const option = {
+      where: {
+        [Op.and]: [
+          {enable: true,},
+          {
+            [Op.or]: [
+              {userAgent: {[Op.like]: `%${keywords}%`}},
+              {path: {[Op.like]: `%${keywords}%`}},
+            ]
+          }
+        ]
+      }
+    };
     const {dataValues: {total}} = await VisiteLog.findOne({
       ...option,
       attributes: [[sequelize.fn('COUNT', '*'), 'total']]
