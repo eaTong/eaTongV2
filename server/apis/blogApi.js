@@ -1,4 +1,3 @@
-
 /**
  * Created by eaTong on 2019-10-10 .
  * Description: auto generated in  2019-10-10
@@ -21,7 +20,15 @@ module.exports = {
     return await blogService.getBlogs(ctx.request.body);
   },
   getBlogDetail: async (ctx) => {
-    return await blogService.getBlogDetail(ctx.request.body);
+    const readBlog = ctx.session.readBlog || [];
+    const data = ctx.request.body;
+    let shouldAddCount;
+    if (!ctx.session.loginUser && readBlog.indexOf(data.id) === -1) {
+      shouldAddCount = true;
+      readBlog.push(data.id);
+      ctx.session.readBlog = readBlog;
+    }
+    return await blogService.getBlogDetail(data, shouldAddCount);
+
   }
 };
-  

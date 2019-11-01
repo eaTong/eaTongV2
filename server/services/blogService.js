@@ -44,7 +44,12 @@ module.exports = {
     return {total, list}
   },
 
-  getBlogDetail: async ({id}) => {
-    return await Blog.findOne({where: {id}});
+  getBlogDetail: async ({id}, shouldAddCount) => {
+    const blogDetail = await Blog.findOne({where: {id}});
+    if (shouldAddCount) {
+      blogDetail.viewCount = (blogDetail.viewCount || 0) + 1;
+      blogDetail.save();
+    }
+    return blogDetail;
   }
 };
