@@ -26,6 +26,14 @@ class BlogPage extends PageBase {
     await this.props.blog.getDataList();
   }
 
+  editBlog() {
+    const {app, blog} = this.props;
+    app.addTab(`/admin/blog/add?type=edit&id=${blog.firstSelected.id}`, `编辑：${blog.firstSelected.title}`, {
+      operate: 'edit',
+      id: blog.firstSelected.id
+    });
+  }
+
   render() {
     const {blog} = this.props;
     const {dataList, operateType, showFormModal, selectedKeys, rowSelection, firstSelected, pagination} = blog;
@@ -41,20 +49,7 @@ class BlogPage extends PageBase {
 
           <ButtonGroup className="buttons">
             <Button
-              onClick={() => this.props.blog.toggleFormModal('add')}
-              disabled={this.disableButton('add')}
-              type={'primary'}
-            >
-              新增
-            </Button>
-            <Button
-              onClick={() => blog.toggleFormModal('copyAdd')}
-              disabled={this.disableButton('add', selectedKeys.length !== 1)}
-            >
-              复制并新增
-            </Button>
-            <Button
-              onClick={() => this.props.blog.toggleFormModal('edit')}
+              onClick={() => this.editBlog()}
               disabled={this.disableButton('edit', selectedKeys.length !== 1)}
             >
               编辑
@@ -83,7 +78,6 @@ class BlogPage extends PageBase {
             selectedRowKeys: selectedKeys,
             onChange: (keys) => blog.onChangeSelection(keys)
           }}/>
-        <Pagination {...pagination}/>
         {showFormModal && (
           <BlogFormModal
             onCancel={() => blog.toggleFormModal()}

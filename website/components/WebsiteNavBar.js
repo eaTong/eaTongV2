@@ -46,10 +46,12 @@ export default class WebsiteNavBar extends Component {
               </a>
             </Link>
             <div className="navbar-end">
-              <a className="navbar-item"><span>
-              换肤
-            </span>
-                <ColorPicker onChange={(val) => this.onChangeColor(val)} value={this.state.color}/>
+              <a className="navbar-item">
+                <ColorPicker onChange={(val) => this.onChangeColor(val)} value={this.state.color}>
+                   <span>
+                    换肤
+                  </span>
+                </ColorPicker>
               </a>
             </div>
           </div>

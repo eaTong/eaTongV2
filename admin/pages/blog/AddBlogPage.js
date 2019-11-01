@@ -15,11 +15,23 @@ class AddBlogPage extends Component {
   static propTypes = {};
   static defaultProps = {};
 
+  async componentDidMount() {
+    if (this.props.operate === 'edit') {
+      const {blog, id, form} = this.props;
+      const detail = await blog.getDetailData(id);
+      form.setFieldsValue(detail);
+    }
+  }
+
   submit = () => {
     this.props.form.validateFields(async (error, value) => {
       if (!error) {
-        await this.props.blog.addData(value);
-        this.props.form.resetFields();
+        if (this.props.operate === 'edit') {
+          await this.props.blog.updateDataDirect({...value, id: this.props.id});
+        } else {
+          await this.props.blog.addData(value);
+          this.props.form.resetFields();
+        }
       }
     })
   };

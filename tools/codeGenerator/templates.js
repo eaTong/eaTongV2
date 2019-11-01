@@ -120,7 +120,7 @@ module.exports.getAsyncMenu = function (form) {
 module.exports.getPage = function (form) {
   return `
 import React, {Component} from 'react';
-import {Button, message ,Input , Pagination} from 'antd';
+import {Button, message ,Input} from 'antd';
 import Reactable from "@eatong/reactable";
 import ${upperFirstLetter(form)}FormModal from "./${upperFirstLetter(form)}FormModal";
 import {inject, observer} from "mobx-react";
@@ -195,7 +195,6 @@ class ${upperFirstLetter(form)}Page extends PageBase {
             selectedRowKeys: selectedKeys,
             onChange: (keys) => ${form}.onChangeSelection(keys)
           }}/>
-        <Pagination {...pagination}/>
         {showFormModal && (
           <${upperFirstLetter(form)}FormModal
             onCancel={() => ${form}.toggleFormModal()}

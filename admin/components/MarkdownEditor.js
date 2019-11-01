@@ -34,6 +34,10 @@ class MarkdownEditor extends Component {
     })
   }
 
+  componentWillReceiveProps(nextProps, nextContext) {
+    this.setState({value: nextProps.value || ''})
+  }
+
   handleEditorChange = ({html, text}) => {
     this.setState({value: text});
     const {onChange} = this.props;

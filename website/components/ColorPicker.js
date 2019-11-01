@@ -21,17 +21,20 @@ class ColorPicker extends Component {
   render() {
     const {showPopover} = this.state;
     return (
-      <div
-        className="eaTong-color-picker"
-        style={{backgroundColor: this.props.value}}
-        onClick={() => this.setState({showPopover: !showPopover})}
-      >
+      <span onClick={() => this.setState({showPopover: !showPopover})}>
+        {this.props.children}
+        <div
+          className="eaTong-color-picker"
+          style={{backgroundColor: this.props.value}}
+        >
         {showPopover && (
           <div className="color-picker-container" onClick={event => event.stopPropagation()}>
             <SketchPicker onChange={(val) => this.props.onChange(val.hex)} color={this.props.value}/>
           </div>
         )}
       </div>
+      </span>
+
     )
   }
 }

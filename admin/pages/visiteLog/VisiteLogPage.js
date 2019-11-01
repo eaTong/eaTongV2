@@ -1,11 +1,10 @@
-
 /**
  * Created by eaTong on 2019-10-31 .
  * Description: auto generated in  2019-10-31
  */
 
 import React, {Component} from 'react';
-import {Button, message ,Input , Pagination} from 'antd';
+import {Button, message, Input, Pagination} from 'antd';
 import Reactable from "@eatong/reactable";
 import VisiteLogFormModal from "./VisiteLogFormModal";
 import {inject, observer} from "mobx-react";
@@ -14,10 +13,14 @@ import PageBase from "~/components/PageBase";
 
 const ButtonGroup = Button.Group;
 const columns = [
-  {title: '名称', key: 'name'},
+  {title: 'path', key: 'path'},
+  {title: 'method', key: 'method'},
+  {title: 'userAgent', key: 'userAgent'},
+  {title: '耗时', key: 'time'},
+  {title: '访问时间', key: 'createdAt'},
 ];
 
-@inject('visiteLog','app') @observer
+@inject('visiteLog', 'app') @observer
 class VisiteLogPage extends PageBase {
   async componentDidMount() {
     await this.props.visiteLog.getDataList();
@@ -25,7 +28,7 @@ class VisiteLogPage extends PageBase {
 
   render() {
     const {visiteLog} = this.props;
-    const {dataList, operateType, showFormModal, selectedKeys, rowSelection, firstSelected , pagination} = visiteLog;
+    const {dataList, operateType, showFormModal, selectedKeys, rowSelection, firstSelected, pagination} = visiteLog;
     return (
       <div className="base-layout visiteLog-page">
         <Title title='visiteLog管理'/>
@@ -35,7 +38,7 @@ class VisiteLogPage extends PageBase {
             placeholder={'输入关键字搜索'}
             onSearch={(val) => visiteLog.searchData(val)}
           />
-          
+
           <ButtonGroup className="buttons">
             <Button
               onClick={() => this.props.visiteLog.toggleFormModal('add')}
@@ -80,7 +83,6 @@ class VisiteLogPage extends PageBase {
             selectedRowKeys: selectedKeys,
             onChange: (keys) => visiteLog.onChangeSelection(keys)
           }}/>
-        <Pagination {...pagination}/>
         {showFormModal && (
           <VisiteLogFormModal
             onCancel={() => visiteLog.toggleFormModal()}
@@ -96,4 +98,3 @@ class VisiteLogPage extends PageBase {
 
 VisiteLogPage.propTypes = {};
 export default VisiteLogPage;
-  

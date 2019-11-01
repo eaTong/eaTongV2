@@ -7,6 +7,7 @@ import {inject, observer} from "mobx-react";
 import MarkdownIt from "markdown-it";
 import hljs from 'highlight.js'
 import ajax from "../website/util/ajax";
+import {formatTime} from "../website/util/utils";
 
 @inject('blog', 'app') @observer
 class BlogPage extends Component {
@@ -39,7 +40,7 @@ class BlogPage extends Component {
             {blog.blog.title}
           </h1>
           <div className="level">
-            <div className="level-left">{`发布日期：${blog.blog.publishTime}`}</div>
+            <div className="level-left">{`发布日期：${formatTime( blog.blog.publishTime)}`}</div>
           </div>
           <div
             className="content"

@@ -147,6 +147,10 @@ export default class BaseStore {
     this.showFormModal = false;
     await this.getDataList();
   }
+  @action
+  async updateDataDirect(data) {
+    await ajax({url: this.updateApi, data});
+  }
 
   @action
   async deleteData() {
@@ -162,12 +166,12 @@ export default class BaseStore {
   @action
   async viewDetail(id) {
     this.showDetailModal = true;
-    await this.getDetailData(id || this.selectedKeys[0]);
+    this.detailData = await this.getDetailData(id || this.selectedKeys[0]);
   }
 
   @action
   async getDetailData(id) {
     this.detailData = {};
-    this.detailData = await ajax({url: this.detailApi, data: {id: id || this.selectedKeys[0]}});
+    return await ajax({url: this.detailApi, data: {id}});
   }
 }

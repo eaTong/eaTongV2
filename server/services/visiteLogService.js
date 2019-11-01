@@ -12,7 +12,6 @@ const VisiteLog = require('../models/VisiteLog');
 module.exports = {
 
   addVisiteLog: async (visiteLog) => {
-    visiteLog.logo = JSON.stringify(visiteLog.logo || []);
     visiteLog.enable = true;
     return await VisiteLog.create(visiteLog);
   },
@@ -26,7 +25,7 @@ module.exports = {
   },
 
   getVisiteLogs: async ({pageIndex = 0, pageSize = 20, keywords = ''}) => {
-    const option = {where: {enable: true, name: {[Op.like]: `%${keywords}%`}}}; 
+    const option = {where: {enable: true, userAgent: {[Op.like]: `%${keywords}%`}}};
     const {dataValues: {total}} = await VisiteLog.findOne({
       ...option,
       attributes: [[sequelize.fn('COUNT', '*'), 'total']]
@@ -38,5 +37,4 @@ module.exports = {
   getVisiteLogDetail: async ({id}) => {
     return await VisiteLog.findOne({where: {id}});
   }
-}; 
-  
+};

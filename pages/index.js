@@ -8,6 +8,7 @@ import Page from "../website/components/Page";
 import {inject, observer} from "mobx-react";
 import ajax from "../website/util/ajax";
 import {Link} from '../page-routes';
+import {formatTime} from "../website/util/utils";
 
 @inject('home', 'app') @observer
 class IndexPage extends Component {
@@ -49,7 +50,7 @@ class IndexPage extends Component {
                         <small className={'tag'}>{blog.category.name}</small>
                       </p>
                       <article>{blog.description.slice(0, 200)}</article>
-                      <small>{blog.publishTime}</small>
+                      <small>{formatTime(blog.publishTime)}</small>
                     </div>
                   </div>
                 </Link>
