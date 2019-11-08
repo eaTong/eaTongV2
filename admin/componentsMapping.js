@@ -9,6 +9,7 @@ import BlogPage from './pages/blog/BlogPage';
 import CategoryPage from './pages/category/CategoryPage';
 import AddBlogPage from "./pages/blog/AddBlogPage";
 import VisiteLogPage from './pages/visiteLog/VisiteLogPage';
+import NotePage from './pages/note/NotePage';
 //UPDATE_TAG:importPage
 
 const componentsMapping = {
@@ -23,6 +24,7 @@ const componentsMapping = {
   '/admin/blog/add': AddBlogPage,
   '/admin/category': CategoryPage,
    '/admin/visiteLog': VisiteLogPage,
+   '/admin/note': NotePage,
 //UPDATE_TAG:addPageRoute
 };
 

@@ -6,7 +6,6 @@ import ajax from "../util/ajax";
 
 export default class App {
   @observable blog = [];
-  @observable categories = [];
+  @observable notes = [];
   @observable total = 0;
-
 }

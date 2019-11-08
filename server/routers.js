@@ -16,6 +16,7 @@ const fileApi = require('./apis/fileApi');
 const blogApi = require('./apis/blogApi');
 const categoryApi = require('./apis/categoryApi');
 const visiteLogApi = require('./apis/visiteLogApi');
+const noteApi = require('./apis/noteApi');
 //UPDATE_TAG:importApi
 
 const router = new Router();
@@ -26,6 +27,7 @@ router.all('/api/*', structureData);
 router.all('/api/pub/blog/get', blogApi.getBlogs);
 router.all('/api/pub/category/get', categoryApi.getCategoryies);
 router.all('/api/pub/blog/detail', checkArguments(['id']), blogApi.getBlogDetail);
+router.all('/api/pub/note/get', noteApi.getNotes);
 
 
 router.post('/api/user/login', insertLog('login'), checkArguments(['account', 'password']), userApi.login);
@@ -81,6 +83,12 @@ router.post('/api/category/detail', checkArguments(['id']), categoryApi.getCateg
 
 router.post('/api/visiteLog/get', visiteLogApi.getVisiteLogs);
 router.post('/api/visiteLog/delete', insertLog('delete'), checkArguments(['ids']), visiteLogApi.deleteVisiteLogs);
+
+router.post('/api/note/add', insertLog('add'), checkArguments(['content']), noteApi.addNote);
+router.post('/api/note/get', noteApi.getNotes);
+router.post('/api/note/update', insertLog('update'), checkArguments(['id', 'content']), noteApi.updateNotes);
+router.post('/api/note/delete', insertLog('delete'), checkArguments(['ids']), noteApi.deleteNotes);
+router.post('/api/note/detail',  checkArguments(['id']), noteApi.getNoteDetail);
 //UPDATE_TAG:defineRouter
 
 router.all('/api/*', async ctx => {

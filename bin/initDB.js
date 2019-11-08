@@ -13,6 +13,7 @@ const File = require('../server/models/File');
 const Blog = require('../server/models/Blog');
 const Category = require('../server/models/Category');
 const VisiteLog = require('../server/models/VisiteLog');
+const Note = require('../server/models/Note');
 //UPDATE_TAG:importModel
 
 (async () => {
@@ -39,6 +40,7 @@ async function initialDatabaseStructure() {
   await Category.sync({alter: true});
   await Blog.sync({alter: true});
   await VisiteLog.sync({alter: true});
+  await Note.sync({alter: true});
 //UPDATE_TAG:asyncModel
 }
 
@@ -89,6 +91,12 @@ async function initialMenu() {
     {name: '新增', icon: 'plus', path: '/admin/visiteLog/add', enable: true, parentPath: '/admin/visiteLog', type: 2},
     {name: '编辑', icon: 'edit', path: '/admin/visiteLog/edit', enable: true, parentPath: '/admin/visiteLog', type: 2},
     {name: '删除', icon: 'delete', path: '/admin/visiteLog/delete', enable: true, parentPath: '/admin/visiteLog', type: 2},
+  
+ 
+    {name: 'note', icon: 'file', path: '/admin/note', enable: true, parentPath: '',type:1},
+    {name: '新增', icon: 'plus', path: '/admin/note/add', enable: true, parentPath: '/admin/note', type: 2},
+    {name: '编辑', icon: 'edit', path: '/admin/note/edit', enable: true, parentPath: '/admin/note', type: 2},
+    {name: '删除', icon: 'delete', path: '/admin/note/delete', enable: true, parentPath: '/admin/note', type: 2},
   
 //UPDATE_TAG:asyncMenu
   ];

@@ -23,7 +23,7 @@
   "bugs": {
     "url": "https://github.com/eaTong/eaTongV2/issues"
   },
-  "homepage": "http://eatong.cn",
+  "homepage": "https://eatong.cn",
   "dependencies": {
     "@antv/data-set": "^0.10.2",
     "ali-oss": "^6.1.1",

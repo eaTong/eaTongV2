@@ -11,6 +11,7 @@ import FileStore from './FileStore';
 import BlogStore from './BlogStore';
 import CategoryStore from './CategoryStore';
 import VisiteLogStore from './VisiteLogStore';
+import NoteStore from './NoteStore';
 //UPDATE_TAG:importStore
 
 export default {
@@ -23,5 +24,6 @@ export default {
 blog: new BlogStore(),
 category: new CategoryStore(),
 visiteLog: new VisiteLogStore(),
+note: new NoteStore(),
 //UPDATE_TAG:registerStore
 }

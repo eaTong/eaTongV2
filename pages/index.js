@@ -14,8 +14,8 @@ import {formatTime} from "../website/util/utils";
 class IndexPage extends Component {
   static async init(ctx) {
     const {list, total} = await ajax({ctx, method: 'get', url: '/api/pub/blog/get'});
-    const categoryResult = await ajax({ctx, method: 'get', url: '/api/pub/category/get'});
-    return {home: {blog: list, total, categories: categoryResult.list}};
+    const notes = await ajax({ctx, method: 'get', url: '/api/pub/note/get'});
+    return {home: {blog: list, total, notes: notes.list}};
   }
 
   render() {
@@ -41,33 +41,23 @@ class IndexPage extends Component {
         <div className="section container">
           <section className="media">
             <div className="media-content">
+              <h3 className={'title'}>我的文章</h3>
               {home.blog.map(blog => (
                 <Link key={blog.id} href={`/blog/${blog.id}`} prefetch={false}>
-                  <div className="media">
-                    <div className="media-content">
-                      <p>
-                        <strong>{blog.title}</strong>
-                        <small className={'tag'}>{blog.category.name}</small>
-                      </p>
-                      <article>{blog.description.slice(0, 200)}</article>
-                      <small>{formatTime(blog.publishTime)}</small>
+                  <a href={`/blog/${blog.id}`} className={'has-text-dark'}>
+                    <div className="media">
+                      <div className="media-content">
+                        <p>
+                          <strong>{blog.title}</strong>
+                          <small className={'tag'}>{blog.category.name}</small>
+                        </p>
+                        <article>{blog.description.slice(0, 200)}</article>
+                        <small>{formatTime(blog.publishTime)}</small>
+                      </div>
                     </div>
-                  </div>
+                  </a>
                 </Link>
               ))}
-            </div>
-
-            <div className="media-right box categories">
-              <small className="category">文章分类</small>
-              <ul>
-                {home.categories.map(category => (
-                  <li className="category" key={category.id}>
-                    <strong>
-                      {category.name}
-                    </strong>
-                  </li>
-                ))}
-              </ul>
             </div>
           </section>
         </div>
