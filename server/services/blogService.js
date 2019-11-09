@@ -39,6 +39,7 @@ module.exports = {
     const list = await Blog.findAll({
       offset: pageIndex * pageSize,
       limit: pageSize, ...option,
+      order: [['createdAt', 'desc']],
       include: [{model: Category}]
     });
     return {total, list}

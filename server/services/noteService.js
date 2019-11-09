@@ -42,7 +42,11 @@ module.exports = {
       ...option,
       attributes: [[sequelize.fn('COUNT', '*'), 'total']]
     });
-    const list = await Note.findAll({offset: pageIndex * pageSize, limit: pageSize, ...option});
+    const list = await Note.findAll({
+      order: [['createdAt', 'desc']],
+      offset: pageIndex * pageSize,
+      limit: pageSize, ...option
+    });
     return {total, list}
   },
 

@@ -37,29 +37,40 @@ class IndexPage extends Component {
             </div>
           </div>
         </section>
-
         <div className="section container">
-          <section className="media">
-            <div className="media-content">
-              <h3 className={'title'}>我的文章</h3>
-              {home.blog.map(blog => (
-                <Link key={blog.id} href={`/blog/${blog.id}`} prefetch={false}>
-                  <a href={`/blog/${blog.id}`} className={'has-text-dark'}>
-                    <div className="media">
-                      <div className="media-content">
-                        <p>
-                          <strong>{blog.title}</strong>
-                          <small className={'tag'}>{blog.category.name}</small>
-                        </p>
-                        <article>{blog.description.slice(0, 200)}</article>
-                        <small>{formatTime(blog.publishTime)}</small>
-                      </div>
-                    </div>
-                  </a>
-                </Link>
+          <div className="blog-list">
+            <h3 className={'title'}>我的文章</h3>
+            {home.blog.map(blog => (
+              <Link key={blog.id} href={`/blog/${blog.id}`} prefetch={false}>
+                <a href={`/blog/${blog.id}`} className={'section has-text-dark'}>
+                  <div className="content">
+                    <h3 className={'blog-title'}>
+                      <strong>{blog.title}</strong>
+                      <small className={'tag'}>{blog.category.name}</small>
+                    </h3>
+                    <article>{blog.description.slice(0, 200)+'......'}</article>
+                    <small>{formatTime(blog.publishTime)}</small>
+                  </div>
+                </a>
+              </Link>
+            ))}
+          </div>
+          <div className="notes-list">
+            <h4 className={'title'}>我的笔记</h4>
+
+            <div className="tile is-ancestor">
+
+              {home.notes.map(note => (
+                <div className="tile content  is-4 is-vertical box">
+                  <p className={' note-detail'}>
+                    {note.content}
+                  </p>
+                  <small>{formatTime(note.createdAt)}</small>
+                </div>
               ))}
             </div>
-          </section>
+          </div>
+
         </div>
       </div>
     )
