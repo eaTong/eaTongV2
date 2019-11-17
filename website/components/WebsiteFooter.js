@@ -15,6 +15,12 @@ const WebsiteFooter = (props) => {
             <a href="http://beian.miit.gov.cn/publish/query/indexFirst.action">滇ICP备17010764号-1</a>
           </small>
         </p>
+        <p>
+          <small>
+            外链：
+            <a href="https://m.igetget.com/coupon/cover/?aid=1&cid=1&uid=JqbdLG459E8W1BKGMmJy0rxl2a3zwv">得到推广</a>
+          </small>
+        </p>
       </div>
     </footer>
   )

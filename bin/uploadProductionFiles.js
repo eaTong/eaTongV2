@@ -7,7 +7,7 @@ client.addListener('transfer', (a, b, c) => {
 client.scp('build/', {
   host: '118.24.75.69',
   username: 'ubuntu',
-  privateKey: require("fs").readFileSync('C:\\certificate\\eaTong'),
+  privateKey: require("fs").readFileSync('/Users/liuyajun/certifcate/eaTong'),
   passphrase: '',
   path: '/home/ubuntu/build'
 }, function (err, ...args) {

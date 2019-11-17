@@ -4,7 +4,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {message, Upload, Icon} from "antd";
-import {getUrls} from "~/utils/utils";
 
 class ImageUploader extends Component {
   state = {
@@ -12,7 +11,7 @@ class ImageUploader extends Component {
   };
 
   handleChange(info, a, b, c) {
-
+    const {maxCount} = this.props;
     const status = info.file.status;
     switch (status) {
       case 'uploading':
@@ -21,17 +20,25 @@ class ImageUploader extends Component {
       case 'done':
         this.setState({loading: false});
         const {file: {response: {data}}} = info;
-        this.props.onChange && this.props.onChange([...getUrls(this.props.value, data)]);
+        this.props.onChange && this.props.onChange(maxCount === 1 ? data : [data]);
 
     }
+  }
 
+  getValue() {
+    const {value, maxCount} = this.props;
+    if (value) {
+      return maxCount === 1 ? [value] : JSON.parse(value);
+    }
+    return [];
   }
 
   render() {
-    const {value} = this.props;
-    const fileList = getUrls(value).map(item => (
-      {uid: item, name: item, status: 'done', url: item}
+    console.log(this.getValue());
+    const fileList = this.getValue().map(item => (
+      {uid: item, name: item, status: 'done', url: item,key:item}
     ));
+    console.log(fileList);
     const uploadButton = (
       <div>
         <Icon type={this.state.loading ? 'loading' : 'plus'}/>

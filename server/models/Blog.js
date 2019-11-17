@@ -9,6 +9,7 @@ const Category = require('./Category');
 
 const Blog = sequelize.define('blog', {
   title: {type: Sequelize.STRING},
+  coverImage: {type: Sequelize.STRING},
   content: {type: Sequelize.TEXT},
   description: {type: Sequelize.TEXT},
   publishTime: {type: Sequelize.DATE},

@@ -7,6 +7,7 @@ import {Form, Input, Button} from 'antd';
 import MarkdownEditor from "../../components/MarkdownEditor";
 import AsyncSelect from "../../components/AsyncSelect";
 import {inject, observer} from "mobx-react";
+import ImageUploader from "~/components/ImageUploader";
 
 const FormItem = Form.Item;
 
@@ -19,7 +20,7 @@ class AddBlogPage extends Component {
     if (this.props.operate === 'edit') {
       const {blog, id, form} = this.props;
       const detail = await blog.getDetailData(id);
-      form.setFieldsValue(detail);
+      form.setFieldsValue({...detail,categoryId:String(detail.categoryId)});
     }
   }
 
@@ -41,16 +42,27 @@ class AddBlogPage extends Component {
     const {getFieldDecorator} = form;
     return (
       <div className="add-blog-page base-layout">
-        <FormItem label={'标题'} className={'line'}>
-          {getFieldDecorator('title', {rules: [{required: true, message: '标题都不填，写什么博客'}]})(
-            <Input placeholder={'博客标题'}/>
-          )}
-        </FormItem>
-        <FormItem label={'分类'} className={'line'}>
-          {getFieldDecorator('categoryId', {rules: [{required: true, message: '文章分类都不填，写什么博客'}]})(
-            <AsyncSelect placeholder={'文章分类'} asyncUrl={'/api/category/get'}/>
-          )}
-        </FormItem>
+        <div className="form-line">
+          <div className="form-item">
+            <FormItem label={'标题'} className={'line'}>
+              {getFieldDecorator('title', {rules: [{required: true, message: '标题都不填，写什么博客'}]})(
+                <Input placeholder={'博客标题'}/>
+              )}
+            </FormItem>
+            <FormItem label={'分类'} className={'line'}>
+              {getFieldDecorator('categoryId', {rules: [{required: true, message: '文章分类都不填，写什么博客'}]})(
+                <AsyncSelect placeholder={'文章分类'} asyncUrl={'/api/category/get'}/>
+              )}
+            </FormItem>
+          </div>
+          <div className="form-item">
+            <FormItem label={'封面'} className={'line'}>
+              {getFieldDecorator('coverImage')(
+                <ImageUploader maxCount={1} />
+              )}
+            </FormItem>
+          </div>
+        </div>
         <div className="content">
           {getFieldDecorator('content', {rules: [{required: true, message: '内容都不填，写什么博客'}]})(
             <MarkdownEditor/>

@@ -7,7 +7,7 @@ const sequelize = require('../framework/database');
 const {LogicError} = require('../framework/errors');
 const Blog = require('../models/Blog');
 const Category = require('../models/Category');
-const {extractDescription} = require("../framework/utils");
+const {extractDescription,getCoverImage} = require("../framework/utils");
 
 module.exports = {
 
@@ -15,6 +15,7 @@ module.exports = {
     blog.enable = true;
     blog.contentSize = blog.content.length;
     blog.publishTime = new Date();
+    blog.coverImage = blog.coverImage || getCoverImage(blog.content);
     blog.description = extractDescription(blog.content).slice(0, 200);
     blog.viewCount = 0;
     return await Blog.create(blog);
@@ -22,6 +23,7 @@ module.exports = {
 
   updateBlogs: async (blog) => {
     blog.contentSize = blog.content.length;
+    blog.coverImage = blog.coverImage || getCoverImage(blog.content);
     blog.description = extractDescription(blog.content).slice(0, 200);
     return await Blog.update(blog, {where: {id: blog.id}})
   },
