@@ -42,6 +42,7 @@ module.exports = {
       offset: pageIndex * pageSize,
       limit: pageSize, ...option,
       order: [['createdAt', 'desc']],
+      attributes: ['id', 'title', 'description','createdAt','contentSize','viewCount','publishTime'],
       include: [{model: Category}]
     });
     return {total, list}

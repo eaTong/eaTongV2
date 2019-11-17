@@ -61,11 +61,13 @@ class IndexPage extends Component {
             <div className="tile is-ancestor">
 
               {home.notes.map(note => (
-                <div className="tile content  is-4 is-vertical box">
-                  <p className={' note-detail'}>
-                    {note.content}
-                  </p>
-                  <small>{formatTime(note.createdAt)}</small>
+                <div className={`tile  is-${Math.ceil(note.content.length/80)} is-parent`}>
+                  <div className="box content">
+                    <p className={' note-detail'}>
+                      {note.content}
+                    </p>
+                    <small>{formatTime(note.createdAt)}</small>
+                  </div>
                 </div>
               ))}
             </div>
