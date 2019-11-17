@@ -17,6 +17,7 @@ import './styles/components.less';
 
 import HomePage from '~/pages/HomePage';
 import LoginPage from '~/pages/login/LoginPage';
+import ReactableDemo from "~/demo/ReactableDemo";
 
 export default class App extends Component {
   render() {
@@ -27,6 +28,7 @@ export default class App extends Component {
             <Fragment>
               <Route path="/" component={HomePage} exact/>
               <Route path="/login" component={LoginPage}/>
+              <Route path="/demo-reactable" component={ReactableDemo}/>
               <Route path="/admin" component={AdminLayout}/>
             </Fragment>
           </BrowserRouter>

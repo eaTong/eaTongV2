@@ -89,6 +89,11 @@ nextServer.prepare()
       ctx.body = createReadStream('adminDist/admin.html');
     });
 
+    router.get('/demo-*', async ctx => {
+      ctx.type = 'html';
+      ctx.body = createReadStream('adminDist/admin.html');
+    });
+
     router.get('/admin*', async ctx => {
       ctx.type = 'html';
       ctx.body = createReadStream('adminDist/admin.html');
