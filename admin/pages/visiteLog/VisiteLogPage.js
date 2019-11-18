@@ -14,6 +14,7 @@ import PageBase from "~/components/PageBase";
 const ButtonGroup = Button.Group;
 const columns = [
   {title: 'path', key: 'path'},
+  {title: 'ip', key: 'ip'},
   {title: 'method', key: 'method'},
   {title: 'userAgent', key: 'userAgent'},
   {title: '耗时', key: 'time'},
