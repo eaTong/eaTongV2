@@ -34,6 +34,9 @@ class IndexPage extends Component {
               <h3>
                 Never stop , not only a programmer.
               </h3>
+              <h4>联系我：
+                <a href="mailto:eatongchou@gmail.com" className={'has-text-dark'}>eatongchou@gmail.com</a>、
+                <a href="tel:18183820756"  className={'has-text-dark'}>18183820756</a></h4>
             </div>
           </div>
         </section>
@@ -48,7 +51,7 @@ class IndexPage extends Component {
                       <strong>{blog.title}</strong>
                       <small className={'tag'}>{blog.category.name}</small>
                     </h3>
-                    <article>{blog.description.slice(0, 200)+'......'}</article>
+                    <article>{blog.description.slice(0, 200) + '......'}</article>
                     <small>{formatTime(blog.publishTime)}</small>
                   </div>
                 </a>
@@ -61,7 +64,7 @@ class IndexPage extends Component {
             <div className="tile is-ancestor">
 
               {home.notes.map(note => (
-                <div className={`tile  is-${Math.ceil(note.content.length/80)} is-parent`}>
+                <div className={`tile  is-${Math.ceil(note.content.length / 80)} is-parent`}>
                   <div className="box content">
                     <p className={' note-detail'}>
                       {note.content}
