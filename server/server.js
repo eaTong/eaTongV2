@@ -17,6 +17,8 @@ const koaLogger = require('koa-logger');
 const session = require('koa-session-minimal');
 const MysqlStore = require('koa-mysql-session');
 const queryString = require('query-string');
+var cors = require('koa2-cors');
+
 const router = require('./routers');
 const routes = require('../page-routes');
 require('./framework/schedule');
@@ -35,6 +37,19 @@ nextServer.prepare()
     app.use(koaConnect(compression()));
     app.use(cookie());
     app.use(koaLogger());
+    app.use(cors({
+      origin: function (ctx) {
+        const origin = ctx.req.headers.origin;
+        if (/localhost/.test(origin)) {
+          return origin;
+        }
+      },
+      exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
+      maxAge: 5,
+      credentials: true,
+      allowMethods: ['GET', 'POST', 'DELETE'],
+      allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
+    }));
 //use koaBody to resolve data
     app.use(koaBody({multipart: true}));
 
