@@ -61,10 +61,10 @@ class IndexPage extends Component {
           <div className="notes-list">
             <h4 className={'title'}>我的笔记</h4>
 
-            <div className="tile is-ancestor">
+            <div className="columns is-multiline ">
 
               {home.notes.map(note => (
-                <div className={`tile  is-${Math.ceil(note.content.length / 80)} is-parent`}>
+                <div className={`column  is-${Math.ceil(note.content.length / 80)} `}>
                   <div className="box content">
                     <p className={' note-detail'}>
                       {note.content}

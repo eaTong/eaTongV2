@@ -18,7 +18,9 @@ const WebsiteFooter = (props) => {
         <p>
           <small>
             外链：
-            <a href="https://m.igetget.com/coupon/cover/?aid=1&cid=1&uid=JqbdLG459E8W1BKGMmJy0rxl2a3zwv">得到推广</a>
+            <a target="_blank" href="https://m.igetget.com/coupon/cover/?aid=1&cid=1&uid=JqbdLG459E8W1BKGMmJy0rxl2a3zwv">得到推广</a>
+            <br></br>
+            <a target="_blank" href="https://iget.eatong.cn">书香：记录心灵每一次触动。</a>
           </small>
         </p>
       </div>
