@@ -30,6 +30,7 @@ export default class WebsiteNavBar extends Component {
               <a className="navbar-item" href="https://eatong.cn">
                 <img src={require('../images/logo-eaTong.png')}/>
                 <strong className={'has-text-primary'}>eaTong个人站</strong>
+                <small className={'has-text-primary'}>不止程序员</small>
               </a>
             </Link>
 
