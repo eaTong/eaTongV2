@@ -8,7 +8,9 @@ const sequelize = require('../framework/database');
 
 const Note = sequelize.define('note', {
   title: {type: Sequelize.STRING},
-  content: {type: Sequelize.STRING},
+  content: {type: Sequelize.TEXT},
+  reference: {type: Sequelize.TEXT},
+  images:{type:Sequelize.JSON},
   enable: Sequelize.BOOLEAN,
 });
 
