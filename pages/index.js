@@ -3,23 +3,23 @@
  * Description:
  */
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Page from "../website/components/Page";
-import {inject, observer} from "mobx-react";
+import { inject, observer } from "mobx-react";
 import ajax from "../website/util/ajax";
-import {Link} from '../page-routes';
-import {formatTime} from "../website/util/utils";
+import { Link } from '../page-routes';
+import { formatTime } from "../website/util/utils";
 
 @inject('home', 'app') @observer
 class IndexPage extends Component {
   static async init(ctx) {
-    const {list, total} = await ajax({ctx, method: 'get', url: '/api/pub/blog/get'});
-    const notes = await ajax({ctx, method: 'get', url: '/api/pub/note/get'});
-    return {home: {blog: list, total, notes: notes.list}};
+    const { list, total } = await ajax({ ctx, method: 'get', url: '/api/pub/blog/get' });
+    const notes = await ajax({ ctx, method: 'get', url: '/api/pub/note/get' });
+    return { home: { blog: list, total, notes: notes.list } };
   }
 
   render() {
-    const {home} = this.props;
+    const { home } = this.props;
     return (
       <div className="index-page">
         <section className="hero  is-primary">
@@ -36,7 +36,7 @@ class IndexPage extends Component {
               </h3>
               <h4>联系我：
                 <a href="mailto:eatongchou@gmail.com" className={'has-text-dark'}>eatongchou@gmail.com</a>、
-                <a href="tel:18183820756"  className={'has-text-dark'}>18183820756</a></h4>
+                <a href="tel:18183820756" className={'has-text-dark'}>18183820756</a></h4>
             </div>
           </div>
         </section>
@@ -66,6 +66,20 @@ class IndexPage extends Component {
               {home.notes.map(note => (
                 <div className={`column  is-${Math.ceil(note.content.length / 80)} `}>
                   <div className="box content">
+                    {note.reference && (
+                      <article className='message'>
+
+                        <div className='message-body'>
+                          <p>{note.reference}</p>
+                          
+                          <div className='has-text-right'>
+                          <small> {`摘自《${note.source}》`} </small>
+                          </div>
+            
+                        </div>
+                        
+                      </article>
+                    )}
                     <p className={' note-detail'}>
                       {note.content}
                     </p>
