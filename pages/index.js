@@ -64,20 +64,20 @@ class IndexPage extends Component {
             <div className="columns is-multiline ">
 
               {home.notes.map(note => (
-                <div className={`column  is-${Math.ceil(note.content.length / 80)} `}>
+                <div className={`column  is-${Math.ceil(note.content.length / 80) + (note.reference ? 2 : 0)} `}>
                   <div className="box content">
                     {note.reference && (
                       <article className='message'>
 
                         <div className='message-body'>
                           <p>{note.reference}</p>
-                          
+
                           <div className='has-text-right'>
-                          <small> {`摘自《${note.source}》`} </small>
+                            <small> {`摘自《${note.source}》`} </small>
                           </div>
-            
+
                         </div>
-                        
+
                       </article>
                     )}
                     <p className={' note-detail'}>
