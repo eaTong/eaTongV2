@@ -65,7 +65,7 @@ class IndexPage extends Component {
               {home.notes.map(note => (
                 <div
                   key={note.id}
-                  className={`note-item box span-${Math.max(Math.ceil(note.content.length / 150) + 1 + (note.reference ? 1 : 0))}`}>
+                  className={`note-item box span-${Math.min(Math.ceil(note.content.length / 60) + 1 + (note.reference ? Math.round(2 + note.reference.length / 40) : 0), 24)}`}>
                   <div className="content">
                     {note.reference && (
                       <article className='message'>
