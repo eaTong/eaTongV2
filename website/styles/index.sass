@@ -86,3 +86,13 @@ $turquoise: $mainColor
 
     .span-24
       grid-column-start: span 24
+
+@media screen and (max-width: $desktop)
+  .note-list-container
+    .note-list
+      grid-template-columns: repeat(18, 1fr)
+
+@media screen and (max-width: $tablet)
+  .note-list-container
+    .note-list
+      display: block
