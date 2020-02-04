@@ -46,7 +46,7 @@ export default class WebsiteNavBar extends Component {
                 关于
               </a>
             </Link>
-            <a className="navbar-item" href="/about">
+            <a className="navbar-item" href="/demo-reactable">
               Reactable
             </a>
             <div className="navbar-end">
