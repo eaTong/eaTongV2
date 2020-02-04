@@ -75,6 +75,8 @@ export default class ReactableDemo extends Component {
       <p>
         <code>Reactable</code> is a flex table written by <code>React</code> , It's designed for large data editing.
       </p>
+      <p><b>Reactable</b> 基于flex布局，为企业报表展现而设计。可拖拽列款，自动排版，支持主子表头，单行渲染，列筛选，列排序等功能，基本上可覆盖90%的业务场景（我司的场景100%覆盖）</p>
+      <p>如名称中所提到，reactable 是基于React框架进行优化，以及antd做辅助UI展现，实现美观高效。</p>
       <Reactable
         columns={columns}
         dataSource={getDateSource()}

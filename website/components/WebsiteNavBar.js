@@ -46,6 +46,9 @@ export default class WebsiteNavBar extends Component {
                 关于
               </a>
             </Link>
+            <a className="navbar-item" href="/about">
+              Reactable
+            </a>
             <div className="navbar-end">
               <a className="navbar-item">
                 <ColorPicker onChange={(val) => this.onChangeColor(val)} value={this.state.color}>

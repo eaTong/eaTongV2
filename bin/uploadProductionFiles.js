@@ -9,7 +9,7 @@ fs.existsSync('C:\\certificate');
 client.scp('build/', {
     host: '118.24.75.69',
     username: 'ubuntu',
-    privateKey: fs.readFileSync(fs.existsSync('C:\\certificate') ? 'C:\\certificate\\eaTong' : '/Users/liuyajun/certifcate/eaTong'),
+    privateKey: fs.readFileSync('/Users/eatong/certificate/eaTong_pem'),
     passphrase:
       '',
     path:
