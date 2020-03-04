@@ -92,7 +92,7 @@ nextServer.prepare()
         await visiteService.addVisiteLog({
           path: visitPath,
           time: new Date().getTime() - time,
-          userAgent: ctx.req.headers['user-agent'],
+          userAgent: ctx.req.headers['user-agent'].slice(0, 200),
           ip: getClientIP(ctx.req),
           method: ctx.req.method,
           status: ctx.res.statusCode
