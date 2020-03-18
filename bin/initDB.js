@@ -15,6 +15,7 @@ const Category = require('../server/models/Category');
 const VisiteLog = require('../server/models/VisiteLog');
 const Note = require('../server/models/Note');
 const BlogReply = require('../server/models/BlogReply');
+const Message = require('../server/models/Message');
 //UPDATE_TAG:importModel
 
 (async () => {
@@ -43,6 +44,7 @@ async function initialDatabaseStructure() {
   await VisiteLog.sync({alter: true});
   await Note.sync({alter: true});
   await BlogReply.sync({alter: true});
+  await Message.sync({alter: true});
 //UPDATE_TAG:asyncModel
 }
 
