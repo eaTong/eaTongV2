@@ -6,8 +6,9 @@ const {Op} = require('sequelize');
 const sequelize = require('../framework/database');
 const {LogicError} = require('../framework/errors');
 const Blog = require('../models/Blog');
+const BlogReply = require('../models/BlogReply');
 const Category = require('../models/Category');
-const {extractDescription,getCoverImage} = require("../framework/utils");
+const {extractDescription, getCoverImage} = require("../framework/utils");
 
 module.exports = {
 
@@ -32,6 +33,10 @@ module.exports = {
     return await Blog.update({enable: false}, {where: {id: {[Op.in]: ids}}});
   },
 
+  replyBlog: async (reply) => {
+    return BlogReply.create(reply);
+  },
+
   getBlogs: async ({pageIndex = 0, pageSize = 20, keywords = ''}) => {
     const option = {where: {enable: true, title: {[Op.like]: `%${keywords}%`}, content: {[Op.like]: `%${keywords}%`}}};
     const {dataValues: {total}} = await Blog.findOne({
@@ -42,14 +47,14 @@ module.exports = {
       offset: pageIndex * pageSize,
       limit: pageSize, ...option,
       order: [['createdAt', 'desc']],
-      attributes: ['id', 'title', 'description','createdAt','contentSize','viewCount','publishTime'],
+      attributes: ['id', 'title', 'description', 'createdAt', 'contentSize', 'viewCount', 'publishTime'],
       include: [{model: Category}]
     });
     return {total, list}
   },
 
   getBlogDetail: async ({id}, shouldAddCount) => {
-    const blogDetail = await Blog.findOne({where: {id}});
+    const blogDetail = await Blog.findOne({where: {id}, include: [{model: BlogReply}, {model: Category}]});
     if (shouldAddCount) {
       blogDetail.viewCount = (blogDetail.viewCount || 0) + 1;
       blogDetail.save();

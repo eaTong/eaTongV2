@@ -8,6 +8,7 @@ import MarkdownIt from "markdown-it";
 import hljs from 'highlight.js'
 import ajax from "../website/util/ajax";
 import {formatTime} from "../website/util/utils";
+import ReplyBox from "../website/components/ReplyBox";
 
 @inject('blog', 'app') @observer
 class BlogPage extends Component {
@@ -31,6 +32,12 @@ class BlogPage extends Component {
     return {blog: {blog}};
   }
 
+  async submitReply(data) {
+    const {blog} = this.props;
+    await ajax({method: 'post', data: {...data, blogId: blog.blog.id}, url: '/api/pub/blog/reply'});
+    await blog.getBlogDetail(blog.blog.id);
+  }
+
   getBlogContent() {
     const {blog} = this.props;
     return this.md.render((blog.blog.content + `\n
@@ -43,7 +50,7 @@ class BlogPage extends Component {
     return (
       <div className="blog-page">
         <div className="container">
-          <h1 className="title has-text-centered">
+          <h1 className="title has-text-centered has-text-primary">
             {blog.blog.title}
           </h1>
           <div className="level">
@@ -53,6 +60,24 @@ class BlogPage extends Component {
             className="content"
             dangerouslySetInnerHTML={{__html: `<article>${this.getBlogContent()}</article>`}}
           />
+          {(blog.blog.blogReplies || []).length > 0 && (
+            <h2 className={'subtitle'}>{`最新回复(${blog.blog.blogReplies.length}):`}</h2>
+          )}
+          {(blog.blog.blogReplies || []).map(reply => (
+            <article className="media" key={reply.id}>
+              <div className="media-content">
+                <div className="content">
+                  <p>
+                    <strong>{reply.website ? (<a href={reply.website}>{reply.name}</a>) : reply.name}</strong>
+                    <small>{formatTime(reply.createdAt)}</small>
+                    <br/>
+                    {reply.content}
+                  </p>
+                </div>
+              </div>
+            </article>
+          ))}
+          <ReplyBox onSubmit={async (values) => await this.submitReply(values)}/>
         </div>
       </div>
     )

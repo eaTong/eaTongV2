@@ -16,6 +16,7 @@ export default function ajax(config = {}) {
         const result = await axios({
           url: 'http://' + host + url,
           data: requestData,
+          method: config.method,
           params: config.method === 'get' ? requestData : {},
           headers: ctx.req.headers
         });
@@ -44,6 +45,7 @@ export default function ajax(config = {}) {
           url,
           headers,
           data: requestData,
+          method: config.method,
           params: config.method === 'get' ? requestData : {},
         });
         if (!result.data.success) {

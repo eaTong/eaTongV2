@@ -19,6 +19,9 @@ module.exports = {
   getBlogs: async (ctx) => {
     return await blogService.getBlogs(ctx.request.body);
   },
+  replyBlog: async (ctx) => {
+    return await blogService.replyBlog(ctx.request.body);
+  },
   getBlogDetail: async (ctx) => {
     const readBlog = ctx.session.readBlog || [];
     const data = ctx.request.body;

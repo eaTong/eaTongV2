@@ -3,7 +3,7 @@
  * Description:
  */
 
-const checkNearly = require("../../server/services/passwordService").checkNearly;
+const {addUser} = require("../../server/services/userService");
 (async ()=>{
-  checkNearly();
+  addUser({name:'eaTong',account:'eaTong',password:'eaTong123'});
 })();

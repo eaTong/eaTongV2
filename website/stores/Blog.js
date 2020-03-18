@@ -6,4 +6,9 @@ import ajax from "../util/ajax";
 
 export default class App {
   @observable blog = {};
+
+  @action
+  async getBlogDetail(id) {
+    this.blog =  await ajax({method: 'get', data: {id}, url: '/api/pub/blog/detail'});
+  }
 }
