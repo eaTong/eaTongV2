@@ -8,6 +8,7 @@ const {LogicError} = require('../framework/errors');
 const Blog = require('../models/Blog');
 const BlogReply = require('../models/BlogReply');
 const Category = require('../models/Category');
+const {sendEmail} = require('../framework/emailUtils');
 const {extractDescription, getCoverImage} = require("../framework/utils");
 
 module.exports = {
@@ -34,6 +35,7 @@ module.exports = {
   },
 
   replyBlog: async (reply) => {
+    sendEmail({mailTo: 'eatongchou@gmail.com', subject: '网站有新回复', text: `${reply.name}:${reply.content}`});
     return BlogReply.create(reply);
   },
 

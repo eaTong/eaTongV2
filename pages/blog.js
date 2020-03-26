@@ -71,7 +71,7 @@ class BlogPage extends Component {
                     <strong>{reply.website ? (<a href={reply.website}>{reply.name}</a>) : reply.name}</strong>
                     <small>{formatTime(reply.createdAt)}</small>
                     <br/>
-                    {reply.content}
+                    <div className="content" dangerouslySetInnerHTML={{__html: this.md.render(reply.content)}}/>
                   </p>
                 </div>
               </div>
