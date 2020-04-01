@@ -11,7 +11,9 @@ function sendEmail({mailTo, subject, text, html}) {
     subject, // Subject line
     text, // plain text body
     html // html body
-  }).catch();
+  }).catch(error => {
+    console.log(error);
+  });
 
 }
 

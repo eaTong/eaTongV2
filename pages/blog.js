@@ -49,7 +49,7 @@ class BlogPage extends Component {
     const {blog} = this.props;
     return (
       <div className="blog-page">
-        <div className="container">
+        <div className="section container">
           <h1 className="title has-text-centered has-text-primary">
             {blog.blog.title}
           </h1>
