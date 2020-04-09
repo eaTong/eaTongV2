@@ -1,21 +1,25 @@
 /**
  * created by eaTong at 2019/10/12
  */
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Page from "../website/components/Page";
-import { inject, observer } from "mobx-react";
-import ajax from "../website/util/ajax";
+import {inject, observer} from "mobx-react";
+import Head from "next/head";
 
 @inject('home', 'app') @observer
 class AboutPage extends Component {
   static async init(ctx) {
-    return { about: {} };
+    return {about: {}};
   }
 
 
   render() {
     return (
       <div className="about-page">
+
+        <Head>
+          <title>关于-eaTong个人站</title>
+        </Head>
         <div className='content container'>
           <h1>eaTong个人简介</h1>
           <p>
@@ -57,7 +61,7 @@ class AboutPage extends Component {
           <article class="message  is-info">
             <div class="message-body">
               <p>
-              2019年在得到上听了十几堂横向发展的课程，主要有：《产品思维30讲》、《如何成为带团队的高手》、《武志红的心理学课》、《宁向东的管理学科》、《薛兆丰的经济学课》、《刘润：五分钟商学院》、《超级个体》、《精英日课》等等。
+                2019年在得到上听了十几堂横向发展的课程，主要有：《产品思维30讲》、《如何成为带团队的高手》、《武志红的心理学课》、《宁向东的管理学科》、《薛兆丰的经济学课》、《刘润：五分钟商学院》、《超级个体》、《精英日课》等等。
               </p>
               <p>
                 学习这些课程最大的收获是强化了自己的学习习惯，原本学习的时候都是没有目的的学习，想到什么学什么，没有一个具体的学习蓝图。有了这些课程之后就可以更具体的学习某一个领域的完整的知识结构。

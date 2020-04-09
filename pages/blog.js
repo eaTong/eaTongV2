@@ -9,6 +9,7 @@ import hljs from 'highlight.js'
 import ajax from "../website/util/ajax";
 import {formatTime} from "../website/util/utils";
 import ReplyBox from "../website/components/ReplyBox";
+import Head from 'next/head';
 
 @inject('blog', 'app') @observer
 class BlogPage extends Component {
@@ -49,6 +50,9 @@ class BlogPage extends Component {
     const {blog} = this.props;
     return (
       <div className="blog-page">
+        <Head>
+          <title>{`${blog.blog.title}-eaTong个人站`}</title>
+        </Head>
         <div className="section container">
           <h1 className="title has-text-centered has-text-primary">
             {blog.blog.title}

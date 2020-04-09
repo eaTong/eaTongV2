@@ -51,7 +51,6 @@ export default (Component, options = {}) => class Page extends React.Component {
           <Loading/>
           <Head>
             <title>eaTong个人站</title>
-            <meta name="viewport" content="initial-scale=1.0, width=device-width" key="viewport"/>
           </Head>
           <WebsiteNavBar/>
           <Component query={this.state.query || {}}/>
