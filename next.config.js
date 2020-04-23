@@ -74,6 +74,7 @@ module.exports = {
           specifyEntry: /_app\.js/,
           matchVariables: {
             main: '#209CEE',
+            link: '#3273dc',
           }
         }),
       )

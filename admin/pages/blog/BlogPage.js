@@ -39,7 +39,7 @@ class BlogPage extends PageBase {
     const {dataList, operateType, showFormModal, selectedKeys, rowSelection, firstSelected, pagination} = blog;
     return (
       <div className="base-layout blog-page">
-        <Title title='blog管理'/>
+        <Title title='博客管理'/>
         <div className="operate-bar">
           <Input.Search
             className={'search'}

@@ -5,10 +5,11 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Modal, Form, Input, message} from 'antd';
+import {Modal, Form, Input, message, Radio} from 'antd';
 import {GLOBAL_LAYOUT} from '~/utils/constants';
 
 const FormItem = Form.Item;
+const RadioGroup = Radio.Group;
 
 class CategoryFormModal extends Component {
   componentDidMount() {
@@ -44,6 +45,19 @@ class CategoryFormModal extends Component {
               }],
             })(
               <Input/>
+            )}
+          </FormItem>
+          <FormItem
+            {...GLOBAL_LAYOUT}
+            label="类型"
+            >
+            {getFieldDecorator('type', {
+              initialValue: 0
+            })(
+              <RadioGroup>
+                <Radio value={0}>博客</Radio>
+                <Radio value={1}>笔记</Radio>
+              </RadioGroup>
             )}
           </FormItem>
           <FormItem

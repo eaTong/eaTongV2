@@ -34,11 +34,9 @@ class ImageUploader extends Component {
   }
 
   render() {
-    console.log(this.getValue());
     const fileList = this.getValue().map(item => (
       {uid: item, name: item, status: 'done', url: item,key:item}
     ));
-    console.log(fileList);
     const uploadButton = (
       <div>
         <Icon type={this.state.loading ? 'loading' : 'plus'}/>

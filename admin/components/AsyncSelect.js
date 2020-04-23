@@ -17,6 +17,7 @@ class AsyncSelect extends Component {
     fetch: PropTypes.func,
     renderItem: PropTypes.func,
     dataResolve: PropTypes.func,
+    filterResolve: PropTypes.func,
     labelExtra: PropTypes.func,
     keyExtra: PropTypes.func,
   };
@@ -26,7 +27,8 @@ class AsyncSelect extends Component {
     labelExtra: item => item.name,
     keyExtra: item => item.id,
     asyncMethod: 'post',
-    dataResolve: (result) => result.list
+    dataResolve: (result) => result.list,
+    filterResolve: (keywords) => ({keywords})
   };
 
   state = {
@@ -47,18 +49,15 @@ class AsyncSelect extends Component {
     if (this.timer) {
       clearTimeout(this.timer);
     }
-    console.log(value);
     this.setState({searchText: value}, () => {
       this.timer = setTimeout(() => this.fetchData(), this.props.debounce)
     });
   };
 
   async fetchData() {
-    const {asyncUrl, asyncMethod, dataResolve, filterField} = this.props;
+    const {asyncUrl, asyncMethod, dataResolve, filterField, filterResolve} = this.props;
     try {
-      const data = {};
-      data[filterField] = this.state.searchText;
-      console.log(data);
+      const data = filterResolve(this.state.searchText);
       const result = await ajax({data, url: asyncUrl, method: asyncMethod});
       this.setState({dataList: dataResolve(result)});
     } catch (e) {

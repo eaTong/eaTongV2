@@ -20,7 +20,7 @@ class AddBlogPage extends Component {
     if (this.props.operate === 'edit') {
       const {blog, id, form} = this.props;
       const detail = await blog.getDetailData(id);
-      form.setFieldsValue({...detail,categoryId:String(detail.categoryId)});
+      form.setFieldsValue({...detail, categoryId: String(detail.categoryId)});
     }
   }
 
@@ -51,14 +51,18 @@ class AddBlogPage extends Component {
             </FormItem>
             <FormItem label={'分类'} className={'line'}>
               {getFieldDecorator('categoryId', {rules: [{required: true, message: '文章分类都不填，写什么博客'}]})(
-                <AsyncSelect placeholder={'文章分类'} asyncUrl={'/api/category/get'}/>
+                <AsyncSelect
+                  placeholder={'文章分类'}
+                  asyncUrl={'/api/category/get'}
+                  filterResolve={keywords => ({keywords, type: 0})}
+                />
               )}
             </FormItem>
           </div>
           <div className="form-item">
             <FormItem label={'封面'} className={'line'}>
               {getFieldDecorator('coverImage')(
-                <ImageUploader maxCount={1} />
+                <ImageUploader maxCount={1}/>
               )}
             </FormItem>
           </div>

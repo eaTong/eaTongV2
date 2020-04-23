@@ -80,24 +80,24 @@ async function initialMenu() {
     {name: '编辑', icon: 'edit', path: '/admin/file/edit', enable: true, parentPath: '/admin/file', type: 2},
     {name: '删除', icon: 'delete', path: '/admin/file/delete', enable: true, parentPath: '/admin/file', type: 2},
 
-    {name: 'blog', icon: 'file', path: '/admin/blog', enable: true, parentPath: '',type:1},
-    {name: '新增blog', icon: 'plus', path: '/admin/blog/add', enable: true, parentPath: '', type: 1},
+    {name: '博客管理', icon: 'file', path: '/admin/blog', enable: true, parentPath: '',type:1},
+    {name: '新增博客', icon: 'plus', path: '/admin/blog/add', enable: true, parentPath: '', type: 1},
     {name: '编辑', icon: 'edit', path: '/admin/blog/edit', enable: true, parentPath: '/admin/blog', type: 2},
     {name: '删除', icon: 'delete', path: '/admin/blog/delete', enable: true, parentPath: '/admin/blog', type: 2},
 
-    {name: 'category', icon: 'file', path: '/admin/category', enable: true, parentPath: '',type:1},
+    {name: '分类管理', icon: 'file', path: '/admin/category', enable: true, parentPath: '',type:1},
     {name: '新增', icon: 'plus', path: '/admin/category/add', enable: true, parentPath: '/admin/category', type: 2},
     {name: '编辑', icon: 'edit', path: '/admin/category/edit', enable: true, parentPath: '/admin/category', type: 2},
     {name: '删除', icon: 'delete', path: '/admin/category/delete', enable: true, parentPath: '/admin/category', type: 2},
 
 
-    {name: 'visiteLog', icon: 'file', path: '/admin/visiteLog', enable: true, parentPath: '',type:1},
+    {name: '访问记录', icon: 'file', path: '/admin/visiteLog', enable: true, parentPath: '',type:1},
     {name: '新增', icon: 'plus', path: '/admin/visiteLog/add', enable: true, parentPath: '/admin/visiteLog', type: 2},
     {name: '编辑', icon: 'edit', path: '/admin/visiteLog/edit', enable: true, parentPath: '/admin/visiteLog', type: 2},
     {name: '删除', icon: 'delete', path: '/admin/visiteLog/delete', enable: true, parentPath: '/admin/visiteLog', type: 2},
 
 
-    {name: 'note', icon: 'file', path: '/admin/note', enable: true, parentPath: '',type:1},
+    {name: '笔记管理', icon: 'file', path: '/admin/note', enable: true, parentPath: '',type:1},
     {name: '新增', icon: 'plus', path: '/admin/note/add', enable: true, parentPath: '/admin/note', type: 2},
     {name: '编辑', icon: 'edit', path: '/admin/note/edit', enable: true, parentPath: '/admin/note', type: 2},
     {name: '删除', icon: 'delete', path: '/admin/note/delete', enable: true, parentPath: '/admin/note', type: 2},

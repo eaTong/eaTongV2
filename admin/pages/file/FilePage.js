@@ -28,7 +28,7 @@ class FilePage extends PageBase {
     const {dataList, operateType, showFormModal, selectedKeys, rowSelection, firstSelected , pagination} = file;
     return (
       <div className="base-layout file-page">
-        <Title title='file管理'/>
+        <Title title='文件管理'/>
         <div className="operate-bar">
           <Input.Search
             className={'search'}

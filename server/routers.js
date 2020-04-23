@@ -27,6 +27,7 @@ router.all('/api/*', structureData);
 router.all('/api/pub/blog/get', blogApi.getBlogs);
 router.all('/api/pub/category/get', categoryApi.getCategoryies);
 router.all('/api/pub/blog/detail', checkArguments(['id']), blogApi.getBlogDetail);
+router.all('/api/pub/category/detail', checkArguments(['id']), categoryApi.getCategoryDetail);
 router.all('/api/pub/note/get', noteApi.getNotes);
 router.post('/api/pub/blog/reply', checkArguments(['blogId']), blogApi.replyBlog);
 

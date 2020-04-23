@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Modal, Form, Input, message} from 'antd';
 import {GLOBAL_LAYOUT} from '~/utils/constants';
+import AsyncSelect from "../../components/AsyncSelect";
 
 const FormItem = Form.Item;
 
@@ -44,6 +45,12 @@ class NoteFormModal extends Component {
               }],
             })(
               <Input/>
+            )}
+          </FormItem>
+          <FormItem  {...GLOBAL_LAYOUT} label={'分类'} className={'line'}>
+            {getFieldDecorator('categoryId', {rules: [{required: true, message: '文章分类都不填，写什么博客'}]})(
+              <AsyncSelect placeholder={'文章分类'} asyncUrl={'/api/category/get'}
+                           filterResolve={keywords => ({keywords, type: 1})}/>
             )}
           </FormItem>
           <FormItem

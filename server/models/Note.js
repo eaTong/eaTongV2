@@ -5,6 +5,7 @@
 
 const Sequelize = require('sequelize');
 const sequelize = require('../framework/database');
+const Category = require('./Category');
 
 const Note = sequelize.define('note', {
   title: {type: Sequelize.STRING},
@@ -15,4 +16,6 @@ const Note = sequelize.define('note', {
   enable: Sequelize.BOOLEAN,
 });
 
+Note.belongsTo(Category);
+Category.hasMany(Note);
 module.exports = Note;

@@ -14,6 +14,7 @@ import PageBase from "~/components/PageBase";
 const ButtonGroup = Button.Group;
 const columns = [
   {title: '标题', key: 'title'},
+  {title: '分类', key: 'category', render: (val) => val ? val.name : '', width: 200},
   {title: '正文', key: 'content'},
   {title: '创建时间', key: 'createdAt'},
 ];
@@ -29,7 +30,7 @@ class NotePage extends PageBase {
     const {dataList, operateType, showFormModal, selectedKeys, rowSelection, firstSelected, pagination} = note;
     return (
       <div className="base-layout note-page">
-        <Title title='note管理'/>
+        <Title title='笔记管理'/>
         <div className="operate-bar">
           <Input.Search
             className={'search'}

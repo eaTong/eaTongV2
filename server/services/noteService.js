@@ -7,6 +7,7 @@ const {Op} = require('sequelize');
 const sequelize = require('../framework/database');
 const {LogicError} = require('../framework/errors');
 const Note = require('../models/Note');
+const Category = require('../models/Category');
 
 module.exports = {
 
@@ -45,7 +46,8 @@ module.exports = {
     const list = await Note.findAll({
       order: [['createdAt', 'desc']],
       offset: pageIndex * pageSize,
-      limit: pageSize, ...option
+      limit: pageSize, ...option,
+      include:[{model:Category}]
     });
     return {total, list}
   },

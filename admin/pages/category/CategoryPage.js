@@ -14,7 +14,9 @@ import PageBase from "~/components/PageBase";
 const ButtonGroup = Button.Group;
 const columns = [
   {title: '名称', key: 'name'},
+  {title: '类型', key: 'type', render: (text) => text ? '笔记' : '博客'},
   {title: '描述', key: 'description'},
+
 ];
 
 @inject('category', 'app') @observer
@@ -28,7 +30,7 @@ class CategoryPage extends PageBase {
     const {dataList, operateType, showFormModal, selectedKeys, rowSelection, firstSelected, pagination} = category;
     return (
       <div className="base-layout category-page">
-        <Title title='category管理'/>
+        <Title title='分类管理'/>
         <div className="operate-bar">
           <Input.Search
             className={'search'}
