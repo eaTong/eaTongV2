@@ -11,7 +11,7 @@ export default class WebsiteNavBar extends Component {
     const color = window.localStorage.getItem('selected-color');
     if (color) {
       this.setState({color});
-      window.replaceStyleVariable && window.replaceStyleVariable({main: color});
+      window.replaceStyleVariable && window.replaceStyleVariable({main: color, link: color});
     }
   }
 
