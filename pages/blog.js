@@ -42,7 +42,7 @@ class BlogPage extends Component {
   getBlogContent() {
     const {blog} = this.props;
     return this.md.render((blog.blog.content + `\n
-> 本文为原创文章，转载请保留原出处。原文地址：[https:/eatong.cn/blog/${blog.blog.id}](https:/eatong.cn/blog/${blog.blog.id})
+> 本文为原创文章，转载请保留原出处。原文地址：[https://eatong.cn/blog/${blog.blog.id}](https://eatong.cn/blog/${blog.blog.id})
 `).toString());
   }
 
