@@ -6,7 +6,7 @@ client.addListener('transfer', (a, b, c) => {
 
 client.scp('build/', {
     host: '8.130.50.206',
-    username: 'ubuntu',
+    username: 'root',
     privateKey: fs.readFileSync('/Users/eatong/certificate/eaTong_ali.pem'),
     path:
       '/root/build'

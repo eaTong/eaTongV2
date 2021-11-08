@@ -72,9 +72,11 @@ export default (Component, options = {}) => class Page extends React.Component {
               </div>
             </section>
           </div>
-          <div className="tile is-vertical is-8 content-container section container">
-            <Component query={this.state.query || {}} />
-            <WebsiteFooter />
+          <div className="tile is-vertical is-8 content-container">
+            <div className=' section container'>
+              <Component query={this.state.query || {}} />
+              <WebsiteFooter />
+            </div>
           </div>
         </div>
       </Provider>
