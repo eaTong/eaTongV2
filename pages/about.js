@@ -15,7 +15,7 @@ class AboutPage extends Component {
 
   render() {
     return (
-      <div className="about-page">
+      <div className="about-page ">
 
         <Head>
           <title>关于-eaTong个人站</title>
@@ -23,14 +23,14 @@ class AboutPage extends Component {
         <div className='content container'>
           <h1>eaTong个人简介</h1>
           <p>
-            eaTong，本名周夷东，江西鹰潭人，现居昆明，在一家60多个人的互联网公司担任某一个产品的研发管理工作。
-            成为程序员之前做过水电施工员、项目实施，再到Java开发，再到web前端开发。
+            eaTong，本名周夷东，江西鹰潭人，现居昆明，在一家60多个人的互联网公司担任某一个产品的产品总监。
+            成为程序员之前做过水电施工员、项目实施，再到Java开发，再到web前端开发，现在是「产品总监」职务。
           </p>
-          <article class="message  is-success">
-            <div class="message-header">
+          <article className="message  is-success">
+            <div className="message-header">
               <p>转行经历</p>
             </div>
-            <div class="message-body">
+            <div className="message-body">
               <p>
                 转行前是水电施工员，然后看了两个月C++就去找工作了，自然是没人要实习都找不到。
               </p>
@@ -52,14 +52,14 @@ class AboutPage extends Component {
             </div>
           </article>
 
-          <article class="message  is-warning">
-            <div class="message-body">
+          <article className="message  is-warning">
+            <div className="message-body">
               对于管理岗位的理解不算深，但是认为主要是两个方面：能力和意愿。能力足意愿不高很难发挥全部工作能力；能力不足意愿高的需要培养；能力不够意愿不足的建议淘汰。
             </div>
           </article>
 
-          <article class="message  is-info">
-            <div class="message-body">
+          <article className="message  is-info">
+            <div className="message-body">
               <p>
                 2019年在得到上听了十几堂横向发展的课程，主要有：《产品思维30讲》、《如何成为带团队的高手》、《武志红的心理学课》、《宁向东的管理学科》、《薛兆丰的经济学课》、《刘润：五分钟商学院》、《超级个体》、《精英日课》等等。
               </p>
@@ -73,7 +73,7 @@ class AboutPage extends Component {
           </article>
           <article className='message is-danger'>
             <div className='message-body'>
-              如有志同道合者想联系本人，可以加微信：18183820756。或者邮件：<a href='mailto:eatongchou@gmail.com'>eatongchou@gmail.com</a>
+              如有志同道合者想联系本人，可以邮件：<a href='mailto:eatongchou@gmail.com'>eatongchou@gmail.com</a>
             </div>
           </article>
         </div>

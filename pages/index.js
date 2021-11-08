@@ -23,38 +23,19 @@ class IndexPage extends Component {
     const {home} = this.props;
     return (
       <div className="index-page">
-        <section className="hero  is-primary">
-          <div className="hero-body">
-            <div className="container">
-              <h1 className="title ">
-                不止程序员
-              </h1>
-              <h2 className="">
-                永不停止，不只是一个程序员。
-              </h2>
-              <h3>
-                Never stop , not only a programmer.
-              </h3>
-              <h4>联系我：
-                <a href="mailto:eatongchou@gmail.com" className={'has-text-dark'}>eatongchou@gmail.com</a>、
-                <a href="tel:18183820756" className={'has-text-dark'}>18183820756</a></h4>
-            </div>
-          </div>
-        </section>
-        <div className="section container">
           <div className="blog-list">
             <h3 className={'title'}>我的文章</h3>
             {home.blog.map(blog => (
               <div className="content" key={blog.id}>
                 <Link href={`/blog/${blog.id}`} prefetch={false}>
-                  <a href={`/blog/${blog.id}`} className={'blog-title'}>
+                  <a href={`/blog/${blog.id}`} className={'blog-title has-text-black '}>
                     <strong>{blog.title}</strong>
                   </a>
                 </Link>
-                <article>{blog.description.slice(0, 200) + '......'}</article>
-                <p>
+                <article className='has-text-grey'>{blog.description.slice(0, 200) + '......'}</article>
+                <p className=' has-text-black'>
                   <span>文章分类：</span>
-                  <a href={`/category/${blog.category.id}`}>{blog.category.name}</a>
+                  <a className=' has-text-black' href={`/category/${blog.category.id}`}>{blog.category.name}</a>
                 </p>
                 <small>{formatTime(blog.publishTime)}</small>
               </div>
@@ -79,14 +60,14 @@ class IndexPage extends Component {
                         </div>
                       </article>
                     )}
-                    <p className={' note-detail'}>
+                    <p className={' note-detail'} className='has-text-grey'>
                       {note.content}
                     </p>
                   </div>
-                  <p>
+                  <p >
                     {note.category && (
                       <Link href={`/category/${note.category.id}`} prefetch={false}>
-                        <a href={`/category/${note.category.id}`}>{note.category.name}</a>
+                        <a href={`/category/${note.category.id}`} className='has-text-black '>{note.category.name}</a>
                       </Link>
                     )}
                   </p>
@@ -99,13 +80,11 @@ class IndexPage extends Component {
             <h4 className="title">所有文章/笔记分类</h4>
             {home.categories.map(category => (
               <div className="content" key={category.id}>
-                <a href={`/category/${category.id}`}>{category.name}</a>
-                <p>{category.description}</p>
+                <a href={`/category/${category.id}`} className='has-text-black'>{category.name}</a>
+                <p className='has-text-grey'>{category.description}</p>
               </div>
             ))}
           </div>
-
-        </div>
       </div>
     )
   }

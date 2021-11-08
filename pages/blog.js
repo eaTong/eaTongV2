@@ -53,8 +53,7 @@ class BlogPage extends Component {
         <Head>
           <title>{`${blog.blog.title}-eaTong个人站`}</title>
         </Head>
-        <div className="section container">
-          <h1 className="title has-text-centered has-text-primary">
+          <h1 className="title has-text-centered has-text-dark">
             {blog.blog.title}
           </h1>
           <div className="level">
@@ -83,7 +82,6 @@ class BlogPage extends Component {
           ))}
           <ReplyBox onSubmit={async (values) => await this.submitReply(values)}/>
         </div>
-      </div>
     )
   }
 }

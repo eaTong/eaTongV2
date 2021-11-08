@@ -23,41 +23,41 @@ export default class WebsiteNavBar extends Component {
 
   render() {
     return (
-      <nav className="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+      <nav className="navbar  is-transparent is-dark" role="navigation" aria-label="main navigation">
         <div className="container">
           <div className="navbar-brand">
             <Link href="/">
-              <a className="navbar-item" href="https://eatong.cn">
+              <a className="navbar-item" href="/">
                 <img src={require('../images/logo-eaTong.png')}/>
-                <strong className={'has-text-primary'}>eaTong个人站</strong>
-                <small className={'has-text-primary'}>不止程序员</small>
+                <strong >eaTong 个人站</strong>
               </a>
             </Link>
 
           </div>
           <div className="navbar-menu">
+
             <Link href="/">
-              <a className="navbar-item">
+              <a className="navbar-item has-text-light">
                 首页
               </a>
             </Link>
             <Link href="/about">
-              <a className="navbar-item">
+              <a className="navbar-item  has-text-light">
                 关于
               </a>
             </Link>
-            <a className="navbar-item" href="/demo-reactable">
+            <a className="navbar-item  has-text-light" href="/demo-reactable">
               Reactable
             </a>
-            <div className="navbar-end">
-              <a className="navbar-item">
+            {/* <div className="navbar-end">
+              <a className="navbar-item  has-text-light">
                 <ColorPicker onChange={(val) => this.onChangeColor(val)} value={this.state.color}>
                    <span>
                     换肤
                   </span>
                 </ColorPicker>
               </a>
-            </div>
+            </div> */}
           </div>
         </div>
       </nav>

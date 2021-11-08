@@ -4,16 +4,12 @@ client.addListener('transfer', (a, b, c) => {
   console.log(a, b, c);
 });
 
-fs.existsSync('C:\\certificate');
-
 client.scp('build/', {
-    host: '118.24.75.69',
+    host: '8.130.50.206',
     username: 'ubuntu',
-    privateKey: fs.readFileSync('/Users/eatong/certificate/eaTong_pem'),
-    passphrase:
-      '',
+    privateKey: fs.readFileSync('/Users/eatong/certificate/eaTong_ali.pem'),
     path:
-      '/home/ubuntu/build'
+      '/root/build'
   },
 
   function (err, ...args) {

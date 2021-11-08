@@ -6,7 +6,7 @@ import highlightStyle from 'highlight.js/styles/vs.css';
 export default class MyDocument extends Document {
   render() {
     return (
-      <html lang="zh-cn" className={'has-navbar-fixed-top'}>
+      <html lang="zh-cn" className={''}>
       {process.env.NODE_ENV === 'production'
         ? (
           <Head>

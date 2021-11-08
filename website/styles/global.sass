@@ -9,3 +9,22 @@ article
 
 .blog-title
   font-size: 1.75rem
+
+
+.content-container
+  overflow: auto
+  height: 100vh
+
+@media screen and (max-width: $tablet)
+
+  .navbar
+    position: fixed
+    top: 0
+    width: 100%
+
+  .index-hero
+    margin-top: 3.25rem
+
+  .content-container
+    overflow: auto
+    height: unset
