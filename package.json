@@ -30,7 +30,7 @@
     "@koa/cors": "^2.2.3",
     "ali-oss": "^6.1.1",
     "bizcharts": "^3.5.5",
-    "bulma": "^0.9.1",
+    "bulma": "^0.8.2",
     "bulma-react-form": "0.0.2",
     "compression": "^1.7.4",
     "crypto-js": "^3.1.9-1",
