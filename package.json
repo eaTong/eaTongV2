@@ -47,7 +47,7 @@
     "koa-session-minimal": "^3.0.4",
     "koa-static": "^5.0.0",
     "koa2-cors": "^2.0.6",
-    "markdown-it": "^10.0.0",
+    "markdown-it": "^12.3.2",
     "minimist": "^1.2.3",
     "mssql": "^5.1.0",
     "mysql2": "^1.7.0",
