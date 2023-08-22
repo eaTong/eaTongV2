@@ -1,6 +1,9 @@
 @import url(fonts.css);
 
-
+body{
+  background: url("../images/bg.jpg") no-repeat center center;
+  background-size: 100% 100%;
+}
 /*  Fallback message */
 
 .fallback-message {
@@ -11,9 +14,9 @@
   padding: 10px 10px 0;
   margin: 20px auto;
 
-  border: 1px solid #e94136;
+  border: 1px solid #FFDF15;
   border-radius: 10px;
-  background: #e94136;
+  background: #FFDF15;
 }
 
 .fallback-message p {
@@ -29,14 +32,12 @@
 body {
   font-family: 'PT Sans', sans-serif;
   min-height: 740px;
-
-  background: #5872a5;
-  color: #c93649;
+  color: #FFDF15;
 }
 .timeline{
   display: flex;
   width: 1400px;
-  transform: translateX(-500px) translateY(200px);
+  transform: translateX(-500px) translateY(200px) scale(0.8);
   align-items: flex-end;
 }
 .timeline .timeline-item{
@@ -55,17 +56,17 @@ body {
   position: absolute;
   bottom:48px;
   left:95px;
-  background-color:#f6acb9;
+  background-color:#FF6C21;
 }
 .timeline .timeline-item:nth-last-child(1)::after{
   display: none;
 }
 .timeline .timeline-item .time{
   font-size:0.8em;
-  color:#f6acb9;
+  color:#FF6C21;
 }
 .timeline .timeline-item .circle{
-  border: 2px solid #f6acb9;
+  border: 2px solid #FF6C21;
   border-radius:50% ;
   width: 10px;
   height: 10px;
@@ -74,7 +75,7 @@ body {
 }
 .timeline .timeline-item .stage{
   font-size:1.3em;
-  color:#bd0e2b;
+  color:#FFDF15;
 }
 .step {
   position: relative;
@@ -107,30 +108,38 @@ body {
 
 /* Overview step has no background or border */
 
+
+
 .overview {
   background-color: transparent;
   border: none;
   box-shadow: none;
   pointer-events: none;
   display: none;
+  
 }
 
 .title {
-  color: #c93649;
+  color: #FFDF15;
 }
 .title.small{
   font-size:0.7em;
 
 }
 
+.title.normal{
+  font-size:0.9em;
+
+}
+
 .highlight-title {
-  color: #e94136;
+  color: #FFDF15;
   text-align: right;
 
 }
 
 .subtitle {
-  color: #f6acb9;
+  color: #FF6C21;
   text-align: right;
   font-size: 0.9em;
 }

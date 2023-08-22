@@ -10,10 +10,11 @@ const Role = require('../models/Role');
 module.exports = {
   addUser: async (user) => {
     const usr = await User.findOne({where: {account: user.account}});
+    user.password = md5(user.password).toString();
+    console.log(user.password)
     if (usr) {
       throw new LogicError(`账号(${user.account})已存在`);
     }
-    user.password = md5(user.password).toString();
     user.enable = true;
     return await User.create(user);
   },
